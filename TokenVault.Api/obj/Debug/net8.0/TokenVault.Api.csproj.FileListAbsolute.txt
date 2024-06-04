@@ -41,3 +41,8 @@ C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\TokenVault.Infrastructure.
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\TokenVault.Domain.pdb
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
 C:\backend\TokenVault\TokenVault.Api\obj\Debug\net8.0\TokenVault.Api.sourcelink.json
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
