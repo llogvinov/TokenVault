@@ -40,3 +40,4 @@ C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\TokenVault.Application.pdb
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\TokenVault.Infrastructure.pdb
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\TokenVault.Domain.pdb
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\backend\TokenVault\TokenVault.Api\obj\Debug\net8.0\TokenVault.Api.sourcelink.json

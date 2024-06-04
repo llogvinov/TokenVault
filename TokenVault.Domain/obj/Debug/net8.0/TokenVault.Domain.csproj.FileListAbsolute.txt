@@ -9,3 +9,4 @@ C:\backend\TokenVault\TokenVault.Domain\obj\Debug\net8.0\TokenVault.Domain.dll
 C:\backend\TokenVault\TokenVault.Domain\obj\Debug\net8.0\refint\TokenVault.Domain.dll
 C:\backend\TokenVault\TokenVault.Domain\obj\Debug\net8.0\TokenVault.Domain.pdb
 C:\backend\TokenVault\TokenVault.Domain\obj\Debug\net8.0\ref\TokenVault.Domain.dll
+C:\backend\TokenVault\TokenVault.Domain\obj\Debug\net8.0\TokenVault.Domain.sourcelink.json

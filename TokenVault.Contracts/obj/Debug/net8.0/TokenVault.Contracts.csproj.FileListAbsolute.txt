@@ -9,3 +9,4 @@ C:\backend\TokenVault\TokenVault.Contracts\obj\Debug\net8.0\TokenVault.Contracts
 C:\backend\TokenVault\TokenVault.Contracts\obj\Debug\net8.0\refint\TokenVault.Contracts.dll
 C:\backend\TokenVault\TokenVault.Contracts\obj\Debug\net8.0\TokenVault.Contracts.pdb
 C:\backend\TokenVault\TokenVault.Contracts\obj\Debug\net8.0\ref\TokenVault.Contracts.dll
+C:\backend\TokenVault\TokenVault.Contracts\obj\Debug\net8.0\TokenVault.Contracts.sourcelink.json

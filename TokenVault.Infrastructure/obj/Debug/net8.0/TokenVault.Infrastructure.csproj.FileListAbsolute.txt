@@ -15,3 +15,4 @@ C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Appl
 C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Domain.pdb
 C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.csproj.AssemblyReference.cache
 C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVau.D487B173.Up2Date
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.sourcelink.json
