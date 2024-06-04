@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "/ShgowkQFIY=",
+  "success": true,
+  "projectFilePath": "C:\\backend\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\llogv\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

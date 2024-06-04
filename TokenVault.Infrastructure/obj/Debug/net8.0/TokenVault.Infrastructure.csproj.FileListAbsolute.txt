@@ -1,0 +1,17 @@
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Infrastructure.deps.json
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Infrastructure.dll
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Infrastructure.pdb
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.AssemblyInfoInputs.cache
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.AssemblyInfo.cs
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.csproj.CoreCompileInputs.cache
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.dll
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\refint\TokenVault.Infrastructure.dll
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.pdb
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\ref\TokenVault.Infrastructure.dll
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Application.dll
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Domain.dll
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Application.pdb
+C:\backend\TokenVault\TokenVault.Infrastructure\bin\Debug\net8.0\TokenVault.Domain.pdb
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVault.Infrastructure.csproj.AssemblyReference.cache
+C:\backend\TokenVault\TokenVault.Infrastructure\obj\Debug\net8.0\TokenVau.D487B173.Up2Date
