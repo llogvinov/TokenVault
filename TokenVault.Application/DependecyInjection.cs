@@ -1,5 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
-using TokenVault.Application.Authentication;
+using TokenVault.Application.Services.Authentication;
 
 namespace TokenVault.Application;
 

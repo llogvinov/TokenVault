@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using TokenVault.Application.Authentication;
+using TokenVault.Application.Services.Authentication;
 using TokenVault.Contracts.Authentication;
 
 namespace TokenVault.Api.Controllers;
@@ -24,9 +24,9 @@ public class AuthenticationController : ControllerBase
             request.Password);
 
         var response = new AuthenticationResponse(
-            authResult.Id,
-            authResult.Name,
-            authResult.Email,
+            authResult.User.Id,
+            authResult.User.Name,
+            authResult.User.Email,
             authResult.Token);
         
         return Ok(response);
@@ -40,9 +40,9 @@ public class AuthenticationController : ControllerBase
             request.Password);
 
         var response = new AuthenticationResponse(
-            authResult.Id,
-            authResult.Name,
-            authResult.Email,
+            authResult.User.Id,
+            authResult.User.Name,
+            authResult.User.Email,
             authResult.Token);
         
         return Ok(response);

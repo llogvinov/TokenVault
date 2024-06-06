@@ -1,6 +1,8 @@
+using TokenVault.Domain.Entities;
+
 namespace TokenVault.Application.Common.Interfaces.Authentication;
 
 public interface IJwtTokenGenerator
 {
-    string GenerateToken(Guid userId, string name);
+    string GenerateToken(User user);
 }

@@ -1,4 +1,5 @@
-namespace TokenVault.Application.Authentication;
+namespace TokenVault.Application.Services.Authentication;
+
 
 public interface IAuthenticationService
 {
