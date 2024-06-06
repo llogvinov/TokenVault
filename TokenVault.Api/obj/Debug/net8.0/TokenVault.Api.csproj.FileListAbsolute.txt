@@ -46,3 +46,6 @@ C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Js
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\MediatR.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\MediatR.Contracts.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
