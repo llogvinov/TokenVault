@@ -49,3 +49,6 @@ C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\System.IdentityModel.Token
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\MediatR.dll
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\MediatR.Contracts.dll
 C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Mapster.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Mapster.Core.dll
+C:\backend\TokenVault\TokenVault.Api\bin\Debug\net8.0\Mapster.DependencyInjection.dll

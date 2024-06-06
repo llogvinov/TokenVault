@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "reHQrFYFP4Y=",
+  "dgSpecHash": "VLCToO4x4Do=",
   "success": true,
   "projectFilePath": "C:\\backend\\TokenVault\\TokenVault.Api\\TokenVault.Api.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\llogv\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
+    "C:\\Users\\llogv\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
+    "C:\\Users\\llogv\\.nuget\\packages\\mapster.dependencyinjection\\1.0.1\\mapster.dependencyinjection.1.0.1.nupkg.sha512",
     "C:\\Users\\llogv\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
     "C:\\Users\\llogv\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
     "C:\\Users\\llogv\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
