@@ -39,17 +39,21 @@ public static class DependencyInjection
         services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
         services.AddAuthentication(defaultScheme: JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options => options.TokenValidationParameters = new TokenValidationParameters
+            .AddJwtBearer(options =>
             {
-                ValidateIssuer = true,
-                ValidateAudience = true,
-                ValidateLifetime = true,
-                ValidateIssuerSigningKey = true,
+                options.MapInboundClaims = false;
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ValidateIssuerSigningKey = true,
 
-                ValidIssuer = jwtSettings.Isuuer,
-                ValidAudience = jwtSettings.Audience,
-                IssuerSigningKey = new SymmetricSecurityKey(
+                    ValidIssuer = jwtSettings.Isuuer,
+                    ValidAudience = jwtSettings.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(jwtSettings.Secret))
+                };
             });
 
         return services;

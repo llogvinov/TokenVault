@@ -25,7 +25,7 @@ public class PortfolioController : ControllerBase
     [HttpPost("create")]
     public async Task<IActionResult> CreatePortfolio(CreatePortfolioRequest request)
     {
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == "userId");
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
         if (userIdClaim == null)
         {
             Console.WriteLine("claim not found");
