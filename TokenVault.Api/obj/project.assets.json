@@ -1421,8 +1421,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj": {
-              "projectPath": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj"
+            "c:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj": {
+              "projectPath": "c:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj"
             },
             "C:\\backend\\TokenVault\\TokenVault.Contracts\\TokenVault.Contracts.csproj": {
               "projectPath": "C:\\backend\\TokenVault\\TokenVault.Contracts\\TokenVault.Contracts.csproj"

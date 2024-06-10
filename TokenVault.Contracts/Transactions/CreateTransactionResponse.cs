@@ -1,5 +1,5 @@
 public record CreateTransactionResponse(
-    Guid Id ,
+    Guid Id,
     string AssetSymbol ,
     double Quantity,
     double Price,

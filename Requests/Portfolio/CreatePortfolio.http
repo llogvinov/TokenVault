@@ -1,0 +1,9 @@
+@host = http://localhost:5254
+
+POST {{host}}/portfolio/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMTQ0MzE1YS05MGE0LTRjZTctOGQyYi1hNzVjNjljMmNjNjEiLCJnaXZlbl9uYW1lIjoiTGV2IExvZ3Zpbm92IiwianRpIjoiMTZjYjE0MzMtNDk5Yi00NmM0LTgwOWYtN2RkNDVkYThkN2I1IiwiZXhwIjoxNzE4MDMzMDgzLCJpc3MiOiJsbG9ndmlub3YiLCJhdWQiOiJsbG9ndmlub3YifQ.KankME3cb3La2ewt6re9imhcFa-NxQi9fSV92WfvOX4
+Content-Type: application/json
+
+{
+    "title": "Main Wallet"
+}

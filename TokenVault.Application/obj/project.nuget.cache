@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "cBCtFqoN1HE=",
+  "dgSpecHash": "EG7j1lwxz9U=",
   "success": true,
-  "projectFilePath": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
+  "projectFilePath": "c:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\llogv\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
     "C:\\Users\\llogv\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
