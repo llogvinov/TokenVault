@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TokenVault.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9ec93d2cc43381e575e66101eb5f7fc092c70c1e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+81b1c3db3b570b11647ff2d6ff0ac6db1b9dac2f")]
 [assembly: System.Reflection.AssemblyProductAttribute("TokenVault.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TokenVault.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
