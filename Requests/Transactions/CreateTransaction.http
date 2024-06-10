@@ -1,0 +1,11 @@
+@host = http://localhost:5254
+
+POST {{host}}/transactions/create
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyOWVlMzg2NC0wYzU3LTQwNTMtYTRkMi0wNzFjYTJmZGZhMzgiLCJnaXZlbl9uYW1lIjoiTGV2IExvZ3Zpbm92IiwianRpIjoiMDdkMWYzZDQtNmFiZS00Mzk0LThkZjUtNmMyYzQzZTI1NDk1IiwiZXhwIjoxNzE4MDE4MjA5LCJpc3MiOiJsbG9ndmlub3YiLCJhdWQiOiJsbG9ndmlub3YifQ.07ZmAAq1XhcnbGW6WOcWTHc6FDbZzoUKtEb1Icdb14U
+Content-Type: application/json
+
+{
+    "assetSymbol": "BTC",
+    "quantity": 0.5,
+    "price": 71000
+}
