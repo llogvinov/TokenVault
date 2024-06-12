@@ -1,5 +1,5 @@
 using MediatR;
-using TokenVault.Api.Common.Mapping;
+using TokenVault.Api.Common;
 
 namespace TokenVault.Api;
 

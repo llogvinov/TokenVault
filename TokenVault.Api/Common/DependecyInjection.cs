@@ -2,7 +2,7 @@ using System.Reflection;
 using Mapster;
 using MapsterMapper;
 
-namespace TokenVault.Api.Common.Mapping;
+namespace TokenVault.Api.Common;
 
 public static class DependecyInjection
 {
