@@ -170,11 +170,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
+      "projectUniqueName": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
       "projectName": "TokenVault.Application",
-      "projectPath": "c:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
+      "projectPath": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
       "packagesPath": "C:\\Users\\llogv\\.nuget\\packages\\",
-      "outputPath": "c:\\backend\\TokenVault\\TokenVault.Application\\obj\\",
+      "outputPath": "C:\\backend\\TokenVault\\TokenVault.Application\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
