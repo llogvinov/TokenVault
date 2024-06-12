@@ -2,6 +2,8 @@ using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Domain.Entities;
 
+namespace TokenVault.Application.Transactions.Commands.Create;
+
 public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, Transaction>
 {
     public ITransactionRepository _transactionRepository;
@@ -33,11 +35,11 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 
     private TransactionDetails GetTransactionDetails(CreateTransactionCommand command)
     {
-        if (command.Total is null) 
+        if (command.Total is null)
         {
             return CalculateTotal(command.Price, command.Quantity);
         }
-        else if (command.Price is null) 
+        else if (command.Price is null)
         {
             return CalculatePrice(command.Quantity, command.Total);
         }
@@ -45,41 +47,41 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         {
             return CalculateQuantity(command.Price, command.Total);
         }
-        
+
         throw new ArgumentException("Exactly one of the parameters must be null and the others must be non-null.");
     }
 
     private TransactionDetails CalculateTotal(double? price, double? quantity)
     {
-        if (price is double p && 
+        if (price is double p &&
             quantity is double q)
         {
             var t = p * q;
-            return new TransactionDetails(t, p, q);
+            return new TransactionDetails(q, p, t);
         }
 
         throw new ArgumentException("price or quantity is null");
     }
-    
+
     private TransactionDetails CalculateQuantity(double? price, double? total)
     {
-        if (price is double p && 
+        if (price is double p &&
             total is double t)
         {
             var q = t / p;
-            return new TransactionDetails(t, p, q);
+            return new TransactionDetails(q, p, t);
         }
 
         throw new ArgumentException("price or total is null");
     }
-    
+
     private TransactionDetails CalculatePrice(double? quantity, double? total)
     {
-        if (quantity is double q && 
+        if (quantity is double q &&
             total is double t)
         {
             var p = t / q;
-            return new TransactionDetails(t, p, q);
+            return new TransactionDetails(q, p, t);
         }
 
         throw new ArgumentException("quantity or total is null");

@@ -15,6 +15,11 @@ public class TransactionRepository : ITransactionRepository
         return _transactions.SingleOrDefault(t => t.Id == id);
     }
 
+    public IEnumerable<Transaction> GetTransactionsByPortfolioId(Guid portfolioId)
+    {
+        return _transactions.Where(t => t.PortfolioId == portfolioId);
+    }
+    
     public IEnumerable<Transaction> GetTransactionsBySymbol(string symbol)
     {
         return _transactions.Where(t => t.AssetSymbol == symbol);

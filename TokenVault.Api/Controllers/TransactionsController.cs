@@ -2,6 +2,8 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TokenVault.Application.Transactions;
+using TokenVault.Application.Transactions.Commands.Create;
 using TokenVault.Contracts.Transactions;
 
 namespace TokenVault.Api.Controllers;
@@ -11,15 +13,17 @@ namespace TokenVault.Api.Controllers;
 [Route("transactions")]
 public class TransactionsController : ControllerBase
 {
+    private TransactionsService _transactionsService;
     private ISender _mediator;
     private IMapper _mapper;
 
-    public TransactionsController(ISender mediator, IMapper mapper)
+    public TransactionsController(ISender mediator, IMapper mapper, TransactionsService transactionsService)
     {
         _mediator = mediator;
         _mapper = mapper;
+        _transactionsService = transactionsService;
     }
-    
+
     [HttpPost("{portfolioId}/create")]
     public async Task<IActionResult> CreateTransactionAsync(CreateTransactionRequest request, Guid portfolioId)
     {
@@ -31,9 +35,11 @@ public class TransactionsController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("transactionId:guid")]
-    public IActionResult GetTransactions(Guid transactionId)
+    [HttpGet("{portfolioId}")]
+    public IActionResult GetTransactions(Guid portfolioId)
     {
-        return Ok(Array.Empty<string>());
+        var transactions = _transactionsService.GetTransactions(portfolioId);
+
+        return Ok(transactions);
     }
 }

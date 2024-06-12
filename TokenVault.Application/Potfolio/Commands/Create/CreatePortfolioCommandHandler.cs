@@ -2,6 +2,8 @@ using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Domain.Entities;
 
+namespace TokenVault.Application.Potfolio.Commands.Create;
+
 public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioCommand, Portfolio>
 {
     private readonly IPortfolioRepository _portfolioRepository;
