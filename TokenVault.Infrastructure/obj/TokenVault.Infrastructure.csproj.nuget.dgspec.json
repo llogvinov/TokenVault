@@ -1,23 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\backend\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj": {}
+    "C:\\asp projects\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj": {
+    "C:\\asp projects\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
+        "projectUniqueName": "C:\\asp projects\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
         "projectName": "TokenVault.Application",
-        "projectPath": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
-        "packagesPath": "C:\\Users\\llogv\\.nuget\\packages\\",
-        "outputPath": "C:\\backend\\TokenVault\\TokenVault.Application\\obj\\",
+        "projectPath": "C:\\asp projects\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\asp projects\\TokenVault\\TokenVault.Application\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\llogv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,15 +26,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\backend\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj": {
-                "projectPath": "C:\\backend\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj"
+              "C:\\asp projects\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj": {
+                "projectPath": "C:\\asp projects\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj"
               }
             }
           }
@@ -82,24 +82,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\backend\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj": {
+    "C:\\asp projects\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\backend\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj",
+        "projectUniqueName": "C:\\asp projects\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj",
         "projectName": "TokenVault.Domain",
-        "projectPath": "C:\\backend\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj",
-        "packagesPath": "C:\\Users\\llogv\\.nuget\\packages\\",
-        "outputPath": "C:\\backend\\TokenVault\\TokenVault.Domain\\obj\\",
+        "projectPath": "C:\\asp projects\\TokenVault\\TokenVault.Domain\\TokenVault.Domain.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\asp projects\\TokenVault\\TokenVault.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\llogv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -107,7 +108,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -146,24 +146,25 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\backend\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj": {
+    "C:\\asp projects\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\backend\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj",
+        "projectUniqueName": "C:\\asp projects\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj",
         "projectName": "TokenVault.Infrastructure",
-        "projectPath": "C:\\backend\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj",
-        "packagesPath": "C:\\Users\\llogv\\.nuget\\packages\\",
-        "outputPath": "C:\\backend\\TokenVault\\TokenVault.Infrastructure\\obj\\",
+        "projectPath": "C:\\asp projects\\TokenVault\\TokenVault.Infrastructure\\TokenVault.Infrastructure.csproj",
+        "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
+        "outputPath": "C:\\asp projects\\TokenVault\\TokenVault.Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\llogv\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -171,15 +172,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj": {
-                "projectPath": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj"
+              "C:\\asp projects\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj": {
+                "projectPath": "C:\\asp projects\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj"
               }
             }
           }
@@ -232,7 +232,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

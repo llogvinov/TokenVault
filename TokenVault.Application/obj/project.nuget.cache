@@ -1,13 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "cBCtFqoN1HE=",
+  "dgSpecHash": "nONny7wo9twWCxsZaQRWI1AVUwFbmr9xr0sb6jAiDUWfYCsc7snnRrrbS/0Cw6u9da8LVeINiF3bJkOdfTj8yA==",
   "success": true,
-  "projectFilePath": "C:\\backend\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
+  "projectFilePath": "C:\\asp projects\\TokenVault\\TokenVault.Application\\TokenVault.Application.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\llogv\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
-    "C:\\Users\\llogv\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
-    "C:\\Users\\llogv\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
-    "C:\\Users\\llogv\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
+    "C:\\Users\\USER\\.nuget\\packages\\mediatr\\12.2.0\\mediatr.12.2.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\11.1.0\\mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
   ],
   "logs": [
     {

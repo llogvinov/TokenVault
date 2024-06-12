@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "rJdx0c2EMlE=",
+  "dgSpecHash": "tnBBwdNzsu5954zouLF1ShGvUl3qWlpdIofZgBn8hxPDRx5pC9t1p4WzX9besD9bU+HjRwWcyadgNf+4G+M/lg==",
   "success": true,
-  "projectFilePath": "C:\\backend\\TokenVault\\TokenVault.Contracts\\TokenVault.Contracts.csproj",
+  "projectFilePath": "C:\\asp projects\\TokenVault\\TokenVault.Contracts\\TokenVault.Contracts.csproj",
   "expectedPackageFiles": [],
   "logs": []
 }
