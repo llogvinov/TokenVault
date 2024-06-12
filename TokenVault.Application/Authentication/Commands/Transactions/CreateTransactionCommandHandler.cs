@@ -11,15 +11,16 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         _transactionRepository = transactionRepository;
     }
 
-    public async Task<Transaction> Handle(CreateTransactionCommand request, CancellationToken cancellationToken)
+    public async Task<Transaction> Handle(CreateTransactionCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
-        var transactionDetails = GetTransactionDetails(request);
+        var transactionDetails = GetTransactionDetails(command);
 
         var transaction = new Transaction
         {
-            AssetSymbol = request.AssetSymbol,
+            AssetSymbol = command.AssetSymbol,
+            PortfolioId = command.PortfolioId,
             Quantity = transactionDetails.Quantity,
             Price = transactionDetails.Price,
             Total = transactionDetails.Total,
@@ -30,55 +31,55 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         return transaction;
     }
 
-    private TransactionDetails GetTransactionDetails(CreateTransactionCommand request)
+    private TransactionDetails GetTransactionDetails(CreateTransactionCommand command)
     {
-        if (request.Total is null) 
+        if (command.Total is null) 
         {
-            var total = CalculateTotal(request.Price, request.Quantity);
-            return new TransactionDetails(total, (double)request.Price, (double)request.Quantity);
+            return CalculateTotal(command.Price, command.Quantity);
         }
-        else if (request.Price is null) 
+        else if (command.Price is null) 
         {
-            var price = CalculatePrice(request.Quantity, request.Total);
-            return new TransactionDetails((double)request.Total, price, (double)request.Quantity);
+            return CalculatePrice(command.Quantity, command.Total);
         }
-        else if (request.Quantity is null)
+        else if (command.Quantity is null)
         {
-            var quantity = CalculateQuantity(request.Price, request.Total);
-            return new TransactionDetails((double)request.Total, (double)request.Price, quantity);
+            return CalculateQuantity(command.Price, command.Total);
         }
         
         throw new ArgumentException("Exactly one of the parameters must be null and the others must be non-null.");
     }
 
-    private double CalculateTotal(double? price, double? quantity)
+    private TransactionDetails CalculateTotal(double? price, double? quantity)
     {
         if (price is double p && 
             quantity is double q)
         {
-            return p * q;
+            var t = p * q;
+            return new TransactionDetails(t, p, q);
         }
 
         throw new ArgumentException("price or quantity is null");
     }
     
-    private double CalculateQuantity(double? price, double? total)
+    private TransactionDetails CalculateQuantity(double? price, double? total)
     {
         if (price is double p && 
             total is double t)
         {
-            return t / p;
+            var q = t / p;
+            return new TransactionDetails(t, p, q);
         }
 
         throw new ArgumentException("price or total is null");
     }
     
-    private double CalculatePrice(double? quantity, double? total)
+    private TransactionDetails CalculatePrice(double? quantity, double? total)
     {
         if (quantity is double q && 
             total is double t)
         {
-            return t / q;
+            var p = t / q;
+            return new TransactionDetails(t, p, q);
         }
 
         throw new ArgumentException("quantity or total is null");

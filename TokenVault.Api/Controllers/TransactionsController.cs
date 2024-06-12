@@ -20,10 +20,10 @@ public class TransactionsController : ControllerBase
         _mapper = mapper;
     }
     
-    [HttpPost("create")]
-    public async Task<IActionResult> CreateTransactionAsync(CreateTransactionRequest request)
+    [HttpPost("{{portfolioId}}/create")]
+    public async Task<IActionResult> CreateTransactionAsync(CreateTransactionRequest request, Guid portfolioId)
     {
-        var command = _mapper.Map<CreateTransactionCommand>(request);
+        var command = _mapper.Map<CreateTransactionCommand>((request, portfolioId));
         var transaction = await _mediator.Send(command);
         
         var response = _mapper.Map<CreateTransactionResponse>(transaction);
