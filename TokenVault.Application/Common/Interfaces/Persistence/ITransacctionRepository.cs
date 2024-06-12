@@ -8,6 +8,8 @@ public interface ITransactionRepository
 
     Transaction? GetTransactionById(Guid id);
 
+    IEnumerable<Transaction> GetTransactionsByUserId(Guid userId);
+
     IEnumerable<Transaction> GetTransactionsByPortfolioId(Guid portfolioId);
 
     IEnumerable<Transaction> GetTransactionsBySymbol(string symbol);

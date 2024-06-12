@@ -3,8 +3,8 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TokenVault.Application.Potfolio.Commands.Create;
 using TokenVault.Contracts.Portfolio;
-using TokenVault.Domain.Entities;
 
 namespace TokenVault.Api.Controllers;
 
@@ -28,12 +28,10 @@ public class PortfolioController : ControllerBase
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
         if (userIdClaim == null)
         {
-            Console.WriteLine("claim not found");
             return Unauthorized();
         }
 
         Guid.TryParse(userIdClaim.Value, out var userId);
-        Console.WriteLine($"user id: {userId}");
 
         var command = new CreatePortfolioCommand(request.Title, userId);
         var portfolio = await _mediator.Send(command);

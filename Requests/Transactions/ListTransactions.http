@@ -1,5 +1,0 @@
-@host = http://localhost:5254
-@portfolioId = cdd1a980-6bd7-49e7-9346-0dabb9af25b3
-
-GET  {{host}}/transactions/{{portfolioId}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZjc1OTMzNC0yOGJhLTQxYWQtYWYwOC1iMDRlZjU4MDNjZWEiLCJnaXZlbl9uYW1lIjoiTGV2IExvZ3Zpbm92IiwianRpIjoiNjE0MmI0Y2MtZDQxNy00NWU1LTgzNGQtMWU1MzZhMGE2NzcyIiwiZXhwIjoxNzE4MjI4ODU0LCJpc3MiOiJsbG9ndmlub3YiLCJhdWQiOiJsbG9ndmlub3YifQ.oc9rZYO1S8ckAeugJIAwNlDtvFrBGLJ6Jfja3PEt29o

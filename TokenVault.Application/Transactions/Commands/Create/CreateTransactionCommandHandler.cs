@@ -22,6 +22,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         var transaction = new Transaction
         {
             AssetSymbol = command.AssetSymbol,
+            UserId = command.UserId,
             PortfolioId = command.PortfolioId,
             Quantity = transactionDetails.Quantity,
             Price = transactionDetails.Price,

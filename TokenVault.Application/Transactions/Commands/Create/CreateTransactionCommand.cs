@@ -4,6 +4,7 @@ using TokenVault.Domain.Entities;
 namespace TokenVault.Application.Transactions.Commands.Create;
 
 public record CreateTransactionCommand(
+    Guid UserId,
     Guid PortfolioId,
     string AssetSymbol,
     double? Quantity,

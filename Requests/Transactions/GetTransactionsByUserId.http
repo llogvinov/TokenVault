@@ -1,0 +1,2 @@
+GET  {{host}}/transactions
+Authorization: Bearer {{token}}

@@ -2,6 +2,7 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.JsonWebTokens;
 using TokenVault.Application.Transactions;
 using TokenVault.Application.Transactions.Commands.Create;
 using TokenVault.Contracts.Transactions;
@@ -27,7 +28,13 @@ public class TransactionsController : ControllerBase
     [HttpPost("{portfolioId}/create")]
     public async Task<IActionResult> CreateTransactionAsync(CreateTransactionRequest request, Guid portfolioId)
     {
-        var command = _mapper.Map<CreateTransactionCommand>((request, portfolioId));
+        var userId = GetUserId();
+        if (userId == default)
+        {
+            return Unauthorized();
+        }
+
+        var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
         var transaction = await _mediator.Send(command);
         
         var response = _mapper.Map<CreateTransactionResponse>(transaction);
@@ -35,11 +42,37 @@ public class TransactionsController : ControllerBase
         return Ok(response);
     }
 
-    [HttpGet("{portfolioId}")]
-    public IActionResult GetTransactions(Guid portfolioId)
+    [HttpGet]
+    public IActionResult GetTransactionsByUserId()
     {
-        var transactions = _transactionsService.GetTransactions(portfolioId);
+        var userId = GetUserId();
+        if (userId == default)
+        {
+            return Unauthorized();
+        }
+
+        var transactions = _transactionsService.GetTransactionsByUserId(userId);
 
         return Ok(transactions);
+    }
+
+    [HttpGet("{portfolioId}")]
+    public IActionResult GetTransactionsByPortfolioId(Guid portfolioId)
+    {
+        var transactions = _transactionsService.GetTransactionsByPortfolioId(portfolioId);
+
+        return Ok(transactions);
+    }
+
+    private Guid GetUserId()
+    {
+        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
+        if (userIdClaim != null)
+        {
+            Guid.TryParse(userIdClaim.Value, out var userId);
+            return userId;
+        }
+
+        return default;
     }
 }

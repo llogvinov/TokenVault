@@ -1,9 +1,7 @@
-@host = http://localhost:5254
-
 POST {{host}}/portfolio/create
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxZjc1OTMzNC0yOGJhLTQxYWQtYWYwOC1iMDRlZjU4MDNjZWEiLCJnaXZlbl9uYW1lIjoiTGV2IExvZ3Zpbm92IiwianRpIjoiNjE0MmI0Y2MtZDQxNy00NWU1LTgzNGQtMWU1MzZhMGE2NzcyIiwiZXhwIjoxNzE4MjI4ODU0LCJpc3MiOiJsbG9ndmlub3YiLCJhdWQiOiJsbG9ndmlub3YifQ.oc9rZYO1S8ckAeugJIAwNlDtvFrBGLJ6Jfja3PEt29o
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "title": "Main Wallet"
+    "title": "Vtoroy Wallet"
 }
