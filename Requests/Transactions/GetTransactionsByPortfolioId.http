@@ -1,4 +1,4 @@
-@portfolioId = 5ba49aa6-67de-478b-8017-ff938b034bfe
+@portfolioId = befa04b1-7438-4ae8-8d8e-34006d44430e
 
 GET  {{host}}/transactions/{{portfolioId}}
 Authorization: Bearer {{token}}

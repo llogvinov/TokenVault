@@ -8,9 +8,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TokenVault.Domain\TokenVault.Domain.csproj" />
+    <ProjectReference Include="..\TokenVault.Contracts\TokenVault.Contracts.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Mapster.DependencyInjection" Version="1.0.1" />
     <PackageReference Include="MediatR" Version="12.2.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="8.0.1" />

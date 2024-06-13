@@ -1,8 +1,9 @@
 using System.Reflection;
 using Mapster;
 using MapsterMapper;
+using Microsoft.Extensions.DependencyInjection;
 
-namespace TokenVault.Api.Common;
+namespace TokenVault.Application.Common.Mapping;
 
 public static class DependecyInjection
 {

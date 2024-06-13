@@ -4,7 +4,7 @@ using TokenVault.Application.Authentication.Common;
 using TokenVault.Application.Authentication.Queries.Login;
 using TokenVault.Contracts.Authentication;
 
-namespace TokenVault.Api.Common.Mapping;
+namespace TokenVault.Application.Common.Mapping;
 
 public class AuthenticationMappingConfig : IRegister
 {

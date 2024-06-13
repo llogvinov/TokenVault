@@ -3,7 +3,7 @@ using TokenVault.Application.Transactions.Commands.Create;
 using TokenVault.Contracts.Transactions;
 using TokenVault.Domain.Entities;
 
-namespace TokenVault.Api.Common.Mapping;
+namespace TokenVault.Application.Common.Mapping;
 
 public class TransactionMappingConfig : IRegister
 {

@@ -1,6 +1,6 @@
 public record CreateTransactionResponse(
     Guid Id,
-    Guid Userid,
+    Guid UserId,
     Guid PortfolioId,
     string AssetSymbol ,
     double Quantity,
