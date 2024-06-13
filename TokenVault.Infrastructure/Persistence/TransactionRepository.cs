@@ -10,6 +10,12 @@ public class TransactionRepository : ITransactionRepository
         _transactions.Add(transaction);
     }
 
+    public void Delete(Guid id)
+    {
+        var transaction = _transactions.FirstOrDefault(t => t.Id == id);
+        _transactions.Remove(transaction);
+    }
+
     public Transaction? GetTransactionById(Guid id)
     {
         return _transactions.SingleOrDefault(t => t.Id == id);

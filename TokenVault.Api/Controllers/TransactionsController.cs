@@ -15,7 +15,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpPost("{portfolioId}/create")]
-    public IActionResult CreateTransaction(CreateTransactionRequest request, Guid portfolioId)
+    public async Task<IActionResult> CreateTransaction(CreateTransactionRequest request, Guid portfolioId)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -23,13 +23,13 @@ public class TransactionsController : ApiController
             return Unauthorized();
         }
 
-        var response = _transactionsService.CreateTransaction(request, userId, portfolioId);
+        var response = await _transactionsService.CreateTransactionAsync(request, userId, portfolioId);
 
         return Ok(response);
     }
 
     [HttpGet]
-    public IActionResult GetTransactionsByUserId()
+    public async Task<IActionResult> GetTransactionsByUserId()
     {
         var userId = GetUserId();
         if (userId == default)
@@ -37,16 +37,30 @@ public class TransactionsController : ApiController
             return Unauthorized();
         }
 
-        var transactions = _transactionsService.GetTransactionsByUserId(userId);
+        var transactions = await _transactionsService.GetTransactionsByUserIdAsync(userId);
 
         return Ok(transactions);
     }
 
     [HttpGet("{portfolioId}")]
-    public IActionResult GetTransactionsByPortfolioId(Guid portfolioId)
+    public async Task<IActionResult> GetTransactionsByPortfolioId(Guid portfolioId)
     {
-        var transactions = _transactionsService.GetTransactionsByPortfolioId(portfolioId);
+        var transactions = await _transactionsService.GetTransactionsByPortfolioIdAsync(portfolioId);
 
         return Ok(transactions);
+    }
+
+    [HttpPost("{transactionId}/delete")]
+    public async Task<IActionResult> DeleteTransaction(Guid transactionId)
+    {
+        var userId = GetUserId();
+        if (userId == default)
+        {
+            return Unauthorized();
+        }
+
+        var response = await _transactionsService.DeleteTransactionAsync(userId, transactionId);
+
+        return Ok(response);
     }
 }

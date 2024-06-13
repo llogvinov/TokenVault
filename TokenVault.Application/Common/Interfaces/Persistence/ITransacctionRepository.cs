@@ -6,6 +6,8 @@ public interface ITransactionRepository
 {
     void Add(Transaction transaction);
 
+    void Delete(Guid id);
+
     Transaction? GetTransactionById(Guid id);
 
     IEnumerable<Transaction> GetTransactionsByUserId(Guid userId);

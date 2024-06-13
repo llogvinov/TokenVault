@@ -1,5 +1,6 @@
 using Mapster;
 using TokenVault.Application.Transactions.Commands.Create;
+using TokenVault.Application.Transactions.Common;
 using TokenVault.Contracts.Transactions;
 using TokenVault.Domain.Entities;
 
@@ -15,5 +16,7 @@ public class TransactionMappingConfig : IRegister
             .Map(dest => dest, src => src.request);
 
         config.NewConfig<Transaction, CreateTransactionResponse>();
+
+        config.NewConfig<Transaction, SingleTransactionResult>();
     }
 }

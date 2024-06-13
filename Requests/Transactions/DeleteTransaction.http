@@ -1,0 +1,4 @@
+@transactionId = 12c1086c-73e6-4358-b7b6-8e2be5e1ccc2
+
+POST {{host}}/transactions/{{transactionId}}/delete
+Authorization: Bearer {{token}}
