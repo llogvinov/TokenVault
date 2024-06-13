@@ -1,15 +1,11 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.IdentityModel.JsonWebTokens;
 using TokenVault.Application.Transactions;
 using TokenVault.Contracts.Transactions;
 
 namespace TokenVault.Api.Controllers;
 
-[ApiController]
-[Authorize]
 [Route("transactions")]
-public class TransactionsController : ControllerBase
+public class TransactionsController : ApiController
 {
     private TransactionsService _transactionsService;
 
@@ -52,17 +48,5 @@ public class TransactionsController : ControllerBase
         var transactions = _transactionsService.GetTransactionsByPortfolioId(portfolioId);
 
         return Ok(transactions);
-    }
-
-    private Guid GetUserId()
-    {
-        var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
-        if (userIdClaim != null)
-        {
-            Guid.TryParse(userIdClaim.Value, out var userId);
-            return userId;
-        }
-
-        return default;
     }
 }
