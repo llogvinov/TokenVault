@@ -1,6 +1,8 @@
 using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Potfolio.Commands.Create;
+using TokenVault.Application.Potfolio.Commands.Delete;
+using TokenVault.Application.Potfolio.Common;
 using TokenVault.Contracts.Portfolio;
 
 namespace TokenVault.Application.Potfolio;
@@ -19,10 +21,21 @@ public class PortfolioService
     public async Task<CreatePortfolioResponse> CreatePortfolio(CreatePortfolioRequest request, Guid userId)
     {
         var command = new CreatePortfolioCommand(request.Title, userId);
-        var portfolio = await _mediator.Send(command);
+        var createPortfolioResult = await _mediator.Send(command);
 
-        var response = _mapper.Map<CreatePortfolioResponse>(portfolio);
+        var response = new CreatePortfolioResponse(
+            createPortfolioResult.PortfolioId,
+            createPortfolioResult.UserId,
+            createPortfolioResult.Title);
 
         return response;
+    }
+
+    public async Task<PortfolioResult> DeletePortfolio(Guid portfolioId)
+    {
+        var command = new DeletePortfolioCommand(portfolioId);
+        var portfolioResult = await _mediator.Send(command);
+
+        return portfolioResult;
     }
 }

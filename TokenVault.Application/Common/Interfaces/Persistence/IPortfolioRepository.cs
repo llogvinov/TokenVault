@@ -6,5 +6,7 @@ public interface IPortfolioRepository
 {
     void Add(Portfolio portfolio);
 
+    void Delete(Guid id);
+
     Portfolio? GetPortfolioById(Guid id);
 }

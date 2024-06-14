@@ -1,10 +1,11 @@
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Potfolio.Common;
 using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Potfolio.Commands.Create;
 
-public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioCommand, Portfolio>
+public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioCommand, CreatePortfolioResult>
 {
     private readonly IPortfolioRepository _portfolioRepository;
 
@@ -13,7 +14,7 @@ public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioComm
         _portfolioRepository = portfolioRepository;
     }
 
-    public async Task<Portfolio> Handle(CreatePortfolioCommand command, CancellationToken cancellationToken)
+    public async Task<CreatePortfolioResult> Handle(CreatePortfolioCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
@@ -24,6 +25,11 @@ public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioComm
         };
         _portfolioRepository.Add(portfolio);
 
-        return portfolio;
+        var portfolioResult = new CreatePortfolioResult(
+            portfolio.Id,
+            portfolio.UserId,
+            portfolio.Title);
+
+        return portfolioResult;
     }
 }

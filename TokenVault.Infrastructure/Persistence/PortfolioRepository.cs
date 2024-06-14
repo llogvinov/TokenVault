@@ -10,6 +10,12 @@ public class PortfolioRepository : IPortfolioRepository
         _portfolios.Add(portfolio);
     }
 
+    public void Delete(Guid id)
+    {
+        var portfolio = _portfolios.FirstOrDefault(p => p.Id == id);
+        _portfolios.Remove(portfolio);
+    }
+
     public Portfolio? GetPortfolioById(Guid id)
     {
         return _portfolios.SingleOrDefault(p => p.Id == id);

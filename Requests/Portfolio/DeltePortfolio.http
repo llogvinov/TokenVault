@@ -1,0 +1,9 @@
+@portfolioId = aeb5f56a-9c25-4eb1-bdd2-15fe16236d35
+
+DELETE {{host}}/portfolio/delete/{{portfolioId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "title": "Main Wallet"
+}
