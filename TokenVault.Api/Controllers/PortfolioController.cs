@@ -3,7 +3,6 @@ using TokenVault.Application.Potfolio;
 
 namespace TokenVault.Api.Controllers;
 
-[Route("portfolio")]
 public class PortfolioController : ApiController
 {
     private readonly PortfolioService _portfolioService;
@@ -14,7 +13,7 @@ public class PortfolioController : ApiController
     }
 
     [HttpPost("create")]
-    public async Task<IActionResult> CreatePortfolio(CreatePortfolioRequest request)
+    public async Task<IActionResult> CreatePortfolio([FromBody] CreatePortfolioRequest request)
     {
         var userId = GetUserId();
         if (userId == default)

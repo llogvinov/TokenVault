@@ -4,7 +4,6 @@ using TokenVault.Contracts.Transactions;
 
 namespace TokenVault.Api.Controllers;
 
-[Route("transactions")]
 public class TransactionsController : ApiController
 {
     private TransactionsService _transactionsService;
@@ -15,7 +14,9 @@ public class TransactionsController : ApiController
     }
 
     [HttpPost("{portfolioId}/create")]
-    public async Task<IActionResult> CreateTransaction(CreateTransactionRequest request, Guid portfolioId)
+    public async Task<IActionResult> CreateTransaction(
+        [FromRoute] Guid portfolioId,
+        [FromBody] CreateTransactionRequest request)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -43,7 +44,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpGet("{portfolioId}")]
-    public async Task<IActionResult> GetTransactionsByPortfolioId(Guid portfolioId)
+    public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
     {
         var transactions = await _transactionsService.GetTransactionsByPortfolioIdAsync(portfolioId);
 
@@ -51,7 +52,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpPost("{transactionId}/delete")]
-    public async Task<IActionResult> DeleteTransaction(Guid transactionId)
+    public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
     {
         var userId = GetUserId();
         if (userId == default)

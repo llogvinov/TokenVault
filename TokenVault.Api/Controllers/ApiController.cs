@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace TokenVault.Api.Controllers;
 
 [ApiController]
+[Route("{controller}")]
 [Authorize]
 public class ApiController : ControllerBase
 {
