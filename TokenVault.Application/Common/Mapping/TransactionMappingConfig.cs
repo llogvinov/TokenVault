@@ -15,8 +15,14 @@ public class TransactionMappingConfig : IRegister
             .Map(dest => dest.PortfolioId, src => src.portfolioId)
             .Map(dest => dest, src => src.request);
 
-        config.NewConfig<Transaction, CreateTransactionResponse>();
-
+        config.NewConfig<(CreateTransactionCommand command, TransactionDetails details), Transaction>()
+            .Map(dest => dest.Quantity, src => src.details.Quantity)
+            .Map(dest => dest.Price, src => src.details.Price)
+            .Map(dest => dest.Total, src => src.details.Total)
+            .Map(dest => dest, src => src.command);
+        
         config.NewConfig<Transaction, SingleTransactionResult>();
+
+        config.NewConfig<SingleTransactionResult, CreateTransactionResponse>();
     }
 }

@@ -1,4 +1,4 @@
-@transactionId = 12c1086c-73e6-4358-b7b6-8e2be5e1ccc2
+@transactionId = 9f799351-669b-4b04-b6fd-0815a620332d
 
 POST {{host}}/transactions/{{transactionId}}/delete
 Authorization: Bearer {{token}}

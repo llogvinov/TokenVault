@@ -1,37 +1,33 @@
+using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Transactions.Common;
 using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Transactions.Commands.Create;
 
-public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, Transaction>
+public partial class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
 {
-    public ITransactionRepository _transactionRepository;
+    private readonly ITransactionRepository _transactionRepository;
+    private readonly IMapper _mapper;
 
-    public CreateTransactionCommandHandler(ITransactionRepository transactionRepository)
+    public CreateTransactionCommandHandler(ITransactionRepository transactionRepository, IMapper mapper)
     {
         _transactionRepository = transactionRepository;
+        _mapper = mapper;
     }
 
-    public async Task<Transaction> Handle(CreateTransactionCommand command, CancellationToken cancellationToken)
+    public async Task<SingleTransactionResult> Handle(CreateTransactionCommand command, CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
         var transactionDetails = GetTransactionDetails(command);
-
-        var transaction = new Transaction
-        {
-            AssetSymbol = command.AssetSymbol,
-            UserId = command.UserId,
-            PortfolioId = command.PortfolioId,
-            Quantity = transactionDetails.Quantity,
-            Price = transactionDetails.Price,
-            Total = transactionDetails.Total,
-            Date = DateTime.UtcNow,
-        };
+        var transaction = _mapper.Map<Transaction>((command, transactionDetails));
         _transactionRepository.Add(transaction);
 
-        return transaction;
+        var transactionResult = _mapper.Map<SingleTransactionResult>(transaction);
+
+        return transactionResult;
     }
 
     private TransactionDetails GetTransactionDetails(CreateTransactionCommand command)
@@ -87,11 +83,4 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
 
         throw new ArgumentException("quantity or total is null");
     }
-
-
-    public record TransactionDetails(
-        double Quantity,
-        double Price,
-        double Total
-    );
 }

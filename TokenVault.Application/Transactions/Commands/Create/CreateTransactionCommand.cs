@@ -1,5 +1,5 @@
 using MediatR;
-using TokenVault.Domain.Entities;
+using TokenVault.Application.Transactions.Common;
 
 namespace TokenVault.Application.Transactions.Commands.Create;
 
@@ -11,4 +11,4 @@ public record CreateTransactionCommand(
     double? Price,
     double? Total,
     DateTime? Date
-) : IRequest<Transaction>;
+) : IRequest<SingleTransactionResult>;

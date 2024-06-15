@@ -9,5 +9,5 @@ public class Transaction
     public double Quantity { get; set; }
     public double Price { get; set; }
     public double Total { get; set; }
-    public DateTime Date { get; set; }
+    public DateTime CreateDate { get; set; } = DateTime.Now;
 }
