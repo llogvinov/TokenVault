@@ -16,6 +16,15 @@ public class TransactionRepository : ITransactionRepository
         _transactions.Remove(transaction);
     }
 
+    public void DeleteByPortfolioId(Guid portfolioId)
+    {
+        var transactions = _transactions.Where(t => t.PortfolioId == portfolioId);
+        foreach (var transaction in transactions)
+        {
+            _transactions.Remove(transaction);
+        }
+    }
+
     public Transaction? GetTransactionById(Guid id)
     {
         return _transactions.SingleOrDefault(t => t.Id == id);

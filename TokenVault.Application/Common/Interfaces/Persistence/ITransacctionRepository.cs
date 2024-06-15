@@ -8,6 +8,8 @@ public interface ITransactionRepository
 
     void Delete(Guid id);
 
+    void DeleteByPortfolioId(Guid portfolioId);
+
     Transaction? GetTransactionById(Guid id);
 
     IEnumerable<Transaction> GetTransactionsByUserId(Guid userId);

@@ -73,4 +73,9 @@ public class TransactionsService
 
         return transactionResult;
     }
+
+    public void DeleteAllPortfolioTransactions(Guid portfolioId)
+    {
+        _transactionRepository.DeleteByPortfolioId(portfolioId);
+    }
 }
