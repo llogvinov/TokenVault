@@ -1,0 +1,8 @@
+POST {{host}}/cryptocurrency
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "symbol": "CHSN",
+    "name": "Chesnokov"
+}

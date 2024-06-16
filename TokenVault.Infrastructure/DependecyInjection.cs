@@ -20,7 +20,7 @@ public static class DependencyInjection
         ConfigurationManager configuration)
     {
         services.AddAuth(configuration)
-                .AddPersistence();
+            .AddPersistence();
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         return services;
@@ -29,6 +29,7 @@ public static class DependencyInjection
     private static IServiceCollection AddPersistence(this IServiceCollection services)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ICryptocurrencyRepository, CryptocurrencyRepository>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IPortfolioRepository, PortfolioRepository>();
 

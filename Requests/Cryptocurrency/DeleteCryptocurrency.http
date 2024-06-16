@@ -1,0 +1,5 @@
+@cryptocurrencyId = 3fd6518e-aeea-4363-a3f1-b7564434ee6e
+
+DELETE {{host}}/cryptocurrency/delete/{{cryptocurrencyId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json

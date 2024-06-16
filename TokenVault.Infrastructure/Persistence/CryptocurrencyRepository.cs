@@ -20,4 +20,9 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
             _cryptocurrencies.Remove(cryptocurrency);
         }
     }
+
+    public IEnumerable<Cryptocurrency> GetAll()
+    {
+        return _cryptocurrencies;
+    }
 }
