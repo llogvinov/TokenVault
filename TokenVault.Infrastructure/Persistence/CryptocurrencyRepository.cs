@@ -15,7 +15,7 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
     public void Delete(Guid cryptocurrencyId)
     {
         var cryptocurrency = _cryptocurrencies.FirstOrDefault(c => c.Id == cryptocurrencyId);
-        if (cryptocurrency != null)
+        if (cryptocurrency is not null)
         {
             _cryptocurrencies.Remove(cryptocurrency);
         }

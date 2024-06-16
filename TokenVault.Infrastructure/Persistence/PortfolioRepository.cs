@@ -13,7 +13,10 @@ public class PortfolioRepository : IPortfolioRepository
     public void Delete(Guid id)
     {
         var portfolio = _portfolios.FirstOrDefault(p => p.Id == id);
-        _portfolios.Remove(portfolio);
+        if (portfolio is not null)
+        {
+            _portfolios.Remove(portfolio);
+        }
     }
 
     public Portfolio? GetPortfolioById(Guid id)

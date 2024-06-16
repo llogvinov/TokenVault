@@ -13,7 +13,10 @@ public class TransactionRepository : ITransactionRepository
     public void Delete(Guid id)
     {
         var transaction = _transactions.FirstOrDefault(t => t.Id == id);
-        _transactions.Remove(transaction);
+        if (transaction is not null)
+        {
+            _transactions.Remove(transaction);
+        }
     }
 
     public void DeleteByPortfolioId(Guid portfolioId)
