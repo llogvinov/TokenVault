@@ -77,6 +77,8 @@ public class TransactionsService
         var command = new DeleteTransactionCommand(transaction);
         var transactionResult = await _mediator.Send(command);
 
+        // update transaction details
+
         return transactionResult;
     }
 

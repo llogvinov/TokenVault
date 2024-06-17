@@ -15,7 +15,10 @@ public class AssetsService
 
     public void UpdateAssetInPortfolio(SingleTransactionResult transactionResult)
     {
-        var asset = _assetRepository.GetAssetInPortfolio(transactionResult.PortfolioId, transactionResult.CryptocurrencyId);
+        var asset = _assetRepository.GetAssetInPortfolio(
+            transactionResult.PortfolioId,
+            transactionResult.CryptocurrencyId);
+
         if (asset is null)
         {
             var newAsset = GetNewAssetFromTransaction(transactionResult);
@@ -23,7 +26,7 @@ public class AssetsService
         }
         else
         {
-            var updateAssetDetails = GetUpdatedAssetDetails(transactionResult, asset);
+            var updateAssetDetails = GetUpdatedAssetDetails(asset, transactionResult);
             _assetRepository.Update(
                 transactionResult.PortfolioId,
                 transactionResult.CryptocurrencyId,
@@ -31,17 +34,7 @@ public class AssetsService
         }
     }
 
-    private static UpdateAssetDetails GetUpdatedAssetDetails(SingleTransactionResult transactionResult, Asset asset)
-    {
-        var amount = asset.Amount + transactionResult.Amount;
-        var invested = asset.Invested + transactionResult.TotalPrice;
-        var averagePrice = invested / amount;
-
-        var updateAssetDetails = new UpdateAssetDetails(amount, averagePrice, invested);
-        return updateAssetDetails;
-    }
-
-    private static Asset GetNewAssetFromTransaction(SingleTransactionResult transactionResult)
+    private Asset GetNewAssetFromTransaction(SingleTransactionResult transactionResult)
     {
         return new Asset
         {
@@ -51,6 +44,16 @@ public class AssetsService
             AveragePrice = transactionResult.PricePerToken,
             Invested = transactionResult.TotalPrice
         };
+    }
+
+    private UpdateAssetDetails GetUpdatedAssetDetails(Asset asset, SingleTransactionResult transactionResult)
+    {
+        var amount = asset.Amount + transactionResult.Amount;
+        var invested = asset.Invested + transactionResult.TotalPrice;
+        var averagePrice = invested / amount;
+
+        var updateAssetDetails = new UpdateAssetDetails(amount, averagePrice, invested);
+        return updateAssetDetails;
     }
 
     public void DeleteAsset(Guid portfolioId, Guid cryptocurrencyId)
