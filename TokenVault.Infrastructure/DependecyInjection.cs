@@ -32,6 +32,7 @@ public static class DependencyInjection
         services.AddScoped<ICryptocurrencyRepository, CryptocurrencyRepository>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+        services.AddScoped<IAssetRepository, AssetRepository>();
 
         return services;
     }

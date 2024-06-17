@@ -1,5 +1,6 @@
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using TokenVault.Application.Assets;
 using TokenVault.Application.Common.Mapping;
 using TokenVault.Application.Potfolio;
 using TokenVault.Application.Transactions;
@@ -22,6 +23,7 @@ public static class DependencyInjection
         services.AddScoped<CryptocurrencyService>();
         services.AddScoped<TransactionsService>();
         services.AddScoped<PortfolioService>();
+        services.AddScoped<AssetsService>();
 
         return services;
     }
