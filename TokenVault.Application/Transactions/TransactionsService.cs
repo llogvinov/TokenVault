@@ -34,6 +34,10 @@ public class TransactionsService
     {
         var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
         var transaction = await _mediator.Send(command);
+
+        // add asset if it does not exist
+        
+        // update asset if it already exists
         
         var response = _mapper.Map<CreateTransactionResponse>(transaction);
 

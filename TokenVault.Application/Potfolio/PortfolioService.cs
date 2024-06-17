@@ -36,6 +36,10 @@ public class PortfolioService
         var command = new DeletePortfolioCommand(portfolioId);
         var portfolioResult = await _mediator.Send(command);
 
+        // delete all corresponding transactions
+
+        // delete all corresponding assets
+
         return portfolioResult;
     }
 }
