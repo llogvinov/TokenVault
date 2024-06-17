@@ -1,4 +1,5 @@
 using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Transactions.Common;
 using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Assets;
@@ -12,30 +13,48 @@ public class AssetsService
         _assetRepository = assetRepository;
     }
 
-    public void AddAsset(Asset asset)
+    public void UpdateAssetInPortfolio(SingleTransactionResult transactionResult)
     {
-        _assetRepository.Add(asset);
+        var asset = _assetRepository.GetAssetInPortfolio(transactionResult.PortfolioId, transactionResult.CryptocurrencyId);
+        if (asset is null)
+        {
+            var newAsset = GetNewAssetFromTransaction(transactionResult);
+            _assetRepository.Add(newAsset);
+        }
+        else
+        {
+            var updateAssetDetails = GetUpdatedAssetDetails(transactionResult, asset);
+            _assetRepository.Update(
+                transactionResult.PortfolioId,
+                transactionResult.CryptocurrencyId,
+                updateAssetDetails);
+        }
     }
 
-    public void UpdateAssetInPortfolio(Guid portfolioId, Guid cryptocurrencyId, UpdateAssetDetails assetDetails)
+    private static UpdateAssetDetails GetUpdatedAssetDetails(SingleTransactionResult transactionResult, Asset asset)
     {
-        var asset = _assetRepository.GetAssetInPortfolio(portfolioId, cryptocurrencyId);
+        var amount = asset.Amount + transactionResult.Amount;
+        var invested = asset.Invested + transactionResult.TotalPrice;
+        var averagePrice = invested / amount;
 
-        var newAssetDetails = CalculateAssetDetails(asset, assetDetails);
+        var updateAssetDetails = new UpdateAssetDetails(amount, averagePrice, invested);
+        return updateAssetDetails;
+    }
 
-        _assetRepository.Update(portfolioId, cryptocurrencyId, newAssetDetails);
+    private static Asset GetNewAssetFromTransaction(SingleTransactionResult transactionResult)
+    {
+        return new Asset
+        {
+            CryptocurrencyId = transactionResult.CryptocurrencyId,
+            PortfolioId = transactionResult.PortfolioId,
+            Amount = transactionResult.Amount,
+            AveragePrice = transactionResult.PricePerToken,
+            Invested = transactionResult.TotalPrice
+        };
     }
 
     public void DeleteAsset(Guid portfolioId, Guid cryptocurrencyId)
     {
         _assetRepository.Delete(portfolioId, cryptocurrencyId);
-    }
-
-    private UpdateAssetDetails CalculateAssetDetails(Asset asset, UpdateAssetDetails assetDetails)
-    {
-        var amount = asset.Amount + assetDetails.Amount;
-        var invested = asset.Invested + assetDetails.Invested;
-
-        return new UpdateAssetDetails(amount, invested / amount, invested);
     }
 }

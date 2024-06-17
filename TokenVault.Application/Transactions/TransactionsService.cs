@@ -1,5 +1,6 @@
 using MapsterMapper;
 using MediatR;
+using TokenVault.Application.Assets;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Transactions.Commands.Create;
 using TokenVault.Application.Transactions.Commands.Delete;
@@ -14,15 +15,18 @@ namespace TokenVault.Application.Transactions;
 public class TransactionsService
 {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly AssetsService _assetsService;
     private readonly ISender _mediator;
     private readonly IMapper _mapper;
 
     public TransactionsService(
         ITransactionRepository transactionRepository,
+        AssetsService assetsService,
         ISender mediator,
         IMapper mapper)
     {
         _transactionRepository = transactionRepository;
+        _assetsService = assetsService;
         _mediator = mediator;
         _mapper = mapper;
     }
@@ -35,9 +39,7 @@ public class TransactionsService
         var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
         var transaction = await _mediator.Send(command);
 
-        // add asset if it does not exist
-        
-        // update asset if it already exists
+        _assetsService.UpdateAssetInPortfolio(transaction);
         
         var response = _mapper.Map<CreateTransactionResponse>(transaction);
 

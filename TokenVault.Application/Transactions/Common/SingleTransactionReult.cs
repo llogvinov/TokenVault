@@ -4,6 +4,9 @@ public record SingleTransactionResult(
     Guid Id,
     Guid UserId,
     Guid PortfolioId,
+    Guid CryptocurrencyId,
     string AssetSymbol,
-    double Quantity
+    double Amount,
+    double PricePerToken,
+    double TotalPrice
 );
