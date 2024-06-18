@@ -1,7 +1,7 @@
 namespace TokenVault.Application.Transactions.Common;
 
 public record TransactionDetails(
-    double Quantity,
-    double Price,
-    double Total
+    double Amount,
+    double PricePerToken,
+    double TotalPrice
 );

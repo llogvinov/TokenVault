@@ -9,11 +9,16 @@ namespace TokenVault.Application.Transactions.Commands.Create;
 public partial class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
 {
     private readonly ITransactionRepository _transactionRepository;
+    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
     private readonly IMapper _mapper;
 
-    public CreateTransactionCommandHandler(ITransactionRepository transactionRepository, IMapper mapper)
+    public CreateTransactionCommandHandler(
+        ITransactionRepository transactionRepository,
+        ICryptocurrencyRepository cryptocurrencyRepository,
+        IMapper mapper)
     {
         _transactionRepository = transactionRepository;
+        _cryptocurrencyRepository = cryptocurrencyRepository;
         _mapper = mapper;
     }
 
@@ -24,25 +29,28 @@ public partial class CreateTransactionCommandHandler : IRequestHandler<CreateTra
         var transactionDetails = GetTransactionDetails(command);
         var transaction = _mapper.Map<Transaction>((command, transactionDetails));
         _transactionRepository.Add(transaction);
+        
+        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrency(command.CryptocurrencyId);
+        var symbol = cryptocurrency?.Symbol ?? "Unknown";
 
-        var transactionResult = _mapper.Map<SingleTransactionResult>(transaction);
+        var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));
 
         return transactionResult;
     }
 
     private TransactionDetails GetTransactionDetails(CreateTransactionCommand command)
     {
-        if (command.Total is null)
+        if (command.TotalPrice is null)
         {
-            return CalculateTotal(command.Price, command.Quantity);
+            return CalculateTotal(command.PricePerToken, command.Amount);
         }
-        else if (command.Price is null)
+        else if (command.PricePerToken is null)
         {
-            return CalculatePrice(command.Quantity, command.Total);
+            return CalculatePrice(command.Amount, command.TotalPrice);
         }
-        else if (command.Quantity is null)
+        else if (command.Amount is null)
         {
-            return CalculateQuantity(command.Price, command.Total);
+            return CalculateQuantity(command.PricePerToken, command.TotalPrice);
         }
 
         throw new ArgumentException("Exactly one of the parameters must be null and the others must be non-null.");

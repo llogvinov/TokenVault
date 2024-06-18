@@ -5,6 +5,7 @@ using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Transactions.Commands.Create;
 using TokenVault.Application.Transactions.Commands.Delete;
 using TokenVault.Application.Transactions.Common;
+using TokenVault.Application.Transactions.Queries.GetByCryptocurrencyId;
 using TokenVault.Application.Transactions.Queries.GetByPortfolioId;
 using TokenVault.Application.Transactions.Queries.GetByUserId;
 using TokenVault.Contracts.Transactions;
@@ -57,6 +58,14 @@ public class TransactionsService
     public async Task<IEnumerable<Transaction>> GetTransactionsByPortfolioIdAsync(Guid portfolioId)
     {
         var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
+        var transactionsResult = await _mediator.Send(query);
+
+        return transactionsResult.Transactions;
+    }
+
+    public async Task<IEnumerable<Transaction>> GetTransactionsByCryptocurrencyId(Guid cryptocurrencyId)
+    {
+        var query = new GetTransactionsByCryptocurrencyIdQuery(cryptocurrencyId);
         var transactionsResult = await _mediator.Send(query);
 
         return transactionsResult.Transactions;

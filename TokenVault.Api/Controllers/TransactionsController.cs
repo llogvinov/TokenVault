@@ -13,6 +13,9 @@ public class TransactionsController : ApiController
         _transactionsService = transactionsService;
     }
 
+    /// <summary>
+    /// create transaction
+    /// </summary>
     [HttpPost("{portfolioId}/create")]
     public async Task<IActionResult> CreateTransaction(
         [FromRoute] Guid portfolioId,
@@ -29,6 +32,9 @@ public class TransactionsController : ApiController
         return Ok(response);
     }
 
+    /// <summary>
+    /// get transactions by user id
+    /// </summary>
     [HttpGet]
     public async Task<IActionResult> GetTransactionsByUserId()
     {
@@ -43,14 +49,31 @@ public class TransactionsController : ApiController
         return Ok(transactions);
     }
 
-    [HttpGet("{portfolioId}")]
-    public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
+    /// <summary>
+    /// get transactions by portfolio id
+    /// </summary>
+    [HttpGet("by-portfolio")]
+    public async Task<IActionResult> GetTransactionsByPortfolioId([FromQuery] Guid portfolioId)
     {
         var transactions = await _transactionsService.GetTransactionsByPortfolioIdAsync(portfolioId);
 
         return Ok(transactions);
     }
 
+    /// <summary>
+    /// get transactions by portfolio id
+    /// </summary>
+    [HttpGet("by-cryptocurrency")]
+    public async Task<IActionResult> GetTransactionsByCryptocurrencyId([FromQuery] Guid cryptocurrencyId)
+    {
+        var transactions = await _transactionsService.GetTransactionsByCryptocurrencyId(cryptocurrencyId);
+
+        return Ok(transactions);
+    }
+
+    /// <summary>
+    /// delete transaction by id
+    /// </summary>
     [HttpPost("{transactionId}/delete")]
     public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
     {

@@ -16,5 +16,5 @@ public interface ITransactionRepository
 
     IEnumerable<Transaction> GetTransactionsByPortfolioId(Guid portfolioId);
 
-    IEnumerable<Transaction> GetTransactionsBySymbol(string symbol);
+    IEnumerable<Transaction> GetTransactionsByCryptocurrencyId(Guid cryptocurrencyId);
 }

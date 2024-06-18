@@ -16,12 +16,14 @@ public class TransactionMappingConfig : IRegister
             .Map(dest => dest, src => src.request);
 
         config.NewConfig<(CreateTransactionCommand command, TransactionDetails details), Transaction>()
-            .Map(dest => dest.Quantity, src => src.details.Quantity)
-            .Map(dest => dest.Price, src => src.details.Price)
-            .Map(dest => dest.Total, src => src.details.Total)
+            .Map(dest => dest.Amount, src => src.details.Amount)
+            .Map(dest => dest.PricePerToken, src => src.details.PricePerToken)
+            .Map(dest => dest.TotalPrice, src => src.details.TotalPrice)
             .Map(dest => dest, src => src.command);
         
-        config.NewConfig<Transaction, SingleTransactionResult>();
+        config.NewConfig<(Transaction transaction, string Symbol), SingleTransactionResult>()
+            .Map(dest => dest.AssetSymbol, src => src.Symbol)
+            .Map(dest => dest, src => src.transaction);
 
         config.NewConfig<SingleTransactionResult, CreateTransactionResponse>();
     }

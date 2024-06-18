@@ -43,8 +43,8 @@ public class TransactionRepository : ITransactionRepository
         return _transactions.Where(t => t.PortfolioId == portfolioId);
     }
     
-    public IEnumerable<Transaction> GetTransactionsBySymbol(string symbol)
+    public IEnumerable<Transaction> GetTransactionsByCryptocurrencyId(Guid cryptocurrencyId)
     {
-        return _transactions.Where(t => t.AssetSymbol == symbol);
+        return _transactions.Where(t => t.CryptocurrencyId == cryptocurrencyId);
     }
 }

@@ -1,11 +1,11 @@
-@portfolioId = 1972efa7-18d4-47f3-94ef-a647b3e864b2
+@portfolioId = fe785239-5f0c-4a54-8f5f-4a758ce3cd7e
 
 POST {{host}}/transactions/{{portfolioId}}/create
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "assetSymbol": "ETH",
-    "quantity": 0.5,
-    "price": 3700
+    "cryptocurrencyId": "770cd028-c4b1-4c68-a0a1-5c3a8cf326f3",
+    "amount": 0.4,
+    "pricePerToken": 60000
 }

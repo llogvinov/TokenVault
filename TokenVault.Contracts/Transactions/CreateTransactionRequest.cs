@@ -1,9 +1,9 @@
 namespace TokenVault.Contracts.Transactions;
 
 public record CreateTransactionRequest(
-    string AssetSymbol,
-    double? Quantity,
-    double? Price,
-    double? Total,
+    Guid CryptocurrencyId,
+    double? Amount,
+    double? PricePerToken,
+    double? TotalPrice,
     DateTime? Date
 );
