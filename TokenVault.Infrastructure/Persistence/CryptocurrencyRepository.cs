@@ -7,13 +7,17 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
 {
     private static readonly List<Cryptocurrency> _cryptocurrencies = new();
 
-    public void Add(Cryptocurrency cryptocurrency)
+    public async Task CreateAsync(Cryptocurrency cryptocurrency)
     {
+        await Task.CompletedTask;
+        
         _cryptocurrencies.Add(cryptocurrency);
     }
 
-    public void Delete(Guid cryptocurrencyId)
+    public async Task DeleteAsync(Guid cryptocurrencyId)
     {
+        await Task.CompletedTask;
+
         var cryptocurrency = _cryptocurrencies.FirstOrDefault(c => c.Id == cryptocurrencyId);
         if (cryptocurrency is not null)
         {
@@ -21,13 +25,10 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
         }
     }
 
-    public IEnumerable<Cryptocurrency> GetCryptocurrencies()
+    public async Task<Cryptocurrency?> GetCryptocurrencyByIdAsync(Guid cryptocurrencyId)
     {
-        return _cryptocurrencies;
-    }
+        await Task.CompletedTask;
 
-    public Cryptocurrency? GetCryptocurrencyById(Guid cryptocurrencyId)
-    {
         var cryptocurrency = _cryptocurrencies.FirstOrDefault(c => c.Id == cryptocurrencyId);
         if (cryptocurrency is not null)
         {
@@ -35,5 +36,12 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
         }
 
         return default;
+    }
+
+    public async Task<IEnumerable<Cryptocurrency>> GetCryptocurrenciesAsync()
+    {
+        await Task.CompletedTask;
+
+        return _cryptocurrencies;
     }
 }

@@ -23,10 +23,8 @@ public class CreateCryptocurrencyCommandHandler : IRequestHandler<CreateCryptocu
         CreateCryptocurrencyCommand command,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
         var cryptocurrency = _mapper.Map<Cryptocurrency>(command);
-        _cryptocurrencyRepository.Add(cryptocurrency);
+        await _cryptocurrencyRepository.CreateAsync(cryptocurrency);
 
         var cryptocurrencyResult = _mapper.Map<CryptocurrencyResult>(cryptocurrency);
         return cryptocurrencyResult;

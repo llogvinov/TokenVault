@@ -22,15 +22,13 @@ public class DeleteCryptocurrencyCommandHandler : IRequestHandler<DeleteCryptocu
         DeleteCryptocurrencyCommand command,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
-        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(command.CryptocurrencyId);
+        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
         if (cryptocurrency is null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 
                 $"Cryptocurrency with given id: {command.CryptocurrencyId} does not exist");
         }
-        _cryptocurrencyRepository.Delete(command.CryptocurrencyId);
+        await _cryptocurrencyRepository.DeleteAsync(command.CryptocurrencyId);
 
         var cryptocurrencyResult = _mapper.Map<CryptocurrencyResult>(cryptocurrency);
         return cryptocurrencyResult;

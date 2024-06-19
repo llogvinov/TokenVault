@@ -70,7 +70,7 @@ public class CryptocurrenciesController : ApiController
     [HttpGet]
     public IActionResult GetCryptocurrencies()
     {
-        var cryptocurrencies = _cryptocurrencyRepository.GetCryptocurrencies();
+        var cryptocurrencies = _cryptocurrencyRepository.GetCryptocurrenciesAsync();
 
         return Ok(cryptocurrencies);
     }

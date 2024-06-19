@@ -4,11 +4,11 @@ namespace TokenVault.Application.Common.Interfaces.Persistence;
 
 public interface ICryptocurrencyRepository
 {
-    void Add(Cryptocurrency cryptocurrency);
+    Task CreateAsync(Cryptocurrency cryptocurrency);
 
-    void Delete(Guid cryptocurrencyId);
+    Task DeleteAsync(Guid cryptocurrencyId);
     
-    IEnumerable<Cryptocurrency> GetCryptocurrencies();
+    Task<Cryptocurrency?> GetCryptocurrencyByIdAsync(Guid cryptocurrencyId);
 
-    Cryptocurrency? GetCryptocurrencyById(Guid cryptocurrencyId);
+    Task<IEnumerable<Cryptocurrency>> GetCryptocurrenciesAsync();
 }

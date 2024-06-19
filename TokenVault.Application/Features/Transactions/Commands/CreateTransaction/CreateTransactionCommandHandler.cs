@@ -30,7 +30,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         var transaction = _mapper.Map<Transaction>((command, transactionDetails));
         await _transactionRepository.CreateAsync(transaction);
 
-        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(command.CryptocurrencyId);
+        var cryptocurrency = await _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
         var symbol = cryptocurrency?.Symbol ?? "Unknown";
 
         var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));

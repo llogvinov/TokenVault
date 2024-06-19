@@ -22,9 +22,7 @@ public class GetCryptocurrencyByIdQueryHandler : IRequestHandler<GetCryptocurren
         GetCryptocurrencyByIdQuery query,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
-        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(query.CryptocurrencyId);
+        var cryptocurrency = await _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(query.CryptocurrencyId);
         if (cryptocurrency == null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 
