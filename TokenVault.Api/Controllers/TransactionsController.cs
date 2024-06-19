@@ -26,7 +26,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateTransaction(
+    public async Task<IActionResult> CreateTransactionAsync(
         [FromRoute] Guid portfolioId,
         [FromBody] CreateTransactionRequest request)
     {
@@ -47,7 +47,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
+    public async Task<IActionResult> GetTransactionsByPortfolioIdAsync([FromRoute] Guid portfolioId)
     {
         var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
         var transactionsResult = await _mediatr.Send(query);
@@ -56,7 +56,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpGet("{transactionId}")]
-    public async Task<IActionResult> GetTransaction([FromRoute] Guid transactionId)
+    public async Task<IActionResult> GetTransactionAsync([FromRoute] Guid transactionId)
     {
         var query = new GetTransactionByIdQuery(transactionId);
         var transaction = await _mediatr.Send(query);
@@ -65,7 +65,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpDelete("{transactionId}")]
-    public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
+    public async Task<IActionResult> DeleteTransactionAsync([FromRoute] Guid transactionId)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -90,7 +90,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetTransactionsByUserId()
+    public async Task<IActionResult> GetTransactionsByUserIdAsync()
     {
         var userId = GetUserId();
         if (userId == default)

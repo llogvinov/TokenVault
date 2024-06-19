@@ -29,7 +29,7 @@ public class CryptocurrenciesController : ApiController
     /// create cryptocurrency 
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> CreateCryptocurrency([FromBody] CreateCryptocurrencyRequest request)
+    public async Task<IActionResult> CreateCryptocurrencyAsync([FromBody] CreateCryptocurrencyRequest request)
     {
         var command = _mapper.Map<CreateCryptocurrencyCommand>(request);
         var result = await _mediatr.Send(command);
@@ -42,7 +42,7 @@ public class CryptocurrenciesController : ApiController
     /// get cryptocurrency by id  
     /// </summary>
     [HttpGet("{cryptocurrencyId}")]
-    public async Task<IActionResult> GetCryptocurrency([FromRoute] Guid cryptocurrencyId)
+    public async Task<IActionResult> GetCryptocurrencyAsync([FromRoute] Guid cryptocurrencyId)
     {
         var command = new GetCryptocurrencyByIdQuery(cryptocurrencyId);
         var result = await _mediatr.Send(command);
@@ -55,7 +55,7 @@ public class CryptocurrenciesController : ApiController
     /// delete cryptocurrency 
     /// </summary>
     [HttpDelete("{cryptocurrencyId}")]
-    public async Task<IActionResult> DeleteCryptocurrency([FromRoute] Guid cryptocurrencyId)
+    public async Task<IActionResult> DeleteCryptocurrencyAsync([FromRoute] Guid cryptocurrencyId)
     {
         var command = new DeleteCryptocurrencyCommand(cryptocurrencyId);
         var result = await _mediatr.Send(command);
@@ -68,9 +68,9 @@ public class CryptocurrenciesController : ApiController
     /// get cryptocurrencies 
     /// </summary>
     [HttpGet]
-    public IActionResult GetCryptocurrencies()
+    public async Task<IActionResult> GetCryptocurrencies()
     {
-        var cryptocurrencies = _cryptocurrencyRepository.GetCryptocurrenciesAsync();
+        var cryptocurrencies = await _cryptocurrencyRepository.GetCryptocurrenciesAsync();
 
         return Ok(cryptocurrencies);
     }
