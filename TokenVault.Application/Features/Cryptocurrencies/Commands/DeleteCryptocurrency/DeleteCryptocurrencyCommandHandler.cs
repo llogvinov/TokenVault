@@ -19,7 +19,7 @@ public class DeleteCryptocurrencyCommandHandler : IRequestHandler<DeleteCryptocu
     {
         await Task.CompletedTask;
 
-        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrency(command.CryptocurrencyId);
+        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(command.CryptocurrencyId);
         if (cryptocurrency is null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 

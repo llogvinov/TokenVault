@@ -2,6 +2,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCryptocurrency;
 using TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCryptocurrency;
+using TokenVault.Application.Features.Cryptocurrencies.Queries.GetCryptocurrencyById;
 using TokenVault.Contracts.Cryptocurrency;
 
 namespace TokenVault.Api.Controllers;
@@ -39,12 +40,28 @@ public class CryptocurrencyController : ApiController
 
         return Ok(response);
     }
+    
+    /// <summary>
+    /// get cryptocurrency by id  
+    /// </summary>
+    [HttpGet("{cryptocurrencyId}")]
+    public async Task<IActionResult> GetCryptocurrency([FromRoute] Guid cryptocurrencyId)
+    {
+        var command = new GetCryptocurrencyByIdQuery(cryptocurrencyId);
+        var result = await _mediatr.Send(command);
+
+        var response = new CryptocurrencyResponse(
+            result.Id,
+            result.Symbol,
+            result.Name);
+        return Ok(response);
+    }
 
     /// <summary>
     /// delete cryptocurrency 
     /// </summary>
-    [HttpDelete("delete/{cryptocurrencyId}")]
-    public async Task<IActionResult> DeleteCryptoCurrency([FromRoute] Guid cryptocurrencyId)
+    [HttpDelete("{cryptocurrencyId}")]
+    public async Task<IActionResult> DeleteCryptocurrency([FromRoute] Guid cryptocurrencyId)
     {
         var command = new DeleteCryptocurrencyCommand(cryptocurrencyId);
         var response = await _mediatr.Send(command);

@@ -10,5 +10,5 @@ public interface ICryptocurrencyRepository
     
     IEnumerable<Cryptocurrency> GetAll();
 
-    Cryptocurrency? GetCryptocurrency(Guid cryptocurrencyId);
+    Cryptocurrency? GetCryptocurrencyById(Guid cryptocurrencyId);
 }

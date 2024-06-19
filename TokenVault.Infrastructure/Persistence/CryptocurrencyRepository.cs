@@ -26,7 +26,7 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
         return _cryptocurrencies;
     }
 
-    public Cryptocurrency? GetCryptocurrency(Guid cryptocurrencyId)
+    public Cryptocurrency? GetCryptocurrencyById(Guid cryptocurrencyId)
     {
         var cryptocurrency = _cryptocurrencies.FirstOrDefault(c => c.Id == cryptocurrencyId);
         if (cryptocurrency is not null)

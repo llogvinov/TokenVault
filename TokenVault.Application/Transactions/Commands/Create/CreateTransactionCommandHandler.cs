@@ -30,7 +30,7 @@ public partial class CreateTransactionCommandHandler : IRequestHandler<CreateTra
         var transaction = _mapper.Map<Transaction>((command, transactionDetails));
         _transactionRepository.Add(transaction);
         
-        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrency(command.CryptocurrencyId);
+        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(command.CryptocurrencyId);
         var symbol = cryptocurrency?.Symbol ?? "Unknown";
 
         var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));
