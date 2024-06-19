@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Features.Transactions.Commands.CreateTransaction;
 using TokenVault.Application.Features.Transactions.Commands.DeleteTransaction;
+using TokenVault.Application.Features.Transactions.Queries.GetTransactionById;
 using TokenVault.Application.Features.Transactions.Queries.GetTransactionsByPortfolioId;
 using TokenVault.Application.Features.Transactions.Queries.GetTransactionsByUserId;
 using TokenVault.Contracts.Transactions;
@@ -55,9 +56,12 @@ public class TransactionsController : ApiController
     }
 
     [HttpGet("{transactionId}")]
-    public IActionResult GetTransaction([FromRoute] Guid transactionId)
+    public async Task<IActionResult> GetTransaction([FromRoute] Guid transactionId)
     {
-        return Ok();
+        var query = new GetTransactionByIdQuery(transactionId);
+        var transaction = await _mediatr.Send(query);
+
+        return Ok(transaction);
     }
 
     [HttpDelete("{transactionId}")]
@@ -69,12 +73,10 @@ public class TransactionsController : ApiController
             return Unauthorized();
         }
 
-        var transaction = _transactionRepository.GetTransactionById(transactionId);
-        if (transaction is null)
-        {
-            throw new ArgumentNullException(nameof(transaction));
-        }
-        else if (userId != transaction.UserId)
+        var query = new GetTransactionByIdQuery(transactionId);
+        var transaction = await _mediatr.Send(query);
+
+        if (userId != transaction.UserId)
         {
             throw new Exception("You have no rights to delete this transaction");
         }

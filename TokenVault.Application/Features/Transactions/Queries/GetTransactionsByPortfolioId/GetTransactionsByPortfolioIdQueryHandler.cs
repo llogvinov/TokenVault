@@ -18,9 +18,7 @@ IRequestHandler<GetTransactionsByPortfolioIdQuery, TransactionsResult>
         GetTransactionsByPortfolioIdQuery query,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
-        var transactions = _transactionRepository.GetTransactionsByPortfolioId(query.PortfolioId);
+        var transactions = await _transactionRepository.GetTransactionsByPortfolioIdAsync(query.PortfolioId);
 
         var transactionsResult = new TransactionsResult(transactions);
         return transactionsResult;

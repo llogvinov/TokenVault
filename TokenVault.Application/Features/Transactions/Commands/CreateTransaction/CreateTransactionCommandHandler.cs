@@ -26,11 +26,9 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         CreateTransactionCommand command,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
         var transactionDetails = GetTransactionDetails(command);
         var transaction = _mapper.Map<Transaction>((command, transactionDetails));
-        _transactionRepository.Add(transaction);
+        await _transactionRepository.CreateAsync(transaction);
 
         var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(command.CryptocurrencyId);
         var symbol = cryptocurrency?.Symbol ?? "Unknown";

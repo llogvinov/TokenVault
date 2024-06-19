@@ -1,4 +1,5 @@
-@transactionId = 9f799351-669b-4b04-b6fd-0815a620332d
+@portfolioId = 
+@transactionId = 
 
-POST {{host}}/transactions/{{transactionId}}/delete
+DELETE  {{host}}/portfolio/{{portfolioId}}/transactions/{{transactionId}}
 Authorization: Bearer {{token}}

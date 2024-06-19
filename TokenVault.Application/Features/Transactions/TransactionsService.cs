@@ -73,7 +73,7 @@ public class TransactionsService
 
     public async Task<SingleTransactionResult> DeleteTransactionAsync(Guid userId, Guid transactionId)
     {
-        var transaction = _transactionRepository.GetTransactionById(transactionId);
+        var transaction = await _transactionRepository.GetTransactionByIdAsync(transactionId);
         if (transaction is null)
         {
             throw new ArgumentNullException(nameof(transaction));
@@ -93,6 +93,6 @@ public class TransactionsService
 
     public void DeleteAllPortfolioTransactions(Guid portfolioId)
     {
-        _transactionRepository.DeleteByPortfolioId(portfolioId);
+        _transactionRepository.DeleteByPortfolioIdAsync(portfolioId);
     }
 }

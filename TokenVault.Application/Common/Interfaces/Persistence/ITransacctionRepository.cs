@@ -4,17 +4,17 @@ namespace TokenVault.Application.Common.Interfaces.Persistence;
 
 public interface ITransactionRepository
 {
-    void Add(Transaction transaction);
+    Task CreateAsync(Transaction transaction);
 
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id);
 
-    void DeleteByPortfolioId(Guid portfolioId);
+    Task DeleteByPortfolioIdAsync(Guid portfolioId);
 
-    Transaction? GetTransactionById(Guid id);
+    Task<Transaction?> GetTransactionByIdAsync(Guid id);
 
-    IEnumerable<Transaction> GetTransactionsByUserId(Guid userId);
+    Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(Guid userId);
 
-    IEnumerable<Transaction> GetTransactionsByPortfolioId(Guid portfolioId);
+    Task<IEnumerable<Transaction>> GetTransactionsByPortfolioIdAsync(Guid portfolioId);
 
-    IEnumerable<Transaction> GetTransactionsByCryptocurrencyId(Guid cryptocurrencyId);
+    Task<IEnumerable<Transaction>> GetTransactionsByCryptocurrencyIdAsync(Guid cryptocurrencyId);
 }

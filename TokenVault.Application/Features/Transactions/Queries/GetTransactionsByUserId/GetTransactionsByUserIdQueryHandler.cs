@@ -18,9 +18,7 @@ public class GetTransactionsByUserIdQueryHandler :
         GetTransactionsByUserIdQuery query,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
-        var transactions = _transactionRepository.GetTransactionsByUserId(query.UserId);
+        var transactions = await _transactionRepository.GetTransactionsByUserIdAsync(query.UserId);
 
         var transactionsResult = new TransactionsResult(transactions);
         return transactionsResult;

@@ -19,9 +19,7 @@ public class GetTransactionsByCryptocurrencyIdQueryHandler :
         GetTransactionsByCryptocurrencyIdQuery query,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
-        var transactions = _transactionRepository.GetTransactionsByCryptocurrencyId(query.CryptocurrencyId);
+        var transactions = await _transactionRepository.GetTransactionsByCryptocurrencyIdAsync(query.CryptocurrencyId);
 
         var result = new TransactionsResult(transactions);
         return result;

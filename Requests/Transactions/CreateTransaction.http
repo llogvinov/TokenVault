@@ -1,6 +1,6 @@
-@portfolioId = fe785239-5f0c-4a54-8f5f-4a758ce3cd7e
+@portfolioId = 
 
-POST {{host}}/transactions/{{portfolioId}}/create
+POST {{host}}/portfolio/{portfolioId}/transactions
 Authorization: Bearer {{token}}
 Content-Type: application/json
 

@@ -1,0 +1,5 @@
+@portfolioId = 
+@transactionId = 
+
+GET {{host}}/portfolio/{{portfolioId}}/transactions/{{transactionId}}
+Authorization: Bearer {{token}}

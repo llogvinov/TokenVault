@@ -5,13 +5,17 @@ public class TransactionRepository : ITransactionRepository
 {
     private static readonly List<Transaction> _transactions = new();
 
-    public void Add(Transaction transaction)
+    public async Task CreateAsync(Transaction transaction)
     {
+        await Task.CompletedTask;
+
         _transactions.Add(transaction);
     }
 
-    public void Delete(Guid id)
+    public async Task DeleteAsync(Guid id)
     {
+        await Task.CompletedTask;
+
         var transaction = _transactions.FirstOrDefault(t => t.Id == id);
         if (transaction is not null)
         {
@@ -19,8 +23,10 @@ public class TransactionRepository : ITransactionRepository
         }
     }
 
-    public void DeleteByPortfolioId(Guid portfolioId)
+    public async Task DeleteByPortfolioIdAsync(Guid portfolioId)
     {
+        await Task.CompletedTask;
+
         var transactions = _transactions.Where(t => t.PortfolioId == portfolioId);
         foreach (var transaction in transactions)
         {
@@ -28,23 +34,31 @@ public class TransactionRepository : ITransactionRepository
         }
     }
 
-    public Transaction? GetTransactionById(Guid id)
+    public async Task<Transaction?> GetTransactionByIdAsync(Guid id)
     {
+        await Task.CompletedTask;
+        
         return _transactions.SingleOrDefault(t => t.Id == id);
     }
     
-    public IEnumerable<Transaction> GetTransactionsByUserId(Guid userId)
+    public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(Guid userId)
     {
+        await Task.CompletedTask;
+
         return _transactions.Where(t => t.UserId == userId);
     }
 
-    public IEnumerable<Transaction> GetTransactionsByPortfolioId(Guid portfolioId)
+    public async Task<IEnumerable<Transaction>> GetTransactionsByPortfolioIdAsync(Guid portfolioId)
     {
+        await Task.CompletedTask;
+
         return _transactions.Where(t => t.PortfolioId == portfolioId);
     }
     
-    public IEnumerable<Transaction> GetTransactionsByCryptocurrencyId(Guid cryptocurrencyId)
+    public async Task<IEnumerable<Transaction>> GetTransactionsByCryptocurrencyIdAsync(Guid cryptocurrencyId)
     {
+        await Task.CompletedTask;
+
         return _transactions.Where(t => t.CryptocurrencyId == cryptocurrencyId);
     }
 }

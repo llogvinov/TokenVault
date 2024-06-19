@@ -22,10 +22,8 @@ public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransaction
         DeleteTransactionCommand command,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
-
         var transactionResult = _mapper.Map<SingleTransactionResult>(command.Transaction);
-        _transactionRepository.Delete(command.Transaction.Id);
+        await _transactionRepository.DeleteAsync(command.Transaction.Id);
 
         return transactionResult;
     }
