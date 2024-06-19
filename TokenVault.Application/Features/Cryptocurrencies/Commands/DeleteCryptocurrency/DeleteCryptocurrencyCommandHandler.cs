@@ -1,19 +1,24 @@
+using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Contracts.Cryptocurrency;
+using TokenVault.Application.Features.Cryptocurrencies.Common;
 
 namespace TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCryptocurrency;
 
-public class DeleteCryptocurrencyCommandHandler : IRequestHandler<DeleteCryptocurrencyCommand, CryptocurrencyResponse>
+public class DeleteCryptocurrencyCommandHandler : IRequestHandler<DeleteCryptocurrencyCommand, CryptocurrencyResult>
 {
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
+    private readonly IMapper _mapper;
 
-    public DeleteCryptocurrencyCommandHandler(ICryptocurrencyRepository cryptocurrencyRepository)
+    public DeleteCryptocurrencyCommandHandler(
+        ICryptocurrencyRepository cryptocurrencyRepository,
+        IMapper mapper)
     {
         _cryptocurrencyRepository = cryptocurrencyRepository;
+        _mapper = mapper;
     }
 
-    public async Task<CryptocurrencyResponse> Handle(
+    public async Task<CryptocurrencyResult> Handle(
         DeleteCryptocurrencyCommand command,
         CancellationToken cancellationToken)
     {
@@ -27,10 +32,7 @@ public class DeleteCryptocurrencyCommandHandler : IRequestHandler<DeleteCryptocu
         }
         _cryptocurrencyRepository.Delete(command.CryptocurrencyId);
 
-        var cryptocurrencyResponse = new CryptocurrencyResponse(
-            cryptocurrency.Id,
-            cryptocurrency.Symbol,
-            cryptocurrency.Name);
-        return cryptocurrencyResponse;
+        var cryptocurrencyResult = _mapper.Map<CryptocurrencyResult>(cryptocurrency);
+        return cryptocurrencyResult;
     }
 }

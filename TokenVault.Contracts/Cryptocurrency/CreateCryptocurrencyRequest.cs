@@ -1,5 +1,5 @@
 namespace TokenVault.Contracts.Cryptocurrency;
 
-public record AddCryptocurrencyRequest(
+public record CreateCryptocurrencyRequest(
     string Symbol,
     string Name);

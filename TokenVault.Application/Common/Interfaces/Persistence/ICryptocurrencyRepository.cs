@@ -8,7 +8,7 @@ public interface ICryptocurrencyRepository
 
     void Delete(Guid cryptocurrencyId);
     
-    IEnumerable<Cryptocurrency> GetAll();
+    IEnumerable<Cryptocurrency> GetCryptocurrencies();
 
     Cryptocurrency? GetCryptocurrencyById(Guid cryptocurrencyId);
 }

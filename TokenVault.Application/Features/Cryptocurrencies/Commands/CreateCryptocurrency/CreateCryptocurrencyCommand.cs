@@ -1,8 +1,8 @@
 using MediatR;
-using TokenVault.Contracts.Cryptocurrency;
+using TokenVault.Application.Features.Cryptocurrencies.Common;
 
 namespace TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCryptocurrency;
 
 public record CreateCryptocurrencyCommand(
     string Symbol,
-    string Name) : IRequest<CreateCryptocurrencyResponse>;
+    string Name) : IRequest<CryptocurrencyResult>;

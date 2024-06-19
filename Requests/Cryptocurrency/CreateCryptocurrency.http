@@ -1,8 +1,8 @@
-POST {{host}}/cryptocurrency
+POST {{host}}/cryptocurrencies
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "symbol": "LTC",
-    "name": "Litecoin"
+    "symbol": "ETH",
+    "name": "Etherium"
 }

@@ -1,5 +1,7 @@
+using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCryptocurrency;
 using TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCryptocurrency;
 using TokenVault.Application.Features.Cryptocurrencies.Queries.GetCryptocurrencyById;
@@ -7,37 +9,32 @@ using TokenVault.Contracts.Cryptocurrency;
 
 namespace TokenVault.Api.Controllers;
 
-public class CryptocurrencyController : ApiController
+public class CryptocurrenciesController : ApiController
 {
-    private readonly CryptocurrencyService _cryptocurrencyService;
+    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
     private readonly ISender _mediatr;
+    private readonly IMapper _mapper;
 
-    public CryptocurrencyController(CryptocurrencyService cryptocurrencyService, ISender mediatr)
+    public CryptocurrenciesController(
+        ICryptocurrencyRepository cryptocurrencyRepository,
+        ISender mediatr,
+        IMapper mapper)
     {
-        _cryptocurrencyService = cryptocurrencyService;
+        _cryptocurrencyRepository = cryptocurrencyRepository;
         _mediatr = mediatr;
+        _mapper = mapper;
     }
 
     /// <summary>
-    /// get all cryptocurrencies 
-    /// </summary>
-    [HttpGet]
-    public IActionResult GetCryptocurrencies()
-    {
-        var cryptocurrencies = _cryptocurrencyService.GetCryptocurrencies();
-
-        return Ok(cryptocurrencies);
-    }
-
-    /// <summary>
-    /// add cryptocurrency 
+    /// create cryptocurrency 
     /// </summary>
     [HttpPost]
-    public async Task<IActionResult> AddCryptocurrency([FromBody] AddCryptocurrencyRequest request)
+    public async Task<IActionResult> CreateCryptocurrency([FromBody] CreateCryptocurrencyRequest request)
     {
-        var command = new CreateCryptocurrencyCommand(request.Symbol, request.Name); // todo: use mapper
-        var response = await _mediatr.Send(command);
+        var command = _mapper.Map<CreateCryptocurrencyCommand>(request);
+        var result = await _mediatr.Send(command);
 
+        var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
     }
     
@@ -50,10 +47,7 @@ public class CryptocurrencyController : ApiController
         var command = new GetCryptocurrencyByIdQuery(cryptocurrencyId);
         var result = await _mediatr.Send(command);
 
-        var response = new CryptocurrencyResponse(
-            result.Id,
-            result.Symbol,
-            result.Name);
+        var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
     }
 
@@ -64,8 +58,20 @@ public class CryptocurrencyController : ApiController
     public async Task<IActionResult> DeleteCryptocurrency([FromRoute] Guid cryptocurrencyId)
     {
         var command = new DeleteCryptocurrencyCommand(cryptocurrencyId);
-        var response = await _mediatr.Send(command);
+        var result = await _mediatr.Send(command);
 
+        var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
+    }
+
+    /// <summary>
+    /// get cryptocurrencies 
+    /// </summary>
+    [HttpGet]
+    public IActionResult GetCryptocurrencies()
+    {
+        var cryptocurrencies = _cryptocurrencyRepository.GetCryptocurrencies();
+
+        return Ok(cryptocurrencies);
     }
 }

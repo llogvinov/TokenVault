@@ -21,7 +21,7 @@ public class CryptocurrencyRepository : ICryptocurrencyRepository
         }
     }
 
-    public IEnumerable<Cryptocurrency> GetAll()
+    public IEnumerable<Cryptocurrency> GetCryptocurrencies()
     {
         return _cryptocurrencies;
     }

@@ -1,7 +1,7 @@
 using MediatR;
-using TokenVault.Contracts.Cryptocurrency;
+using TokenVault.Application.Features.Cryptocurrencies.Common;
 
 namespace TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCryptocurrency;
 
 public record DeleteCryptocurrencyCommand(
-    Guid CryptocurrencyId) : IRequest<CryptocurrencyResponse>;
+    Guid CryptocurrencyId) : IRequest<CryptocurrencyResult>;

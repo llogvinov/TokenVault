@@ -20,7 +20,6 @@ public static class DependencyInjection
 
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
-        services.AddScoped<CryptocurrencyService>();
         services.AddScoped<TransactionsService>();
         services.AddScoped<PortfolioService>();
         services.AddScoped<AssetsService>();

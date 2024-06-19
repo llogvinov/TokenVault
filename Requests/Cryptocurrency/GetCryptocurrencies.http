@@ -1,2 +1,2 @@
-GET  {{host}}/cryptocurrency
+GET  {{host}}/cryptocurrencies
 Authorization: Bearer {{token}}
