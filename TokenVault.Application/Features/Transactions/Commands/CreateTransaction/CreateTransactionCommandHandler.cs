@@ -1,12 +1,12 @@
 using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Transactions.Common;
+using TokenVault.Application.Features.Transactions.Common;
 using TokenVault.Domain.Entities;
 
-namespace TokenVault.Application.Transactions.Commands.Create;
+namespace TokenVault.Application.Features.Transactions.Commands.CreateTransaction;
 
-public partial class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
+public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
@@ -22,14 +22,16 @@ public partial class CreateTransactionCommandHandler : IRequestHandler<CreateTra
         _mapper = mapper;
     }
 
-    public async Task<SingleTransactionResult> Handle(CreateTransactionCommand command, CancellationToken cancellationToken)
+    public async Task<SingleTransactionResult> Handle(
+        CreateTransactionCommand command,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
         var transactionDetails = GetTransactionDetails(command);
         var transaction = _mapper.Map<Transaction>((command, transactionDetails));
         _transactionRepository.Add(transaction);
-        
+
         var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyById(command.CryptocurrencyId);
         var symbol = cryptocurrency?.Symbol ?? "Unknown";
 

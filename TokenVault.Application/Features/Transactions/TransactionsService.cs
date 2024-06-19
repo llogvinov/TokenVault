@@ -2,12 +2,12 @@ using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Assets;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Transactions.Commands.Create;
-using TokenVault.Application.Transactions.Commands.Delete;
-using TokenVault.Application.Transactions.Common;
+using TokenVault.Application.Features.Transactions.Commands.CreateTransaction;
+using TokenVault.Application.Features.Transactions.Commands.DeleteTransaction;
+using TokenVault.Application.Features.Transactions.Common;
+using TokenVault.Application.Features.Transactions.Queries.GetTransactionsByPortfolioId;
+using TokenVault.Application.Features.Transactions.Queries.GetTransactionsByUserId;
 using TokenVault.Application.Transactions.Queries.GetByCryptocurrencyId;
-using TokenVault.Application.Transactions.Queries.GetByPortfolioId;
-using TokenVault.Application.Transactions.Queries.GetByUserId;
 using TokenVault.Contracts.Transactions;
 using TokenVault.Domain.Entities;
 

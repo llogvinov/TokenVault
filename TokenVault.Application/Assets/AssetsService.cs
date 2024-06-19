@@ -1,5 +1,5 @@
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Transactions.Common;
+using TokenVault.Application.Features.Transactions.Common;
 using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Assets;

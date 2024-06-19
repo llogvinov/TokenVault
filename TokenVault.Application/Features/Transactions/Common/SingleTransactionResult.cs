@@ -1,4 +1,4 @@
-namespace TokenVault.Application.Transactions.Common;
+namespace TokenVault.Application.Features.Transactions.Common;
 
 public record SingleTransactionResult(
     Guid Id,
@@ -8,5 +8,4 @@ public record SingleTransactionResult(
     string AssetSymbol,
     double Amount,
     double PricePerToken,
-    double TotalPrice
-);
+    double TotalPrice);

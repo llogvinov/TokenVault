@@ -1,6 +1,6 @@
 using Mapster;
-using TokenVault.Application.Transactions.Commands.Create;
-using TokenVault.Application.Transactions.Common;
+using TokenVault.Application.Features.Transactions.Commands.CreateTransaction;
+using TokenVault.Application.Features.Transactions.Common;
 using TokenVault.Contracts.Transactions;
 using TokenVault.Domain.Entities;
 

@@ -1,10 +1,11 @@
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Transactions.Common;
+using TokenVault.Application.Features.Transactions.Common;
 
-namespace TokenVault.Application.Transactions.Queries.GetByPortfolioId;
+namespace TokenVault.Application.Features.Transactions.Queries.GetTransactionsByPortfolioId;
 
-public class GetTransactionsByPortfolioIdQueryHandler : IRequestHandler<GetTransactionsByPortfolioIdQuery, TransactionsResult>
+public class GetTransactionsByPortfolioIdQueryHandler : 
+IRequestHandler<GetTransactionsByPortfolioIdQuery, TransactionsResult>
 {
     private readonly ITransactionRepository _transactionRepository;
 
@@ -13,7 +14,9 @@ public class GetTransactionsByPortfolioIdQueryHandler : IRequestHandler<GetTrans
         _transactionRepository = transactionRepository;
     }
 
-    public async Task<TransactionsResult> Handle(GetTransactionsByPortfolioIdQuery query, CancellationToken cancellationToken)
+    public async Task<TransactionsResult> Handle(
+        GetTransactionsByPortfolioIdQuery query,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
 
