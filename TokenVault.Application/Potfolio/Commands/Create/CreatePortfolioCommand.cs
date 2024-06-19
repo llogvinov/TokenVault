@@ -6,4 +6,4 @@ namespace TokenVault.Application.Potfolio.Commands.Create;
 public record CreatePortfolioCommand(
     string Title,
     Guid UserId
-) : IRequest<CreatePortfolioResult>;
+) : IRequest<PortfolioResult>;

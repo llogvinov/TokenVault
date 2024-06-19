@@ -4,9 +4,11 @@ namespace TokenVault.Application.Common.Interfaces.Persistence;
 
 public interface IPortfolioRepository
 {
-    void Add(Portfolio portfolio);
+    Task CreateAsync(Portfolio portfolio);
 
-    void Delete(Guid id);
+    Task DeleteAsync(Guid id);
 
-    Portfolio? GetPortfolioById(Guid id);
+    Task<IEnumerable<Portfolio>> GetPortfoliosAsync(Guid userId);
+
+    Task<Portfolio?> GetPortfolioByIdAsync(Guid id);
 }
