@@ -1,22 +1,30 @@
+using MapsterMapper;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using TokenVault.Application.Transactions;
+using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Features.Transactions.Commands.CreateTransaction;
+using TokenVault.Application.Features.Transactions.Commands.DeleteTransaction;
+using TokenVault.Application.Features.Transactions.Queries.GetTransactionsByPortfolioId;
+using TokenVault.Application.Features.Transactions.Queries.GetTransactionsByUserId;
 using TokenVault.Contracts.Transactions;
 
 namespace TokenVault.Api.Controllers;
 
+[Route("portfolio/{portfolioId}/transactions")]
 public class TransactionsController : ApiController
 {
-    private TransactionsService _transactionsService;
+    private readonly ITransactionRepository _transactionRepository;
+    private readonly ISender _mediatr;
+    private readonly IMapper _mapper;
 
-    public TransactionsController(TransactionsService transactionsService)
+    public TransactionsController(ITransactionRepository transactionRepository, ISender mediatr, IMapper mapper)
     {
-        _transactionsService = transactionsService;
+        _transactionRepository = transactionRepository;
+        _mediatr = mediatr;
+        _mapper = mapper;
     }
 
-    /// <summary>
-    /// create transaction
-    /// </summary>
-    [HttpPost("{portfolioId}/create")]
+    [HttpPost]
     public async Task<IActionResult> CreateTransaction(
         [FromRoute] Guid portfolioId,
         [FromBody] CreateTransactionRequest request)
@@ -27,14 +35,58 @@ public class TransactionsController : ApiController
             return Unauthorized();
         }
 
-        var response = await _transactionsService.CreateTransactionAsync(request, userId, portfolioId);
+        var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
+        var transactionResult = await _mediatr.Send(command);
 
+        // _assetsService.UpdateAssetInPortfolio(transaction);
+        
+        var response = _mapper.Map<CreateTransactionResponse>(transactionResult);
+        
         return Ok(response);
     }
 
-    /// <summary>
-    /// get transactions by user id
-    /// </summary>
+    [HttpGet]
+    public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
+    {
+        var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
+        var transactionsResult = await _mediatr.Send(query);
+        
+        return Ok(transactionsResult.Transactions);
+    }
+
+    [HttpGet("{transactionId}")]
+    public IActionResult GetTransaction([FromRoute] Guid transactionId)
+    {
+        return Ok();
+    }
+
+    [HttpDelete("{transactionId}")]
+    public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
+    {
+        var userId = GetUserId();
+        if (userId == default)
+        {
+            return Unauthorized();
+        }
+
+        var transaction = _transactionRepository.GetTransactionById(transactionId);
+        if (transaction is null)
+        {
+            throw new ArgumentNullException(nameof(transaction));
+        }
+        else if (userId != transaction.UserId)
+        {
+            throw new Exception("You have no rights to delete this transaction");
+        }
+
+        var command = new DeleteTransactionCommand(transaction);
+        var transactionResult = await _mediatr.Send(command);
+
+        // update transaction details
+
+        return Ok(transactionResult);
+    }
+
     [HttpGet]
     public async Task<IActionResult> GetTransactionsByUserId()
     {
@@ -44,47 +96,69 @@ public class TransactionsController : ApiController
             return Unauthorized();
         }
 
-        var transactions = await _transactionsService.GetTransactionsByUserIdAsync(userId);
+        var query = new GetTransactionsByUserIdQuery(userId);
+        var transactionsResult = await _mediatr.Send(query);
 
-        return Ok(transactions);
+        return Ok(transactionsResult.Transactions);
     }
 
-    /// <summary>
-    /// get transactions by portfolio id
-    /// </summary>
-    [HttpGet("by-portfolio")]
-    public async Task<IActionResult> GetTransactionsByPortfolioId([FromQuery] Guid portfolioId)
-    {
-        var transactions = await _transactionsService.GetTransactionsByPortfolioIdAsync(portfolioId);
+    // [HttpPost("{portfolioId}/create")]
+    // public async Task<IActionResult> CreateTransaction(
+    //     [FromRoute] Guid portfolioId,
+    //     [FromBody] CreateTransactionRequest request)
+    // {
+    //     var userId = GetUserId();
+    //     if (userId == default)
+    //     {
+    //         return Unauthorized();
+    //     }
 
-        return Ok(transactions);
-    }
+    //     var response = await _transactionsService.CreateTransactionAsync(request, userId, portfolioId);
 
-    /// <summary>
-    /// get transactions by portfolio id
-    /// </summary>
-    [HttpGet("by-cryptocurrency")]
-    public async Task<IActionResult> GetTransactionsByCryptocurrencyId([FromQuery] Guid cryptocurrencyId)
-    {
-        var transactions = await _transactionsService.GetTransactionsByCryptocurrencyId(cryptocurrencyId);
+    //     return Ok(response);
+    // }
 
-        return Ok(transactions);
-    }
+    // [HttpGet]
+    // public async Task<IActionResult> GetTransactionsByUserId()
+    // {
+    //     var userId = GetUserId();
+    //     if (userId == default)
+    //     {
+    //         return Unauthorized();
+    //     }
 
-    /// <summary>
-    /// delete transaction by id
-    /// </summary>
-    [HttpPost("{transactionId}/delete")]
-    public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
-    {
-        var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
+    //     var transactions = await _transactionsService.GetTransactionsByUserIdAsync(userId);
 
-        var response = await _transactionsService.DeleteTransactionAsync(userId, transactionId);
+    //     return Ok(transactions);
+    // }
 
-        return Ok(response);
-    }
+    // [HttpGet("by-portfolio")]
+    // public async Task<IActionResult> GetTransactionsByPortfolioId([FromQuery] Guid portfolioId)
+    // {
+    //     var transactions = await _transactionsService.GetTransactionsByPortfolioIdAsync(portfolioId);
+
+    //     return Ok(transactions);
+    // }
+
+    // [HttpGet("by-cryptocurrency")]
+    // public async Task<IActionResult> GetTransactionsByCryptocurrencyId([FromQuery] Guid cryptocurrencyId)
+    // {
+    //     var transactions = await _transactionsService.GetTransactionsByCryptocurrencyId(cryptocurrencyId);
+
+    //     return Ok(transactions);
+    // }
+
+    // [HttpPost("{transactionId}/delete")]
+    // public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
+    // {
+    //     var userId = GetUserId();
+    //     if (userId == default)
+    //     {
+    //         return Unauthorized();
+    //     }
+
+    //     var response = await _transactionsService.DeleteTransactionAsync(userId, transactionId);
+
+    //     return Ok(response);
+    // }
 }

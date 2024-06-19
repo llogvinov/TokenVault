@@ -17,18 +17,18 @@ public class TransactionsService
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly AssetsService _assetsService;
-    private readonly ISender _mediator;
+    private readonly ISender _mediatr;
     private readonly IMapper _mapper;
 
     public TransactionsService(
         ITransactionRepository transactionRepository,
         AssetsService assetsService,
-        ISender mediator,
+        ISender mediatr,
         IMapper mapper)
     {
         _transactionRepository = transactionRepository;
         _assetsService = assetsService;
-        _mediator = mediator;
+        _mediatr = mediatr;
         _mapper = mapper;
     }
 
@@ -38,7 +38,7 @@ public class TransactionsService
         Guid portfolioId)
     {
         var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
-        var transaction = await _mediator.Send(command);
+        var transaction = await _mediatr.Send(command);
 
         _assetsService.UpdateAssetInPortfolio(transaction);
         
@@ -50,7 +50,7 @@ public class TransactionsService
     public async Task<IEnumerable<Transaction>> GetTransactionsByUserIdAsync(Guid userId)
     {
         var query = new GetTransactionsByUserIdQuery(userId);
-        var transactionsResult = await _mediator.Send(query);
+        var transactionsResult = await _mediatr.Send(query);
 
         return transactionsResult.Transactions;
     }
@@ -58,7 +58,7 @@ public class TransactionsService
     public async Task<IEnumerable<Transaction>> GetTransactionsByPortfolioIdAsync(Guid portfolioId)
     {
         var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
-        var transactionsResult = await _mediator.Send(query);
+        var transactionsResult = await _mediatr.Send(query);
 
         return transactionsResult.Transactions;
     }
@@ -66,7 +66,7 @@ public class TransactionsService
     public async Task<IEnumerable<Transaction>> GetTransactionsByCryptocurrencyId(Guid cryptocurrencyId)
     {
         var query = new GetTransactionsByCryptocurrencyIdQuery(cryptocurrencyId);
-        var transactionsResult = await _mediator.Send(query);
+        var transactionsResult = await _mediatr.Send(query);
 
         return transactionsResult.Transactions;
     }
@@ -84,7 +84,7 @@ public class TransactionsService
         }
 
         var command = new DeleteTransactionCommand(transaction);
-        var transactionResult = await _mediator.Send(command);
+        var transactionResult = await _mediatr.Send(command);
 
         // update transaction details
 
