@@ -1,5 +1,6 @@
 
 using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCryptocurrency;
 using TokenVault.Contracts.Cryptocurrency;
 using TokenVault.Domain.Entities;
 
@@ -10,16 +11,6 @@ public class CryptocurrencyService
     public CryptocurrencyService(ICryptocurrencyRepository cryptocurrencyRepository)
     {
         _cryptocurrencyRepository = cryptocurrencyRepository;
-    }
-
-    public void AddCryptocurrency(AddCryptocurrencyRequest request)
-    {
-        var cryptocurrency = new Cryptocurrency
-        {
-            Symbol = request.Symbol,
-            Name = request.Name,
-        };
-        _cryptocurrencyRepository.Add(cryptocurrency);
     }
 
     public void DeleteCryptocurrency(Guid cryptocurrencyId)
