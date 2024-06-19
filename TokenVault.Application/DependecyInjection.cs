@@ -2,7 +2,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using TokenVault.Application.Assets;
 using TokenVault.Application.Common.Mapping;
-using TokenVault.Application.Potfolio;
+using TokenVault.Application.Features.Potfolios;
 using TokenVault.Application.Transactions;
 
 namespace TokenVault.Application;
@@ -21,7 +21,6 @@ public static class DependencyInjection
     public static IServiceCollection AddApplicationServices(this IServiceCollection services)
     {
         services.AddScoped<TransactionsService>();
-        services.AddScoped<PortfolioService>();
         services.AddScoped<AssetsService>();
 
         return services;

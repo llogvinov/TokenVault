@@ -1,7 +1,7 @@
-POST {{host}}/portfolio/create
+POST {{host}}/portfolios
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "title": "Main Wallet"
+    "title": "Lishniy Wallet"
 }

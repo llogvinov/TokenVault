@@ -1,6 +1,6 @@
 namespace TokenVault.Contracts.Portfolio;
 
-public record CreatePortfolioResponse(
+public record PortfolioResponse(
     Guid Id,
     Guid UserId,
     string Title

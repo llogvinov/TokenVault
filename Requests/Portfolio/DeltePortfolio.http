@@ -1,9 +1,4 @@
-@portfolioId = aeb5f56a-9c25-4eb1-bdd2-15fe16236d35
+@portfolioId = 4d080195-a00f-4cb6-9e86-e789061e128c
 
-DELETE {{host}}/portfolio/delete/{{portfolioId}}
+DELETE {{host}}/portfolios/{{portfolioId}}
 Authorization: Bearer {{token}}
-Content-Type: application/json
-
-{
-    "title": "Main Wallet"
-}

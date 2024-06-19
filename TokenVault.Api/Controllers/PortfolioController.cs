@@ -2,8 +2,9 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Potfolio;
-using TokenVault.Application.Potfolio.Commands.Create;
+using TokenVault.Application.Features.Potfolios.Commands.CreatePortfolio;
+using TokenVault.Application.Features.Potfolios.Commands.DeletePortfolio;
+using TokenVault.Application.Features.Potfolios.Queries.GetPortfolioById;
 using TokenVault.Contracts.Portfolio;
 
 namespace TokenVault.Api.Controllers;
@@ -11,18 +12,15 @@ namespace TokenVault.Api.Controllers;
 public class PortfoliosController : ApiController
 {
     private readonly IPortfolioRepository _portfoliosRepository;
-    private readonly PortfolioService _portfolioService;
     private readonly ISender _mediatr;
     private readonly IMapper _mapper;
 
     public PortfoliosController(
         IPortfolioRepository portfoliosRepository,
-        PortfolioService portfolioService,
         ISender mediatr,
         IMapper mapper)
     {
         _portfoliosRepository = portfoliosRepository;
-        _portfolioService = portfolioService;
         _mediatr = mediatr;
         _mapper = mapper;
     }
@@ -40,7 +38,6 @@ public class PortfoliosController : ApiController
         }
 
         var response = await _portfoliosRepository.GetPortfoliosAsync(userId);
-
         return Ok(response);
     }
 
@@ -56,14 +53,10 @@ public class PortfoliosController : ApiController
             return Unauthorized();
         }
 
-        var command = new CreatePortfolioCommand(request.Title, userId);
-        var createPortfolioResult = await _mediatr.Send(command);
+        var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
+        var portfolioResult = await _mediatr.Send(command);
 
-        var response = new CreatePortfolioResponse(
-            createPortfolioResult.PortfolioId,
-            createPortfolioResult.UserId,
-            createPortfolioResult.Title);
-
+        var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);
     }
 
@@ -79,9 +72,11 @@ public class PortfoliosController : ApiController
             return Unauthorized();
         }
 
-        var portfolio = await _portfoliosRepository.GetPortfolioByIdAsync(portfolioId);
+        var query = new GetPortfolioByIdQuery(portfolioId);
+        var portfolioResult = await _mediatr.Send(query);
 
-        return Ok(portfolio);
+        var response = _mapper.Map<PortfolioResponse>(portfolioResult);
+        return Ok(response);
     }
 
     /// <summary>
@@ -96,8 +91,10 @@ public class PortfoliosController : ApiController
             return Unauthorized();
         }
 
-        var response = await _portfolioService.DeletePortfolio(portfolioId);
+        var command = new DeletePortfolioCommand(portfolioId);
+        var portfolioResult = await _mediatr.Send(command);
 
+        var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);
     }
 }
