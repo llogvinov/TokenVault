@@ -1,11 +1,11 @@
-@portfolioId = 2d116012-90f1-4703-87de-02f10996eb57
+@portfolioId = 7513cf70-1fb2-402f-8012-4b20b1133d38
 
 POST {{host}}/portfolio/{{portfolioId}}/transactions
 Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "cryptocurrencyId": "264ac520-b57e-418a-b96d-e703e8c5ed1c",
-    "amount": 0.1,
-    "pricePerToken": 30000
+    "cryptocurrencyId": "3a01e18b-6e07-4b1d-a41f-b458414a9ee7",
+    "amount": 0.2,
+    "pricePerToken": 20000
 }
