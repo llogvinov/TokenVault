@@ -55,12 +55,6 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
             a.CryptocurrencyId == cryptocurrencyId && 
             a.PortfolioId == portfolioId);
         
-        if (portfolioAsset is null)
-        {
-            throw new ArgumentNullException(nameof(portfolioAsset),
-                $"Portfolio asset with given id: {cryptocurrencyId} does not exist");
-        }
-        
         return portfolioAsset;
     }
 

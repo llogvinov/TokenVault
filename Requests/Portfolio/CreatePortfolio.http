@@ -3,5 +3,5 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "title": "Lishniy Wallet"
+    "title": "Main Wallet"
 }
