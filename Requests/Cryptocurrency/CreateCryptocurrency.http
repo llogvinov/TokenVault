@@ -3,6 +3,6 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "symbol": "nBTC",
-    "name": "neBitcoin"
+    "symbol": "BTC",
+    "name": "Bitcoin"
 }

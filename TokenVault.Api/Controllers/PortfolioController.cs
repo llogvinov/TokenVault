@@ -2,10 +2,12 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Features.PortfolioAssets.Queries.GetPortfolioAssetsByPortfolioId;
 using TokenVault.Application.Features.Potfolios.Commands.CreatePortfolio;
 using TokenVault.Application.Features.Potfolios.Commands.DeletePortfolio;
 using TokenVault.Application.Features.Potfolios.Queries.GetPortfolioById;
 using TokenVault.Contracts.Portfolio;
+using TokenVault.Domain.Entities;
 
 namespace TokenVault.Api.Controllers;
 
@@ -75,8 +77,12 @@ public class PortfoliosController : ApiController
         var query = new GetPortfolioByIdQuery(portfolioId);
         var portfolioResult = await _mediatr.Send(query);
 
+        var getPortfolioAssetsQuery = new GetPortfolioAssetsByPortfolioIdQuery(portfolioId);
+        var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery);
+
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
-        return Ok(response);
+        var r = new PortfolioDetailedResult(response, portfolioAssetsResult);
+        return Ok(r);
     }
 
     /// <summary>
@@ -98,3 +104,7 @@ public class PortfoliosController : ApiController
         return Ok(response);
     }
 }
+
+public record PortfolioDetailedResult(
+    PortfolioResponse Response,
+    IEnumerable<PortfolioAsset> PortfolioAssets);
