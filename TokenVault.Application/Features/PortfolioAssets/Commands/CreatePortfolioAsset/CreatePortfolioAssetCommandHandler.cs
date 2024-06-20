@@ -1,6 +1,7 @@
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Features.PortfolioAssets.Common;
+using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Features.PortfolioAssets.Commands.CreatePortfolioAsset;
 
@@ -18,14 +19,22 @@ public class CreatePortfolioAssetCommandHandler :
         CreatePortfolioAssetCommand command,
         CancellationToken cancellationToken)
     {
-        await _portfolioAssetRepository.CreateAsync();
+        var portfolioAsset = new PortfolioAsset
+        {
+            CryptocurrencyId = command.CryptocurrencyId,
+            PortfolioId = command.PortfolioId,
+            Amount = command.Amount,
+            AveragePrice = command.AveragePrice,
+            Invested = command.Invested
+        };
+        await _portfolioAssetRepository.CreateAsync(portfolioAsset);
 
         var portfolioAssetResult = new PortfolioAssetResult(
-            command.CryptocurrencyId,
-            command.PortfolioId,
-            command.Amount,
-            command.AveragePrice,
-            command.Invested);
+            portfolioAsset.CryptocurrencyId,
+            portfolioAsset.PortfolioId,
+            portfolioAsset.Amount,
+            portfolioAsset.AveragePrice,
+            portfolioAsset.Invested);
         return portfolioAssetResult;
     }
 }

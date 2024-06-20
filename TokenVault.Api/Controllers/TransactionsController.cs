@@ -89,7 +89,7 @@ public class TransactionsController : ApiController
         return Ok(transactionResult);
     }
 
-    [HttpGet]
+    [HttpGet("/transactions")]
     public async Task<IActionResult> GetTransactionsByUserIdAsync()
     {
         var userId = GetUserId();

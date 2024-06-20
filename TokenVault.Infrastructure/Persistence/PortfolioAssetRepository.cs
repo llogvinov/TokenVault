@@ -15,7 +15,7 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
         _portfolioAssets.Add(portfolioAsset);
     }
 
-    public async Task UpdateAsync(
+    public async Task<PortfolioAsset> UpdateAsync(
         Guid cryptocurrencyId,
         Guid portfolioId,
         UpdatePortfolioAssetDetails updatePortfolioAssetDetails)
@@ -23,12 +23,17 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
         await Task.CompletedTask;
 
         var portfolioAsset = await GetPortfolioAssetAsync(cryptocurrencyId, portfolioId);
-        if (portfolioAsset is not null)
+        if (portfolioAsset is null)
         {
-            portfolioAsset.Amount = updatePortfolioAssetDetails.Amount;
-            portfolioAsset.AveragePrice = updatePortfolioAssetDetails.AveragePrice;
-            portfolioAsset.Invested = updatePortfolioAssetDetails.Invested;
+            throw new ArgumentNullException(nameof(portfolioAsset),
+                $"Portfolio asset with given id: {cryptocurrencyId} does not exist");
         }
+        
+        portfolioAsset.Amount = updatePortfolioAssetDetails.Amount;
+        portfolioAsset.AveragePrice = updatePortfolioAssetDetails.AveragePrice;
+        portfolioAsset.Invested = updatePortfolioAssetDetails.Invested;
+
+        return portfolioAsset;
     }
 
     public async Task DeleteAsync(Guid cryptocurrencyId, Guid portfolioId)

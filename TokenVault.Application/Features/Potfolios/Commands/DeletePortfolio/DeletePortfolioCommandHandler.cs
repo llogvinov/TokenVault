@@ -10,16 +10,13 @@ namespace TokenVault.Application.Features.Potfolios.Commands.DeletePortfolio;
 public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioCommand, PortfolioResult>
 {
     private readonly IPortfolioRepository _portfolioRepository;
-    private readonly TransactionsService _transactionsService;
     private readonly IMapper _mapper;
 
     public DeletePortfolioCommandHandler(
         IPortfolioRepository portfolioRepository,
-        TransactionsService transactionsService,
         IMapper mapper)
     {
         _portfolioRepository = portfolioRepository;
-        _transactionsService = transactionsService;
         _mapper = mapper;
     }
 
@@ -39,7 +36,6 @@ public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioComm
         };
 
         await _portfolioRepository.DeleteAsync(command.PortfolioId);
-        _transactionsService.DeleteAllPortfolioTransactions(command.PortfolioId);
 
         var portfolioResult = _mapper.Map<PortfolioResult>(portfolioCopy);
         return portfolioResult;

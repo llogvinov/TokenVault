@@ -3,6 +3,6 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "symbol": "ETH",
-    "name": "Etherium"
+    "symbol": "BTC",
+    "name": "Bitcoin"
 }

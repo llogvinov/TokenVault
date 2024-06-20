@@ -7,7 +7,7 @@ public interface IPortfolioAssetRepository
 {
     Task CreateAsync(PortfolioAsset portfolioAsset);
 
-    Task UpdateAsync(Guid cryptocurrencyId, Guid portfolioId, UpdatePortfolioAssetDetails updatePortfolioAssetDetails);
+    Task<PortfolioAsset> UpdateAsync(Guid cryptocurrencyId, Guid portfolioId, UpdatePortfolioAssetDetails updatePortfolioAssetDetails);
 
     Task DeleteAsync(Guid cryptocurrencyId, Guid portfolioId);
 
