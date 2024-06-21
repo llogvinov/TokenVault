@@ -2,4 +2,3 @@
 
 DELETE {{host}}/cryptocurrencies/{{cryptocurrencyId}}
 Authorization: Bearer {{token}}
-Content-Type: application/json

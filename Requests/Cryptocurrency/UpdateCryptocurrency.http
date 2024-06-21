@@ -1,0 +1,9 @@
+@cryptocurrencyId = cd07c149-9bfe-4656-811c-ed4d45d98a83
+
+PUT {{host}}/cryptocurrencies/{{cryptocurrencyId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+    "name": "Poly Network"
+}

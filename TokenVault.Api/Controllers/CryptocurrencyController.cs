@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCryptocurrency;
 using TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCryptocurrency;
+using TokenVault.Application.Features.Cryptocurrencies.Commands.UpdateCryptocurrency;
 using TokenVault.Application.Features.Cryptocurrencies.Queries.GetCryptocurrencyById;
 using TokenVault.Contracts.Cryptocurrency;
 
@@ -45,6 +46,21 @@ public class CryptocurrenciesController : ApiController
     public async Task<IActionResult> GetCryptocurrencyAsync([FromRoute] Guid cryptocurrencyId)
     {
         var command = new GetCryptocurrencyByIdQuery(cryptocurrencyId);
+        var result = await _mediatr.Send(command);
+
+        var response = _mapper.Map<CryptocurrencyResponse>(result);
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// get cryptocurrency by id  
+    /// </summary>
+    [HttpPut("{cryptocurrencyId}")]
+    public async Task<IActionResult> UpdateCryptocurrencyAsync(
+        [FromRoute] Guid cryptocurrencyId,
+        [FromBody] UpdateCryptocurrencyRequest request)
+    {
+        var command = new UpdateCryptocurrencyCommand(cryptocurrencyId, request);
         var result = await _mediatr.Send(command);
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
