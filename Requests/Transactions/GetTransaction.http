@@ -1,4 +1,4 @@
-@portfolioId = 7513cf70-1fb2-402f-8012-4b20b1133d38
+@portfolioId = 2001dcbb-6ade-4f0b-a6d2-d2851c6fabbf
 @transactionId = 183da43c-333a-44ae-84a3-e3e4e03db2c6
 
 GET {{host}}/portfolio/{{portfolioId}}/transactions/{{transactionId}}
