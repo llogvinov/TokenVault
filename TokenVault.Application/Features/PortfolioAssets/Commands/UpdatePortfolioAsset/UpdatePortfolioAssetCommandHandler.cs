@@ -57,7 +57,7 @@ public class UpdatePortfolioAssetCommandHandler :
         UpdatePortfolioAssetDetails updatePortfolioAssetDetails)
     {
         var amount = asset.Amount + updatePortfolioAssetDetails.Amount;
-        var invested = asset.Invested + updatePortfolioAssetDetails.Invested;
+        var invested = asset.Invested + updatePortfolioAssetDetails.TotalPrice;
         var averagePrice = invested / amount;
 
         var updateAssetDetails = new UpdatePortfolioAssetDetails(amount, averagePrice, invested);

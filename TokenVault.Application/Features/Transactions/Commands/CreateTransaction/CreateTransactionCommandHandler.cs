@@ -26,8 +26,7 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         CreateTransactionCommand command,
         CancellationToken cancellationToken)
     {
-        var transactionDetails = GetTransactionDetails(command);
-        var transaction = _mapper.Map<Transaction>((command, transactionDetails));
+        var transaction = _mapper.Map<Transaction>(command);
         await _transactionRepository.CreateAsync(transaction);
 
         var cryptocurrency = await _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
@@ -36,59 +35,5 @@ public class CreateTransactionCommandHandler : IRequestHandler<CreateTransaction
         var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));
 
         return transactionResult;
-    }
-
-    private TransactionDetails GetTransactionDetails(CreateTransactionCommand command)
-    {
-        if (command.TotalPrice is null)
-        {
-            return CalculateTotal(command.PricePerToken, command.Amount);
-        }
-        else if (command.PricePerToken is null)
-        {
-            return CalculatePrice(command.Amount, command.TotalPrice);
-        }
-        else if (command.Amount is null)
-        {
-            return CalculateQuantity(command.PricePerToken, command.TotalPrice);
-        }
-
-        throw new ArgumentException("Exactly one of the parameters must be null and the others must be non-null.");
-    }
-
-    private TransactionDetails CalculateTotal(double? price, double? quantity)
-    {
-        if (price is double p &&
-            quantity is double q)
-        {
-            var t = p * q;
-            return new TransactionDetails(q, p, t);
-        }
-
-        throw new ArgumentException("price or quantity is null");
-    }
-
-    private TransactionDetails CalculateQuantity(double? price, double? total)
-    {
-        if (price is double p &&
-            total is double t)
-        {
-            var q = t / p;
-            return new TransactionDetails(q, p, t);
-        }
-
-        throw new ArgumentException("price or total is null");
-    }
-
-    private TransactionDetails CalculatePrice(double? quantity, double? total)
-    {
-        if (quantity is double q &&
-            total is double t)
-        {
-            var p = t / q;
-            return new TransactionDetails(q, p, t);
-        }
-
-        throw new ArgumentException("quantity or total is null");
-    }
+    }    
 }

@@ -30,8 +30,8 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
         }
         
         portfolioAsset.Amount = updatePortfolioAssetDetails.Amount;
-        portfolioAsset.AveragePrice = updatePortfolioAssetDetails.AveragePrice;
-        portfolioAsset.Invested = updatePortfolioAssetDetails.Invested;
+        portfolioAsset.AveragePrice = updatePortfolioAssetDetails.PricePerToken;
+        portfolioAsset.Invested = updatePortfolioAssetDetails.TotalPrice;
 
         return portfolioAsset;
     }
@@ -51,9 +51,8 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
     {
         await Task.CompletedTask;
 
-        var portfolioAsset = _portfolioAssets.SingleOrDefault(a => 
-            a.CryptocurrencyId == cryptocurrencyId && 
-            a.PortfolioId == portfolioId);
+        var portfolioAsset = _portfolioAssets.FirstOrDefault(a => 
+            a.CryptocurrencyId == cryptocurrencyId && a.PortfolioId == portfolioId);
         
         return portfolioAsset;
     }

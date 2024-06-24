@@ -40,14 +40,9 @@ public class TransactionsController : ApiController
         var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
         var transactionResult = await _mediatr.Send(command);
 
-        var updatePortfolioAssetDetails = new UpdatePortfolioAssetDetails(
-            transactionResult.Amount,
-            transactionResult.PricePerToken,
-            transactionResult.TotalPrice);
-        var updatePortfolioAssetCommand = new UpdatePortfolioAssetCommand(
-            transactionResult.CryptocurrencyId,
-            transactionResult.PortfolioId,
-            updatePortfolioAssetDetails);
+        var updatePortfolioAssetDetails = _mapper.Map<UpdatePortfolioAssetDetails>(transactionResult);
+        var updatePortfolioAssetCommand = _mapper.Map<UpdatePortfolioAssetCommand>(
+            (transactionResult, updatePortfolioAssetDetails));
         var portfolioAssetResult = await _mediatr.Send(updatePortfolioAssetCommand);
         
         var response = _mapper.Map<CreateTransactionResponse>(transactionResult);
