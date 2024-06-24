@@ -6,7 +6,8 @@ using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Features.Transactions.Commands.CreateTransaction;
 
-public class CreateTransactionCommandHandler : IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
+public class CreateTransactionCommandHandler : 
+    IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
 {
     private readonly ITransactionRepository _transactionRepository;
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;

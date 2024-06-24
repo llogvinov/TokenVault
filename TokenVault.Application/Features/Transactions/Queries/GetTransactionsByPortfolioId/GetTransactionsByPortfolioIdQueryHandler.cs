@@ -5,7 +5,7 @@ using TokenVault.Application.Features.Transactions.Common;
 namespace TokenVault.Application.Features.Transactions.Queries.GetTransactionsByPortfolioId;
 
 public class GetTransactionsByPortfolioIdQueryHandler : 
-IRequestHandler<GetTransactionsByPortfolioIdQuery, TransactionsResult>
+    IRequestHandler<GetTransactionsByPortfolioIdQuery, TransactionsResult>
 {
     private readonly ITransactionRepository _transactionRepository;
 

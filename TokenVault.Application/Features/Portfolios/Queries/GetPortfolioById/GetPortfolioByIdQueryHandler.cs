@@ -1,9 +1,9 @@
 using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Features.Potfolios.Common;
+using TokenVault.Application.Features.Portfolios.Common;
 
-namespace TokenVault.Application.Features.Potfolios.Queries.GetPortfolioById;
+namespace TokenVault.Application.Features.Portfolios.Queries.GetPortfolioById;
 
 public class GetPortfolioByIdQueryHandler : IRequestHandler<GetPortfolioByIdQuery, PortfolioResult>
 {

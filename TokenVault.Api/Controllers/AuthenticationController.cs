@@ -11,8 +11,8 @@ namespace TokenVault.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ControllerBase
 {
-    private ISender _mediator;
-    private IMapper _mapper;
+    private readonly ISender _mediator;
+    private readonly IMapper _mapper;
 
     public AuthenticationController(ISender mediator, IMapper mapper)
     {
@@ -27,7 +27,6 @@ public class AuthenticationController : ControllerBase
         var authResult = await _mediator.Send(command);
         
         var response = _mapper.Map<AuthenticationResponse>(authResult);
-        
         return Ok(response);
     }
 
@@ -38,7 +37,6 @@ public class AuthenticationController : ControllerBase
         var authResult = await _mediator.Send(query);
 
         var response = _mapper.Map<AuthenticationResponse>(authResult);
-        
         return Ok(response);
     }
 }

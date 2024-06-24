@@ -1,6 +1,6 @@
 using Mapster;
-using TokenVault.Application.Features.Potfolios.Commands.CreatePortfolio;
-using TokenVault.Application.Features.Potfolios.Common;
+using TokenVault.Application.Features.Portfolios.Commands.CreatePortfolio;
+using TokenVault.Application.Features.Portfolios.Common;
 using TokenVault.Contracts.Portfolio;
 using TokenVault.Domain.Entities;
 

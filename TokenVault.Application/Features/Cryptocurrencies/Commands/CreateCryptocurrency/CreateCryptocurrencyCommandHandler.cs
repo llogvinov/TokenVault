@@ -6,7 +6,8 @@ using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCryptocurrency;
 
-public class CreateCryptocurrencyCommandHandler : IRequestHandler<CreateCryptocurrencyCommand, CryptocurrencyResult>
+public class CreateCryptocurrencyCommandHandler : 
+    IRequestHandler<CreateCryptocurrencyCommand, CryptocurrencyResult>
 {
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
     private readonly IMapper _mapper;

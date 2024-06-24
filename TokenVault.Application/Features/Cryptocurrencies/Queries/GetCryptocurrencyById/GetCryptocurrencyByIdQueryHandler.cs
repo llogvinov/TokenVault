@@ -5,7 +5,8 @@ using TokenVault.Application.Features.Cryptocurrencies.Common;
 
 namespace TokenVault.Application.Features.Cryptocurrencies.Queries.GetCryptocurrencyById;
 
-public class GetCryptocurrencyByIdQueryHandler : IRequestHandler<GetCryptocurrencyByIdQuery, CryptocurrencyResult>
+public class GetCryptocurrencyByIdQueryHandler : 
+    IRequestHandler<GetCryptocurrencyByIdQuery, CryptocurrencyResult>
 {
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
     private readonly IMapper _mapper;

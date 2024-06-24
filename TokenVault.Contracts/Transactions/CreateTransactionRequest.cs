@@ -5,5 +5,4 @@ public record CreateTransactionRequest(
     double Amount,
     double PricePerToken,
     double TotalPrice,
-    DateTime? CreateDate
-);
+    DateTime? CreateDate);

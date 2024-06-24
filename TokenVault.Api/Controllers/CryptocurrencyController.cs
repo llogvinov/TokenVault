@@ -87,7 +87,6 @@ public class CryptocurrenciesController : ApiController
     public async Task<IActionResult> GetCryptocurrencies()
     {
         var cryptocurrencies = await _cryptocurrencyRepository.GetCryptocurrenciesAsync();
-
         return Ok(cryptocurrencies);
     }
 }

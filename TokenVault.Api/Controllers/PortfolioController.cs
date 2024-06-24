@@ -4,12 +4,11 @@ using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Application.Features.PortfolioAssets.Common;
 using TokenVault.Application.Features.PortfolioAssets.Queries.GetPortfolioAssetsByPortfolioId;
-using TokenVault.Application.Features.Potfolios.Commands.CreatePortfolio;
-using TokenVault.Application.Features.Potfolios.Commands.DeletePortfolio;
-using TokenVault.Application.Features.Potfolios.Common;
-using TokenVault.Application.Features.Potfolios.Queries.GetPortfolioById;
+using TokenVault.Application.Features.Portfolios.Commands.CreatePortfolio;
+using TokenVault.Application.Features.Portfolios.Commands.DeletePortfolio;
+using TokenVault.Application.Features.Portfolios.Common;
+using TokenVault.Application.Features.Portfolios.Queries.GetPortfolioById;
 using TokenVault.Contracts.Portfolio;
-using TokenVault.Domain.Entities;
 
 namespace TokenVault.Api.Controllers;
 

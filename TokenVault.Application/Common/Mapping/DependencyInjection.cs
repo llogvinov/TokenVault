@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace TokenVault.Application.Common.Mapping;
 
-public static class DependecyInjection
+public static class DependencyInjection
 {
     public static IServiceCollection AddMappings(this IServiceCollection services)
     {

@@ -1,11 +1,10 @@
 using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Features.Potfolios.Common;
-using TokenVault.Application.Transactions;
+using TokenVault.Application.Features.Portfolios.Common;
 using TokenVault.Domain.Entities;
 
-namespace TokenVault.Application.Features.Potfolios.Commands.DeletePortfolio;
+namespace TokenVault.Application.Features.Portfolios.Commands.DeletePortfolio;
 
 public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioCommand, PortfolioResult>
 {
@@ -20,7 +19,9 @@ public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioComm
         _mapper = mapper;
     }
 
-    public async Task<PortfolioResult> Handle(DeletePortfolioCommand command, CancellationToken cancellationToken)
+    public async Task<PortfolioResult> Handle(
+        DeletePortfolioCommand command,
+        CancellationToken cancellationToken)
     {
         var portfolio = await _portfolioRepository.GetPortfolioByIdAsync(command.PortfolioId);
         if (portfolio is null)

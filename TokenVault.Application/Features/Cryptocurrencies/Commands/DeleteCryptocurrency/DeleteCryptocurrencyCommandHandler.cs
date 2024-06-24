@@ -5,7 +5,8 @@ using TokenVault.Application.Features.Cryptocurrencies.Common;
 
 namespace TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCryptocurrency;
 
-public class DeleteCryptocurrencyCommandHandler : IRequestHandler<DeleteCryptocurrencyCommand, CryptocurrencyResult>
+public class DeleteCryptocurrencyCommandHandler : 
+    IRequestHandler<DeleteCryptocurrencyCommand, CryptocurrencyResult>
 {
     private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
     private readonly IMapper _mapper;

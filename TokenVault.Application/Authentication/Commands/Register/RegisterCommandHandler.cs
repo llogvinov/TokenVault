@@ -1,3 +1,4 @@
+using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Authentication.Common;
 using TokenVault.Application.Common.Interfaces.Authentication;
@@ -10,37 +11,35 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Authentic
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
     private readonly IUserRepository _userRepository;
+    private readonly IMapper _mapper;
 
-    public RegisterCommandHandler(IJwtTokenGenerator jwtTokenGenerator, IUserRepository userRepository)
+    public RegisterCommandHandler(
+        IJwtTokenGenerator jwtTokenGenerator,
+        IUserRepository userRepository,
+        IMapper mapper)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
+        _mapper = mapper;
     }
 
-    public async Task<AuthenticationResult> Handle(RegisterCommand command, CancellationToken cancellationToken)
+    public async Task<AuthenticationResult> Handle(
+        RegisterCommand command,
+        CancellationToken cancellationToken)
     {
         await Task.CompletedTask;
         
-        // validate the user doesn't exist
         if (_userRepository.GetUserByEmail(command.Email) is not null)
         {
             throw new Exception("User with given email already exists");
         }
 
-        // create new user
-        var user = new User
-        {
-            Name = command.Name,
-            Email = command.Email,
-            Password = command.Password
-        };
+        var user = _mapper.Map<User>(command);
         _userRepository.Add(user);
 
-        // create jwt token
         var token = _jwtTokenGenerator.GenerateToken(user);
         
-        return new AuthenticationResult(
-            user,
-            token);
+        var result = new AuthenticationResult(user, token);
+        return result;
     }
 }

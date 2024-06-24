@@ -1,10 +1,10 @@
 using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Application.Features.Potfolios.Common;
+using TokenVault.Application.Features.Portfolios.Common;
 using TokenVault.Domain.Entities;
 
-namespace TokenVault.Application.Features.Potfolios.Commands.CreatePortfolio;
+namespace TokenVault.Application.Features.Portfolios.Commands.CreatePortfolio;
 
 public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioCommand, PortfolioResult>
 {
@@ -19,7 +19,9 @@ public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioComm
         _mapper = mapper;
     }
 
-    public async Task<PortfolioResult> Handle(CreatePortfolioCommand command, CancellationToken cancellationToken)
+    public async Task<PortfolioResult> Handle(
+        CreatePortfolioCommand command,
+        CancellationToken cancellationToken)
     {
         var portfolio = _mapper.Map<Portfolio>(command);
         await _portfolioRepository.CreateAsync(portfolio);
