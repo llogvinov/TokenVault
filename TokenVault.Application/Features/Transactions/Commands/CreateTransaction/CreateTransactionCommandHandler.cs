@@ -10,17 +10,17 @@ public class CreateTransactionCommandHandler :
     IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
 {
     private readonly ITransactionRepository _transactionRepository;
-    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public CreateTransactionCommandHandler(
         ITransactionRepository transactionRepository,
-        ICryptocurrencyRepository cryptocurrencyRepository,
-        IMapper mapper)
+        IMapper mapper,
+        IUnitOfWork unitOfWork)
     {
         _transactionRepository = transactionRepository;
-        _cryptocurrencyRepository = cryptocurrencyRepository;
         _mapper = mapper;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<SingleTransactionResult> Handle(
@@ -30,7 +30,8 @@ public class CreateTransactionCommandHandler :
         var transaction = _mapper.Map<Transaction>(command);
         await _transactionRepository.CreateAsync(transaction);
 
-        var cryptocurrency = await _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
+        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
+            c => c.Id == command.CryptocurrencyId);
         var symbol = cryptocurrency?.Symbol ?? "Unknown";
 
         var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));

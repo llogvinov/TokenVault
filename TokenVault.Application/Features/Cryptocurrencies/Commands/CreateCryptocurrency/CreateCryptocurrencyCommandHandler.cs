@@ -9,14 +9,14 @@ namespace TokenVault.Application.Features.Cryptocurrencies.Commands.CreateCrypto
 public class CreateCryptocurrencyCommandHandler : 
     IRequestHandler<CreateCryptocurrencyCommand, CryptocurrencyResult>
 {
-    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public CreateCryptocurrencyCommandHandler(
-        ICryptocurrencyRepository cryptocurrencyRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _cryptocurrencyRepository = cryptocurrencyRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -25,7 +25,7 @@ public class CreateCryptocurrencyCommandHandler :
         CancellationToken cancellationToken)
     {
         var cryptocurrency = _mapper.Map<Cryptocurrency>(command);
-        await _cryptocurrencyRepository.CreateAsync(cryptocurrency);
+        await _unitOfWork.Cryptocurrency.AddAsync(cryptocurrency);
 
         var cryptocurrencyResult = _mapper.Map<CryptocurrencyResult>(cryptocurrency);
         return cryptocurrencyResult;

@@ -8,14 +8,14 @@ namespace TokenVault.Application.Features.Cryptocurrencies.Commands.DeleteCrypto
 public class DeleteCryptocurrencyCommandHandler : 
     IRequestHandler<DeleteCryptocurrencyCommand, CryptocurrencyResult>
 {
-    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public DeleteCryptocurrencyCommandHandler(
-        ICryptocurrencyRepository cryptocurrencyRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _cryptocurrencyRepository = cryptocurrencyRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -23,13 +23,14 @@ public class DeleteCryptocurrencyCommandHandler :
         DeleteCryptocurrencyCommand command,
         CancellationToken cancellationToken)
     {
-        var cryptocurrency = _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
+        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
+            c => c.Id == command.CryptocurrencyId);
         if (cryptocurrency is null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 
                 $"Cryptocurrency with given id: {command.CryptocurrencyId} does not exist");
         }
-        await _cryptocurrencyRepository.DeleteAsync(command.CryptocurrencyId);
+        _unitOfWork.Cryptocurrency.Remove(cryptocurrency);
 
         var cryptocurrencyResult = _mapper.Map<CryptocurrencyResult>(cryptocurrency);
         return cryptocurrencyResult;

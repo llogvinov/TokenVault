@@ -8,14 +8,14 @@ namespace TokenVault.Application.Features.Cryptocurrencies.Queries.GetCryptocurr
 public class GetCryptocurrencyByIdQueryHandler : 
     IRequestHandler<GetCryptocurrencyByIdQuery, CryptocurrencyResult>
 {
-    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public GetCryptocurrencyByIdQueryHandler(
-        ICryptocurrencyRepository cryptocurrencyRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _cryptocurrencyRepository = cryptocurrencyRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -23,7 +23,8 @@ public class GetCryptocurrencyByIdQueryHandler :
         GetCryptocurrencyByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var cryptocurrency = await _cryptocurrencyRepository.GetCryptocurrencyByIdAsync(query.CryptocurrencyId);
+        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
+            c => c.Id == query.CryptocurrencyId);
         if (cryptocurrency == null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 

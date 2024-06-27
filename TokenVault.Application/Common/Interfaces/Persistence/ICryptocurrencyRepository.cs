@@ -3,15 +3,7 @@ using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Common.Interfaces.Persistence;
 
-public interface ICryptocurrencyRepository
+public interface ICryptocurrencyRepository : IRepository<Cryptocurrency>
 {
-    Task CreateAsync(Cryptocurrency cryptocurrency);
-
-    Task DeleteAsync(Guid cryptocurrencyId);
-
-    Task<Cryptocurrency> UpdateAsync(Guid cryptocurrencyId, UpdateCryptocurrencyDetails details);
-    
-    Task<Cryptocurrency?> GetCryptocurrencyByIdAsync(Guid cryptocurrencyId);
-
-    Task<IEnumerable<Cryptocurrency>> GetCryptocurrenciesAsync();
+    Task<Cryptocurrency> UpdateAsync(Guid id, UpdateCryptocurrencyDetails details);
 }

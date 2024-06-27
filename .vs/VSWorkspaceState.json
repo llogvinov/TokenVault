@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\TokenVault.Application",
+    "\\TokenVault.Application\\Common",
+    "\\TokenVault.Application\\Common\\Interfaces",
+    "\\TokenVault.Application\\Common\\Interfaces\\Persistence",
+    "\\TokenVault.Infrastructure",
+    "\\TokenVault.Infrastructure\\Persistence",
+    "\\TokenVault.Infrastructure\\Persistence\\Repository"
+  ],
+  "SelectedNode": "\\TokenVault.Infrastructure\\Persistence\\Repository\\Repository.cs",
+  "PreviewInSolutionExplorer": false
+}

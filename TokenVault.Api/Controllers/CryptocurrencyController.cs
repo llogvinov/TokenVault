@@ -12,16 +12,16 @@ namespace TokenVault.Api.Controllers;
 
 public class CryptocurrenciesController : ApiController
 {
-    private readonly ICryptocurrencyRepository _cryptocurrencyRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ISender _mediatr;
     private readonly IMapper _mapper;
 
     public CryptocurrenciesController(
-        ICryptocurrencyRepository cryptocurrencyRepository,
+        IUnitOfWork unitOfWork,
         ISender mediatr,
         IMapper mapper)
     {
-        _cryptocurrencyRepository = cryptocurrencyRepository;
+        _unitOfWork = unitOfWork;
         _mediatr = mediatr;
         _mapper = mapper;
     }
@@ -34,6 +34,7 @@ public class CryptocurrenciesController : ApiController
     {
         var command = _mapper.Map<CreateCryptocurrencyCommand>(request);
         var result = await _mediatr.Send(command);
+        _unitOfWork.Save();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
@@ -62,6 +63,7 @@ public class CryptocurrenciesController : ApiController
     {
         var command = new UpdateCryptocurrencyCommand(cryptocurrencyId, request);
         var result = await _mediatr.Send(command);
+        _unitOfWork.Save();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
@@ -75,6 +77,7 @@ public class CryptocurrenciesController : ApiController
     {
         var command = new DeleteCryptocurrencyCommand(cryptocurrencyId);
         var result = await _mediatr.Send(command);
+        _unitOfWork.Save();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
@@ -86,7 +89,7 @@ public class CryptocurrenciesController : ApiController
     [HttpGet]
     public async Task<IActionResult> GetCryptocurrencies()
     {
-        var cryptocurrencies = await _cryptocurrencyRepository.GetCryptocurrenciesAsync();
+        var cryptocurrencies = await _unitOfWork.Cryptocurrency.GetAllAsync();
         return Ok(cryptocurrencies);
     }
 }

@@ -10,6 +10,8 @@ using TokenVault.Infrastructure.Persistence;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.EntityFrameworkCore;
+using TokenVault.Infrastructure.Persistence.Repository;
 
 namespace TokenVault.Infrastructure;
 
@@ -28,8 +30,14 @@ public static class DependencyInjection
 
     private static IServiceCollection AddPersistence(this IServiceCollection services)
     {
+        services.AddDbContext<TokenVaultDbContext>(options =>
+        {
+            options.UseSqlServer("Server=LLOGVINOVPC;Database=TokenVault;Trusted_Connection=True;TrustServerCertificate=True;");
+        });
+        
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
+
         services.AddScoped<IUserRepository, UserRepository>();
-        services.AddScoped<ICryptocurrencyRepository, CryptocurrencyRepository>();
         services.AddScoped<ITransactionRepository, TransactionRepository>();
         services.AddScoped<IPortfolioRepository, PortfolioRepository>();
         services.AddScoped<IPortfolioAssetRepository, PortfolioAssetRepository>();
