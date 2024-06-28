@@ -8,14 +8,14 @@ namespace TokenVault.Application.Features.Portfolios.Commands.DeletePortfolio;
 
 public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioCommand, PortfolioResult>
 {
-    private readonly IPortfolioRepository _portfolioRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public DeletePortfolioCommandHandler(
-        IPortfolioRepository portfolioRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _portfolioRepository = portfolioRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -23,7 +23,7 @@ public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioComm
         DeletePortfolioCommand command,
         CancellationToken cancellationToken)
     {
-        var portfolio = await _portfolioRepository.GetPortfolioByIdAsync(command.PortfolioId);
+        var portfolio = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.Id == command.PortfolioId);
         if (portfolio is null)
         {
             throw new ArgumentNullException(nameof(portfolio),
@@ -36,7 +36,7 @@ public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioComm
             Title = portfolio.Title,
         };
 
-        await _portfolioRepository.DeleteAsync(command.PortfolioId);
+        _unitOfWork.Portfolio.Remove(portfolio);
 
         var portfolioResult = _mapper.Map<PortfolioResult>(portfolioCopy);
         return portfolioResult;

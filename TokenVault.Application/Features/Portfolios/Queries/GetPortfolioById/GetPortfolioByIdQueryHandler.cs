@@ -7,14 +7,14 @@ namespace TokenVault.Application.Features.Portfolios.Queries.GetPortfolioById;
 
 public class GetPortfolioByIdQueryHandler : IRequestHandler<GetPortfolioByIdQuery, PortfolioResult>
 {
-    private readonly IPortfolioRepository _portfolioRepository;
+     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public GetPortfolioByIdQueryHandler(
-        IPortfolioRepository portfolioRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _portfolioRepository = portfolioRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -22,7 +22,7 @@ public class GetPortfolioByIdQueryHandler : IRequestHandler<GetPortfolioByIdQuer
         GetPortfolioByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var portfolio = await _portfolioRepository.GetPortfolioByIdAsync(query.PortfolioId);
+        var portfolio = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.Id == query.PortfolioId);
         if (portfolio is null)
         {
             throw new ArgumentNullException(nameof(portfolio),

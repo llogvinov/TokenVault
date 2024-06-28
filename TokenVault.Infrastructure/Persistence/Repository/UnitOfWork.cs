@@ -10,9 +10,11 @@ public class UnitOfWork : IUnitOfWork
     {
         _dbContext = dbContext;
         Cryptocurrency = new CryptocurrencyRepository(_dbContext);
+        Portfolio = new PortfolioRepository(_dbContext);
     }
 
     public ICryptocurrencyRepository Cryptocurrency { get; private set; }
+    public IPortfolioRepository Portfolio { get; private set; }
 
     public void Save()
     {

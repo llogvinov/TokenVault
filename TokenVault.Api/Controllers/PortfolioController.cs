@@ -14,16 +14,16 @@ namespace TokenVault.Api.Controllers;
 
 public class PortfoliosController : ApiController
 {
-    private readonly IPortfolioRepository _portfoliosRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ISender _mediatr;
     private readonly IMapper _mapper;
 
     public PortfoliosController(
-        IPortfolioRepository portfoliosRepository,
+        IUnitOfWork unitOfWork,
         ISender mediatr,
         IMapper mapper)
     {
-        _portfoliosRepository = portfoliosRepository;
+        _unitOfWork = unitOfWork;
         _mediatr = mediatr;
         _mapper = mapper;
     }
@@ -40,7 +40,7 @@ public class PortfoliosController : ApiController
             return Unauthorized();
         }
 
-        var response = await _portfoliosRepository.GetPortfoliosAsync(userId);
+        var response = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.UserId == userId);
         return Ok(response);
     }
 
@@ -58,6 +58,7 @@ public class PortfoliosController : ApiController
 
         var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
         var portfolioResult = await _mediatr.Send(command);
+        _unitOfWork.Save();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);
@@ -99,6 +100,7 @@ public class PortfoliosController : ApiController
 
         var command = new DeletePortfolioCommand(portfolioId);
         var portfolioResult = await _mediatr.Send(command);
+        _unitOfWork.Save();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);

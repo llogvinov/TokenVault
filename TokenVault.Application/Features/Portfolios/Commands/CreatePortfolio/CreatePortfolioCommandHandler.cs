@@ -8,14 +8,14 @@ namespace TokenVault.Application.Features.Portfolios.Commands.CreatePortfolio;
 
 public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioCommand, PortfolioResult>
 {
-    private readonly IPortfolioRepository _portfolioRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public CreatePortfolioCommandHandler(
-        IPortfolioRepository portfolioRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _portfolioRepository = portfolioRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -24,7 +24,7 @@ public class CreatePortfolioCommandHandler : IRequestHandler<CreatePortfolioComm
         CancellationToken cancellationToken)
     {
         var portfolio = _mapper.Map<Portfolio>(command);
-        await _portfolioRepository.CreateAsync(portfolio);
+        await _unitOfWork.Portfolio.AddAsync(portfolio);
 
         var portfolioResult = _mapper.Map<PortfolioResult>(portfolio);
         return portfolioResult;
