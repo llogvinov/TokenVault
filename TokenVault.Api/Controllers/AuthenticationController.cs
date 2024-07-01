@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using TokenVault.Application.Authentication.Commands.Register;
 using TokenVault.Application.Authentication.Queries.Login;
+using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Contracts.Authentication;
 
 namespace TokenVault.Api.Controllers;
@@ -11,11 +12,16 @@ namespace TokenVault.Api.Controllers;
 [Route("auth")]
 public class AuthenticationController : ControllerBase
 {
+    private readonly IUnitOfWork _unitOfWork;
     private readonly ISender _mediator;
     private readonly IMapper _mapper;
 
-    public AuthenticationController(ISender mediator, IMapper mapper)
+    public AuthenticationController(
+        IUnitOfWork unitOfWork,
+        ISender mediator,
+        IMapper mapper)
     {
+        _unitOfWork = unitOfWork;
         _mediator = mediator;
         _mapper = mapper;
     }
@@ -25,6 +31,8 @@ public class AuthenticationController : ControllerBase
     {
         var command = _mapper.Map<RegisterCommand>(request);
         var authResult = await _mediator.Send(command);
+
+        await _unitOfWork.Save();
         
         var response = _mapper.Map<AuthenticationResponse>(authResult);
         return Ok(response);

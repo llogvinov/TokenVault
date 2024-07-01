@@ -2,9 +2,7 @@ using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Common.Interfaces.Persistence;
 
-public interface IUserRepository
+public interface IUserRepository : IRepository<User>
 {
-    void Add(User user);
-
-    User? GetUserByEmail(string email);
+    
 }

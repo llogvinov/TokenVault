@@ -9,23 +9,23 @@ namespace TokenVault.Application.Authentication.Queries.Login;
 public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResult>
 {
     private readonly IJwtTokenGenerator _jwtTokenGenerator;
-    private readonly IUserRepository _userRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
     public LoginQueryHandler(
         IJwtTokenGenerator jwtTokenGenerator,
-        IUserRepository userRepository)
+        IUnitOfWork unitOfWork)
     {
         _jwtTokenGenerator = jwtTokenGenerator;
-        _userRepository = userRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<AuthenticationResult> Handle(
         LoginQuery query,
         CancellationToken cancellationToken)
     {
-        await Task.CompletedTask;
+        var user = await _unitOfWork.User.GetFirstOrDefaultAsync(u => u.Email == query.Email);
 
-        if (_userRepository.GetUserByEmail(query.Email) is not User user)
+        if (user is null)
         {
             throw new Exception("The user does not exist");
         }

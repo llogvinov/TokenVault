@@ -9,15 +9,17 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(TokenVaultDbContext dbContext)
     {
         _dbContext = dbContext;
+        User = new UserRepository(_dbContext);
         Cryptocurrency = new CryptocurrencyRepository(_dbContext);
         Portfolio = new PortfolioRepository(_dbContext);
     }
 
+    public IUserRepository User { get; private set; }
     public ICryptocurrencyRepository Cryptocurrency { get; private set; }
     public IPortfolioRepository Portfolio { get; private set; }
 
-    public void Save()
+    public async Task Save()
     {
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
     }
 }

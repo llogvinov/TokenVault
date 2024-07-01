@@ -8,5 +8,6 @@ public class TokenVaultDbContext : DbContext
     public TokenVaultDbContext(DbContextOptions<TokenVaultDbContext> options)
         : base(options) { }
 
+    public DbSet<User> Users { get; set; } = null!;
     public DbSet<Cryptocurrency> Cryptocurrencies { get; set; } = null!;
 }
