@@ -6,5 +6,5 @@ public interface IUnitOfWork
     ICryptocurrencyRepository Cryptocurrency { get; }
     IPortfolioRepository Portfolio { get; }
     
-    Task Save();
+    Task SaveAsync();
 }

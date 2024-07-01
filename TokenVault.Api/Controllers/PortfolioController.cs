@@ -58,7 +58,7 @@ public class PortfoliosController : ApiController
 
         var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
         var portfolioResult = await _mediatr.Send(command);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);
@@ -100,7 +100,7 @@ public class PortfoliosController : ApiController
 
         var command = new DeletePortfolioCommand(portfolioId);
         var portfolioResult = await _mediatr.Send(command);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);

@@ -34,7 +34,7 @@ public class CryptocurrenciesController : ApiController
     {
         var command = _mapper.Map<CreateCryptocurrencyCommand>(request);
         var result = await _mediatr.Send(command);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
@@ -63,7 +63,7 @@ public class CryptocurrenciesController : ApiController
     {
         var command = new UpdateCryptocurrencyCommand(cryptocurrencyId, request);
         var result = await _mediatr.Send(command);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);
@@ -77,7 +77,7 @@ public class CryptocurrenciesController : ApiController
     {
         var command = new DeleteCryptocurrencyCommand(cryptocurrencyId);
         var result = await _mediatr.Send(command);
-        _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
         return Ok(response);

@@ -31,8 +31,7 @@ public class AuthenticationController : ControllerBase
     {
         var command = _mapper.Map<RegisterCommand>(request);
         var authResult = await _mediator.Send(command);
-
-        await _unitOfWork.Save();
+        await _unitOfWork.SaveAsync();
         
         var response = _mapper.Map<AuthenticationResponse>(authResult);
         return Ok(response);

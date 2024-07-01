@@ -18,7 +18,7 @@ public class UnitOfWork : IUnitOfWork
     public ICryptocurrencyRepository Cryptocurrency { get; private set; }
     public IPortfolioRepository Portfolio { get; private set; }
 
-    public async Task Save()
+    public async Task SaveAsync()
     {
         await _dbContext.SaveChangesAsync();
     }
