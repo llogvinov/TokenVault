@@ -1,4 +1,4 @@
-@portfolioId = 3bc65634-03b3-4ba9-b56e-97fb3fbb1dd3
+@portfolioId = bdb65229-cbc6-4012-9bd9-787b438c9c81
 
 GET {{host}}/portfolios/{{portfolioId}}
 Authorization: Bearer {{token}}
