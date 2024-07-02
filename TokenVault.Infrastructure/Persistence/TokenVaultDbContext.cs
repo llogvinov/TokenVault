@@ -11,4 +11,5 @@ public class TokenVaultDbContext : DbContext
     public DbSet<User> Users { get; set; } = null!;
     public DbSet<Cryptocurrency> Cryptocurrencies { get; set; } = null!;
     public DbSet<Portfolio> Portfolios { get; set; } = null!;
+    public DbSet<Transaction> Transactions { get; set; } = null!;
 }

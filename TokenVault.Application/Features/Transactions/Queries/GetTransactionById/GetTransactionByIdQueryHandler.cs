@@ -7,18 +7,19 @@ namespace TokenVault.Application.Features.Transactions.Queries.GetTransactionByI
 public class GetTransactionByIdQueryHandler :
     IRequestHandler<GetTransactionByIdQuery, Transaction>
 {
-    private readonly ITransactionRepository _transactionRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetTransactionByIdQueryHandler(ITransactionRepository transactionRepository)
+    public GetTransactionByIdQueryHandler(IUnitOfWork unitOfWork)
     {
-        _transactionRepository = transactionRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<Transaction> Handle(
         GetTransactionByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var transaction = await _transactionRepository.GetTransactionByIdAsync(query.transactionId);
+        var transaction = await _unitOfWork.Transaction.GetFirstOrDefaultAsync(
+            t => t.Id == query.transactionId);
         if (transaction is null)
         {
             throw new ArgumentNullException(nameof(transaction),

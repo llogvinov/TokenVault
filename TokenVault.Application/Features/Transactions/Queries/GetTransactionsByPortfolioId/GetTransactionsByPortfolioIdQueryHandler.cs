@@ -7,18 +7,19 @@ namespace TokenVault.Application.Features.Transactions.Queries.GetTransactionsBy
 public class GetTransactionsByPortfolioIdQueryHandler : 
     IRequestHandler<GetTransactionsByPortfolioIdQuery, TransactionsResult>
 {
-    private readonly ITransactionRepository _transactionRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetTransactionsByPortfolioIdQueryHandler(ITransactionRepository transactionRepository)
+    public GetTransactionsByPortfolioIdQueryHandler(IUnitOfWork unitOfWork)
     {
-        _transactionRepository = transactionRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<TransactionsResult> Handle(
         GetTransactionsByPortfolioIdQuery query,
         CancellationToken cancellationToken)
     {
-        var transactions = await _transactionRepository.GetTransactionsByPortfolioIdAsync(query.PortfolioId);
+        var transactions = await _unitOfWork.Transaction.GetAllAsync(
+            t => t.PortfolioId == query.PortfolioId);
 
         var transactionsResult = new TransactionsResult(transactions);
         return transactionsResult;

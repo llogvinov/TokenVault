@@ -3,7 +3,6 @@ namespace TokenVault.Domain.Entities;
 public class Transaction
 {
     public Guid Id { get; set; } = Guid.NewGuid();
-    public Guid UserId {get; set;}
     public Guid PortfolioId { get; set; }
     public Guid CryptocurrencyId { get; set; }
     public TransactionType TransactionType { get; set; }

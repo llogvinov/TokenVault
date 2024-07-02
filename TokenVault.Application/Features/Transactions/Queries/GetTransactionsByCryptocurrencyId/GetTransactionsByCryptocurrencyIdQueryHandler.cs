@@ -8,18 +8,19 @@ namespace TokenVault.Application.Features.Transactions.Queries.GetTransactionsBy
 public class GetTransactionsByCryptocurrencyIdQueryHandler :
     IRequestHandler<GetTransactionsByCryptocurrencyIdQuery, TransactionsResult>
 {
-    private readonly ITransactionRepository _transactionRepository;
+    private readonly IUnitOfWork _unitOfWork;
 
-    public GetTransactionsByCryptocurrencyIdQueryHandler(ITransactionRepository transactionRepository)
+    public GetTransactionsByCryptocurrencyIdQueryHandler(IUnitOfWork unitOfWork)
     {
-        _transactionRepository = transactionRepository;
+        _unitOfWork = unitOfWork;
     }
 
     public async Task<TransactionsResult> Handle(
         GetTransactionsByCryptocurrencyIdQuery query,
         CancellationToken cancellationToken)
     {
-        var transactions = await _transactionRepository.GetTransactionsByCryptocurrencyIdAsync(query.CryptocurrencyId);
+        var transactions = await _unitOfWork.Transaction.GetAllAsync(
+            t => t.CryptocurrencyId == query.CryptocurrencyId);
 
         var result = new TransactionsResult(transactions);
         return result;

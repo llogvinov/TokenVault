@@ -9,18 +9,15 @@ namespace TokenVault.Application.Features.Transactions.Commands.CreateTransactio
 public class CreateTransactionCommandHandler : 
     IRequestHandler<CreateTransactionCommand, SingleTransactionResult>
 {
-    private readonly ITransactionRepository _transactionRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public CreateTransactionCommandHandler(
-        ITransactionRepository transactionRepository,
-        IMapper mapper,
-        IUnitOfWork unitOfWork)
+        IUnitOfWork unitOfWork,
+        IMapper mapper)
     {
-        _transactionRepository = transactionRepository;
-        _mapper = mapper;
         _unitOfWork = unitOfWork;
+        _mapper = mapper;
     }
 
     public async Task<SingleTransactionResult> Handle(
@@ -28,7 +25,7 @@ public class CreateTransactionCommandHandler :
         CancellationToken cancellationToken)
     {
         var transaction = _mapper.Map<Transaction>(command);
-        await _transactionRepository.CreateAsync(transaction);
+        await _unitOfWork.Transaction.AddAsync(transaction);
 
         var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
             c => c.Id == command.CryptocurrencyId);

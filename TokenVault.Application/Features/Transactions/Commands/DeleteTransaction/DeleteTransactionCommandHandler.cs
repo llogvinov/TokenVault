@@ -7,14 +7,14 @@ namespace TokenVault.Application.Features.Transactions.Commands.DeleteTransactio
 
 public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransactionCommand, SingleTransactionResult>
 {
-    private readonly ITransactionRepository _transactionRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public DeleteTransactionCommandHandler(
-        ITransactionRepository transactionRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _transactionRepository = transactionRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -22,8 +22,10 @@ public class DeleteTransactionCommandHandler : IRequestHandler<DeleteTransaction
         DeleteTransactionCommand command,
         CancellationToken cancellationToken)
     {
+        await Task.CompletedTask;
+        
         var transactionResult = _mapper.Map<SingleTransactionResult>(command.Transaction);
-        await _transactionRepository.DeleteAsync(command.Transaction.Id);
+        _unitOfWork.Transaction.Remove(command.Transaction);
 
         return transactionResult;
     }
