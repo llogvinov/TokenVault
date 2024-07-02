@@ -5,6 +5,7 @@ public record SingleTransactionResult(
     Guid UserId,
     Guid PortfolioId,
     Guid CryptocurrencyId,
+    int TransactionType,
     string AssetSymbol,
     double Amount,
     double PricePerToken,

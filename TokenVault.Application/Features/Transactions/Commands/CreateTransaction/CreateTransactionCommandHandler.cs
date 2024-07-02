@@ -35,7 +35,6 @@ public class CreateTransactionCommandHandler :
         var symbol = cryptocurrency?.Symbol ?? "Unknown";
 
         var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));
-
         return transactionResult;
     }    
 }

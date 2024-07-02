@@ -31,6 +31,11 @@ public class UpdatePortfolioAssetCommandHandler :
 
         if (portfolioAsset is null)
         {
+            if (command.UpdatePortfolioAssetDetails.TransactionType == (int)TransactionType.Sell)
+            {
+                throw new Exception("You do not have enough assets to sell");
+            }
+
             portfolioAsset = _mapper.Map<PortfolioAsset>(command);
             await _portfolioAssetRepository.CreateAsync(portfolioAsset);
 
@@ -45,22 +50,41 @@ public class UpdatePortfolioAssetCommandHandler :
                 command.CryptocurrencyId,
                 command.PortfolioId,
                 updatePortfolioAssetDetails);
-            
+
             portfolioAssetResult = _mapper.Map<PortfolioAssetResult>(updatedPortfolioAsset);
         }
 
         return portfolioAssetResult;
     }
 
-    private UpdatePortfolioAssetDetails GetUpdatedAssetDetails(
+    private UpdatedAssetDetails GetUpdatedAssetDetails(
         PortfolioAsset asset,
         UpdatePortfolioAssetDetails updatePortfolioAssetDetails)
     {
-        var amount = asset.Amount + updatePortfolioAssetDetails.Amount;
-        var invested = asset.Invested + updatePortfolioAssetDetails.TotalPrice;
-        var averagePrice = invested / amount;
+        double amount = 0;
+        double invested = 0;
+        double averagePrice = 0;
 
-        var updateAssetDetails = new UpdatePortfolioAssetDetails(amount, averagePrice, invested);
+        switch (updatePortfolioAssetDetails.TransactionType)
+        {
+            case (int)TransactionType.Buy:
+                amount = asset.Amount + updatePortfolioAssetDetails.Amount;
+                invested = asset.Invested + updatePortfolioAssetDetails.TotalPrice;
+                averagePrice = invested / amount;
+                break;
+            case (int)TransactionType.Sell:
+                amount = asset.Amount - updatePortfolioAssetDetails.Amount;
+                if (amount < 0)
+                {
+                    throw new Exception("You do not have enough assets to sell");
+                }
+
+                invested = asset.Invested - updatePortfolioAssetDetails.TotalPrice;
+                averagePrice = invested / amount;
+                break;
+        }
+
+        var updateAssetDetails = new UpdatedAssetDetails(amount, averagePrice, invested);
         return updateAssetDetails;
     }
 }

@@ -18,7 +18,7 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
     public async Task<PortfolioAsset> UpdateAsync(
         Guid cryptocurrencyId,
         Guid portfolioId,
-        UpdatePortfolioAssetDetails updatePortfolioAssetDetails)
+        UpdatedAssetDetails updatePortfolioAssetDetails)
     {
         await Task.CompletedTask;
 

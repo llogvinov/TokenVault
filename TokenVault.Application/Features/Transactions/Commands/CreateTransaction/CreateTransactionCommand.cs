@@ -7,6 +7,7 @@ public record CreateTransactionCommand(
     Guid UserId,
     Guid PortfolioId,
     Guid CryptocurrencyId,
+    int TransactionType,
     double Amount,
     double PricePerToken,
     double TotalPrice,

@@ -15,10 +15,12 @@ public class TransactionMappingConfig : IRegister
             .Map(dest => dest.PortfolioId, src => src.portfolioId)
             .Map(dest => dest, src => src.request);
 
-        config.NewConfig<CreateTransactionCommand, Transaction>();
+        config.NewConfig<CreateTransactionCommand, Transaction>()
+            .Map(dest => dest.TransactionType, src => (TransactionType)src.TransactionType);
         
         config.NewConfig<(Transaction transaction, string Symbol), SingleTransactionResult>()
             .Map(dest => dest.AssetSymbol, src => src.Symbol)
+            .Map(dest => dest.TransactionType, src => (int)src.transaction.TransactionType)
             .Map(dest => dest, src => src.transaction);
 
         config.NewConfig<SingleTransactionResult, CreateTransactionResponse>();
