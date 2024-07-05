@@ -40,7 +40,7 @@ public class TransactionsController : ApiController
             return Unauthorized();
         }
 
-        var command = _mapper.Map<CreateTransactionCommand>((request, userId, portfolioId));
+        var command = _mapper.Map<CreateTransactionCommand>((request, portfolioId));
         var transactionResult = await _mediatr.Send(command);
 
         var updatePortfolioAssetDetails = _mapper.Map<UpdatePortfolioAssetDetails>(transactionResult);

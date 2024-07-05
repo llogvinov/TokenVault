@@ -2,7 +2,6 @@ namespace TokenVault.Contracts.Transactions;
 
 public record CreateTransactionResponse(
     Guid Id,
-    Guid UserId,
     Guid PortfolioId,
     Guid CryptocurrencyId,
     int TransactionType,
