@@ -8,6 +8,6 @@ Content-Type: application/json
     "cryptocurrencyId": "5b380126-652a-4e67-99b8-85c6a1ed3cca",
     "transactionType": 1,
     "amount": 1,
-    "pricePerToken": 40000,
-    "totalPrice": 40000
+    "pricePerToken": 30000,
+    "totalPrice": 30000
 }

@@ -29,7 +29,7 @@ public class PortfolioAssetRepository : IPortfolioAssetRepository
                 $"Portfolio asset with given id: {cryptocurrencyId} does not exist");
         }
         
-        portfolioAsset.Amount = updatePortfolioAssetDetails.Amount;
+        portfolioAsset.Holdings = updatePortfolioAssetDetails.Holdings;
         portfolioAsset.AveragePrice = updatePortfolioAssetDetails.PricePerToken;
         portfolioAsset.Invested = updatePortfolioAssetDetails.TotalPrice;
 

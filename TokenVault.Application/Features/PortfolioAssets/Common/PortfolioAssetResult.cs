@@ -3,6 +3,6 @@ namespace TokenVault.Application.Features.PortfolioAssets.Common;
 public record PortfolioAssetResult(
     Guid CryptocurrencyId,
     Guid PortfolioId,
-    double Amount,
+    double Holdings,
     double AveragePrice,
     double Invested);

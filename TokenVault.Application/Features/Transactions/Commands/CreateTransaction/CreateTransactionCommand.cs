@@ -11,4 +11,4 @@ public record CreateTransactionCommand(
     double Amount,
     double PricePerToken,
     double TotalPrice,
-    DateTime? CreateDate) : IRequest<SingleTransactionResult>;
+    DateTime CreateDate) : IRequest<SingleTransactionResult>;

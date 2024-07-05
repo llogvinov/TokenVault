@@ -9,7 +9,7 @@ public class Transaction
     public double Amount { get; set; }
     public double PricePerToken { get; set; }
     public double TotalPrice { get; set; }
-    public DateTime CreateDate { get; set; } = DateTime.Now;
+    public DateTime CreateDate { get; set; }
 }
 
 public enum TransactionType

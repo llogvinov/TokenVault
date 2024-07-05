@@ -25,6 +25,10 @@ public class CreateTransactionCommandHandler :
         CancellationToken cancellationToken)
     {
         var transaction = _mapper.Map<Transaction>(command);
+        if (transaction.CreateDate == default)
+        {
+            transaction.CreateDate = DateTime.UtcNow;
+        }
         await _unitOfWork.Transaction.AddAsync(transaction);
 
         var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(

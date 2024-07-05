@@ -1,6 +1,6 @@
 namespace TokenVault.Application.Features.PortfolioAssets.Common;
 
 public record UpdatedAssetDetails(
-    double Amount,
+    double Holdings,
     double PricePerToken,
     double TotalPrice);

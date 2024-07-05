@@ -13,7 +13,7 @@ public class PortfolioAssetMappingConfig : IRegister
         config.NewConfig<UpdatePortfolioAssetCommand, PortfolioAsset>()
             .Map(dest => dest.CryptocurrencyId, src => src.CryptocurrencyId)
             .Map(dest => dest.PortfolioId, src => src.PortfolioId)
-            .Map(dest => dest.Amount, src => src.UpdatePortfolioAssetDetails.Amount)
+            .Map(dest => dest.Holdings, src => src.UpdatePortfolioAssetDetails.Amount)
             .Map(dest => dest.AveragePrice, src => src.UpdatePortfolioAssetDetails.PricePerToken)
             .Map(dest => dest.Invested, src => src.UpdatePortfolioAssetDetails.TotalPrice);
         

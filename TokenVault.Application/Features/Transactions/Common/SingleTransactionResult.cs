@@ -9,4 +9,5 @@ public record SingleTransactionResult(
     string AssetSymbol,
     double Amount,
     double PricePerToken,
-    double TotalPrice);
+    double TotalPrice,
+    DateTime CreateDate);

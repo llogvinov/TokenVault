@@ -61,30 +61,36 @@ public class UpdatePortfolioAssetCommandHandler :
         PortfolioAsset asset,
         UpdatePortfolioAssetDetails updatePortfolioAssetDetails)
     {
-        double amount = 0;
+        double holdings = 0;
         double invested = 0;
         double averagePrice = 0;
 
         switch (updatePortfolioAssetDetails.TransactionType)
         {
             case (int)TransactionType.Buy:
-                amount = asset.Amount + updatePortfolioAssetDetails.Amount;
+                holdings = asset.Holdings + updatePortfolioAssetDetails.Amount;
                 invested = asset.Invested + updatePortfolioAssetDetails.TotalPrice;
-                averagePrice = invested / amount;
+                averagePrice = invested / holdings;
                 break;
             case (int)TransactionType.Sell:
-                amount = asset.Amount - updatePortfolioAssetDetails.Amount;
-                if (amount < 0)
+                holdings = asset.Holdings - updatePortfolioAssetDetails.Amount;
+                if (holdings < 0)
                 {
                     throw new Exception("You do not have enough assets to sell");
                 }
+                else if (holdings == 0)
+                {
+                    invested = 0;
+                    averagePrice = 0;
+                    break;
+                }
 
                 invested = asset.Invested - updatePortfolioAssetDetails.TotalPrice;
-                averagePrice = invested / amount;
+                averagePrice = invested / holdings;
                 break;
         }
 
-        var updateAssetDetails = new UpdatedAssetDetails(amount, averagePrice, invested);
+        var updateAssetDetails = new UpdatedAssetDetails(holdings, averagePrice, invested);
         return updateAssetDetails;
     }
 }
