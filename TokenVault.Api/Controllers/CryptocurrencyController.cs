@@ -10,6 +10,7 @@ using TokenVault.Contracts.Cryptocurrency;
 
 namespace TokenVault.Api.Controllers;
 
+[Route("cryptocurrencies")]
 public class CryptocurrenciesController : ApiController
 {
     private readonly IUnitOfWork _unitOfWork;

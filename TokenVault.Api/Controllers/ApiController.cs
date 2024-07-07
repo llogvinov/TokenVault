@@ -9,6 +9,7 @@ namespace TokenVault.Api.Controllers;
 [Authorize]
 public class ApiController : ControllerBase
 {
+    [NonAction]
     protected Guid GetUserId()
     {
         var userIdClaim = User.Claims.FirstOrDefault(c => c.Type == JwtRegisteredClaimNames.Sub);
