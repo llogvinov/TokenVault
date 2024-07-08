@@ -13,12 +13,14 @@ public class UnitOfWork : IUnitOfWork
         Cryptocurrency = new CryptocurrencyRepository(_dbContext);
         Portfolio = new PortfolioRepository(_dbContext);
         Transaction = new TransactionRepository(_dbContext);
+        PortfolioAsset = new PortfolioAssetRepository(_dbContext);
     }
 
     public IUserRepository User { get; private set; }
     public ICryptocurrencyRepository Cryptocurrency { get; private set; }
     public IPortfolioRepository Portfolio { get; private set; }
     public ITransactionRepository Transaction { get; private set; }
+    public IPortfolioAssetRepository PortfolioAsset { get; private set; }
 
     public async Task SaveAsync()
     {

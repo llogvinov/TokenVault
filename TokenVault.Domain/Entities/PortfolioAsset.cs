@@ -7,4 +7,7 @@ public class PortfolioAsset
     public double Holdings { get; set; }
     public double AveragePrice { get; set; }
     public double Invested { get; set; }
+
+    public Portfolio? Portfolio { get; set; }
+    public Cryptocurrency? Cryptocurrency { get; set; }
 }

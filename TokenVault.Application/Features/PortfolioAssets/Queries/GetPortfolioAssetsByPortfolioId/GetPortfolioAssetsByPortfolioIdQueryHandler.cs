@@ -8,14 +8,14 @@ namespace TokenVault.Application.Features.PortfolioAssets.Queries.GetPortfolioAs
 public class GetPortfolioAssetsByPortfolioIdQueryHandler :
     IRequestHandler<GetPortfolioAssetsByPortfolioIdQuery, IEnumerable<PortfolioAssetResult>>
 {
-    private readonly IPortfolioAssetRepository _portfolioAssetRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public GetPortfolioAssetsByPortfolioIdQueryHandler(
-        IPortfolioAssetRepository portfolioAssetRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _portfolioAssetRepository = portfolioAssetRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -23,7 +23,8 @@ public class GetPortfolioAssetsByPortfolioIdQueryHandler :
         GetPortfolioAssetsByPortfolioIdQuery query,
         CancellationToken cancellationToken)
     {
-        var portfolioAssets = await _portfolioAssetRepository.GetPortfolioAssetsAsync(query.PortfolioId);
+        var portfolioAssets = await _unitOfWork.PortfolioAsset.GetAllAsync(
+            a => a.PortfolioId == query.PortfolioId);
 
         List<PortfolioAssetResult> portfolioAssetsResult = new ();
         foreach (var portfolioAsset in portfolioAssets)

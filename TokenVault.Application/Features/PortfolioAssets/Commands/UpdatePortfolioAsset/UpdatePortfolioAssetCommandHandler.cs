@@ -9,14 +9,14 @@ namespace TokenVault.Application.Features.PortfolioAssets.Commands.UpdatePortfol
 public class UpdatePortfolioAssetCommandHandler :
     IRequestHandler<UpdatePortfolioAssetCommand, PortfolioAssetResult>
 {
-    private readonly IPortfolioAssetRepository _portfolioAssetRepository;
+    private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
 
     public UpdatePortfolioAssetCommandHandler(
-        IPortfolioAssetRepository portfolioAssetRepository,
+        IUnitOfWork unitOfWork,
         IMapper mapper)
     {
-        _portfolioAssetRepository = portfolioAssetRepository;
+        _unitOfWork = unitOfWork;
         _mapper = mapper;
     }
 
@@ -26,9 +26,8 @@ public class UpdatePortfolioAssetCommandHandler :
     {
         PortfolioAssetResult portfolioAssetResult;
 
-        var portfolioAsset = await _portfolioAssetRepository.GetPortfolioAssetAsync(
-            command.CryptocurrencyId, command.PortfolioId);
-
+        var portfolioAsset = await _unitOfWork.PortfolioAsset.GetFirstOrDefaultAsync(
+            a => a.CryptocurrencyId == command.CryptocurrencyId && a.PortfolioId == command.PortfolioId);
         if (portfolioAsset is null)
         {
             if (command.UpdatePortfolioAssetDetails.TransactionType == (int)TransactionType.Sell)
@@ -37,7 +36,7 @@ public class UpdatePortfolioAssetCommandHandler :
             }
 
             portfolioAsset = _mapper.Map<PortfolioAsset>(command);
-            await _portfolioAssetRepository.CreateAsync(portfolioAsset);
+            await _unitOfWork.PortfolioAsset.AddAsync(portfolioAsset);
 
             portfolioAssetResult = _mapper.Map<PortfolioAssetResult>(portfolioAsset);
         }
@@ -46,7 +45,7 @@ public class UpdatePortfolioAssetCommandHandler :
             var updatePortfolioAssetDetails = GetUpdatedAssetDetails(
                 portfolioAsset, command.UpdatePortfolioAssetDetails);
 
-            var updatedPortfolioAsset = await _portfolioAssetRepository.UpdateAsync(
+            var updatedPortfolioAsset = await _unitOfWork.PortfolioAsset.UpdateAsync(
                 command.CryptocurrencyId,
                 command.PortfolioId,
                 updatePortfolioAssetDetails);

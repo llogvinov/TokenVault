@@ -4,7 +4,7 @@ using TokenVault.Domain.Entities;
 
 namespace TokenVault.Infrastructure.Persistence;
 
-public class PortfolioAssetRepository : IPortfolioAssetRepository
+public class PortfolioAssetRepository
 {
     private static readonly List<PortfolioAsset> _portfolioAssets = new();
     
