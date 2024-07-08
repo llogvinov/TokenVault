@@ -12,7 +12,6 @@ using TokenVault.Contracts.Portfolio;
 
 namespace TokenVault.Api.Controllers;
 
-[Route("portfolios")]
 public class PortfoliosController : ApiController
 {
     private readonly IUnitOfWork _unitOfWork;
