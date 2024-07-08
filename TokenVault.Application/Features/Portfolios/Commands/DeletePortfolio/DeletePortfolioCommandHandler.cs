@@ -6,7 +6,8 @@ using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Features.Portfolios.Commands.DeletePortfolio;
 
-public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioCommand, PortfolioResult>
+public class DeletePortfolioCommandHandler : 
+    IRequestHandler<DeletePortfolioCommand, PortfolioResult>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
@@ -38,7 +39,7 @@ public class DeletePortfolioCommandHandler : IRequestHandler<DeletePortfolioComm
 
         _unitOfWork.Portfolio.Remove(portfolio);
 
-        var portfolioResult = _mapper.Map<PortfolioResult>(portfolioCopy);
-        return portfolioResult;
+        var result = _mapper.Map<PortfolioResult>(portfolioCopy);
+        return result;
     }
 }

@@ -6,6 +6,7 @@ using TokenVault.Application.Features.PortfolioAssets.Common;
 using TokenVault.Application.Features.PortfolioAssets.Queries.GetPortfolioAssetsByPortfolioId;
 using TokenVault.Application.Features.Portfolios.Commands.CreatePortfolio;
 using TokenVault.Application.Features.Portfolios.Commands.DeletePortfolio;
+using TokenVault.Application.Features.Portfolios.Commands.UpdatePortfolio;
 using TokenVault.Application.Features.Portfolios.Common;
 using TokenVault.Application.Features.Portfolios.Queries.GetPortfolioById;
 using TokenVault.Contracts.Portfolio;
@@ -79,6 +80,28 @@ public class PortfoliosController : ApiController
         }
 
         var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
+        var portfolioResult = await _mediatr.Send(command);
+        await _unitOfWork.SaveAsync();
+
+        var response = _mapper.Map<PortfolioResponse>(portfolioResult);
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// update portfolio
+    /// </summary>
+    [HttpPut("{portfolioId}")]
+    public async Task<IActionResult> UpdatePortfolio(
+        [FromRoute] Guid portfolioId,
+        [FromBody] UpdatePortfolioRequest request)
+    {
+        var userId = GetUserId();
+        if (userId == default)
+        {
+            return Unauthorized();
+        }
+
+        var command = new UpdatePortfolioCommand(portfolioId, request.Title);
         var portfolioResult = await _mediatr.Send(command);
         await _unitOfWork.SaveAsync();
 
