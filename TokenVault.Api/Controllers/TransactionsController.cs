@@ -29,8 +29,24 @@ public class TransactionsController : ApiController
         _mapper = mapper;
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
+    {
+        var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
+        var transactionsResult = await _mediatr.Send(query);
+        return Ok(transactionsResult.Transactions);
+    }
+
+    [HttpGet("{transactionId}")]
+    public async Task<IActionResult> GetTransaction([FromRoute] Guid transactionId)
+    {
+        var query = new GetTransactionByIdQuery(transactionId);
+        var transaction = await _mediatr.Send(query);
+        return Ok(transaction);
+    }
+
     [HttpPost]
-    public async Task<IActionResult> CreateTransactionAsync(
+    public async Task<IActionResult> CreateTransaction(
         [FromRoute] Guid portfolioId,
         [FromBody] CreateTransactionRequest request)
     {
@@ -54,24 +70,8 @@ public class TransactionsController : ApiController
         return Ok(response);
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetTransactionsByPortfolioIdAsync([FromRoute] Guid portfolioId)
-    {
-        var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
-        var transactionsResult = await _mediatr.Send(query);
-        return Ok(transactionsResult.Transactions);
-    }
-
-    [HttpGet("{transactionId}")]
-    public async Task<IActionResult> GetTransactionAsync([FromRoute] Guid transactionId)
-    {
-        var query = new GetTransactionByIdQuery(transactionId);
-        var transaction = await _mediatr.Send(query);
-        return Ok(transaction);
-    }
-
     [HttpDelete("{transactionId}")]
-    public async Task<IActionResult> DeleteTransactionAsync([FromRoute] Guid transactionId)
+    public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -97,7 +97,7 @@ public class TransactionsController : ApiController
     }
 
     [HttpGet("/transactions")]
-    public async Task<IActionResult> GetTransactionsByUserIdAsync()
+    public async Task<IActionResult> GetTransactionsByUserId()
     {
         // TODO
         return Ok();

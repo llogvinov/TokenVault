@@ -46,27 +46,7 @@ public class PortfoliosController : ApiController
     }
 
     /// <summary>
-    /// create portfolio
-    /// </summary>
-    [HttpPost]
-    public async Task<IActionResult> CreatePortfolio([FromBody] CreatePortfolioRequest request)
-    {
-        var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
-
-        var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
-        var portfolioResult = await _mediatr.Send(command);
-        await _unitOfWork.SaveAsync();
-
-        var response = _mapper.Map<PortfolioResponse>(portfolioResult);
-        return Ok(response);
-    }
-
-    /// <summary>
-    /// get portfolio
+    /// get portfolio by id
     /// </summary>
     [HttpGet("{portfolioId}")]
     public async Task<IActionResult> GetPortfolio([FromRoute] Guid portfolioId)
@@ -84,6 +64,26 @@ public class PortfoliosController : ApiController
         var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery);
 
         var response = new PortfolioDetailedResponse(portfolioResult, portfolioAssetsResult);
+        return Ok(response);
+    }
+
+    /// <summary>
+    /// create portfolio
+    /// </summary>
+    [HttpPost]
+    public async Task<IActionResult> CreatePortfolio([FromBody] CreatePortfolioRequest request)
+    {
+        var userId = GetUserId();
+        if (userId == default)
+        {
+            return Unauthorized();
+        }
+
+        var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
+        var portfolioResult = await _mediatr.Send(command);
+        await _unitOfWork.SaveAsync();
+
+        var response = _mapper.Map<PortfolioResponse>(portfolioResult);
         return Ok(response);
     }
 
