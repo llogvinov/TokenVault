@@ -13,7 +13,9 @@ public class AuthenticationMappingConfig : IRegister
     {
         config.NewConfig<RegisterRequest, RegisterCommand>();
 
-        config.NewConfig<RegisterCommand, User>();
+        config.NewConfig<(RegisterCommand command, string password), User>()
+            .Map(dest => dest.Password, src => src.password)
+            .Map(dest => dest, src => src.command);
 
         config.NewConfig<LoginRequest, LoginQuery>();
 

@@ -2,7 +2,6 @@ using MediatR;
 using TokenVault.Application.Authentication.Common;
 using TokenVault.Application.Common.Interfaces.Authentication;
 using TokenVault.Application.Common.Interfaces.Persistence;
-using TokenVault.Domain.Entities;
 
 namespace TokenVault.Application.Authentication.Queries.Login;
 
@@ -23,14 +22,16 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResul
         LoginQuery query,
         CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.User.GetFirstOrDefaultAsync(u => u.Email == query.Email);
-
+        var user = await _unitOfWork.User.GetFirstOrDefaultAsync(
+            u => u.Email == query.Email);
         if (user is null)
         {
             throw new Exception("The user does not exist");
         }
 
-        if (user.Password != query.Password)
+        var hasher = new Hasher();
+        var hashedPassword = hasher.ComputeSha256Hash(query.Password);
+        if (user.Password != hashedPassword)
         {
             throw new Exception("The password is incorrect");
         }

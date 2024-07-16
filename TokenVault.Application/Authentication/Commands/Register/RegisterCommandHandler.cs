@@ -27,13 +27,17 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Authentic
         RegisterCommand command,
         CancellationToken cancellationToken)
     {
-        var userFromDb = await _unitOfWork.User.GetFirstOrDefaultAsync(u => u.Email == command.Email);
+        var userFromDb = await _unitOfWork.User.GetFirstOrDefaultAsync(
+            u => u.Email == command.Email);
         if (userFromDb is not null)
         {
             throw new Exception("User with given email already exists");
         }
 
-        var user = _mapper.Map<User>(command);
+        var hasher = new Hasher();
+        var hashedPassword = hasher.ComputeSha256Hash(command.Password);
+
+        var user = _mapper.Map<User>((command, hashedPassword));
         await _unitOfWork.User.AddAsync(user);
 
         var token = _jwtTokenGenerator.GenerateToken(user);
