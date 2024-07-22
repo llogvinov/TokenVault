@@ -32,12 +32,16 @@ public class TransactionsController : ApiController
     /// <summary>
     ///     Get transactions in certain portfolio
     /// </summary>
+    /// <param name="portfolioId">Id of portfolio, where transaction was added</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
+    public async Task<IActionResult> GetTransactionsByPortfolioId(
+        [FromRoute] Guid portfolioId,
+        CancellationToken cancellationToken = default)
     {
         var query = new GetTransactionsByPortfolioIdQuery(portfolioId);
-        var transactionsResult = await _mediatr.Send(query);
+        var transactionsResult = await _mediatr.Send(query, cancellationToken);
         return Ok(transactionsResult.Transactions);
     }
 
@@ -45,12 +49,15 @@ public class TransactionsController : ApiController
     ///     Get transaction by id
     /// </summary>
     /// <param name="transactionId">Id of transaction</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{transactionId}")]
-    public async Task<IActionResult> GetTransaction([FromRoute] Guid transactionId)
+    public async Task<IActionResult> GetTransaction(
+        [FromRoute] Guid transactionId,
+        CancellationToken cancellationToken = default)
     {
         var query = new GetTransactionByIdQuery(transactionId);
-        var transaction = await _mediatr.Send(query);
+        var transaction = await _mediatr.Send(query, cancellationToken);
         return Ok(transaction);
     }
 
@@ -58,12 +65,14 @@ public class TransactionsController : ApiController
     ///     Create transaction
     /// </summary>
     /// <param name="portfolioId">Id of portfolio, where transaction is created</param>
-    /// <param name="request">Create transaction request</param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> CreateTransaction(
         [FromRoute] Guid portfolioId,
-        [FromBody] CreateTransactionRequest request)
+        [FromBody] CreateTransactionRequest request,
+        CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -72,12 +81,12 @@ public class TransactionsController : ApiController
         }
 
         var command = _mapper.Map<CreateTransactionCommand>((request, portfolioId));
-        var transactionResult = await _mediatr.Send(command);
+        var transactionResult = await _mediatr.Send(command, cancellationToken);
 
         var updatePortfolioAssetDetails = _mapper.Map<UpdatePortfolioAssetDetails>(transactionResult);
         var updatePortfolioAssetCommand = _mapper.Map<UpdatePortfolioAssetCommand>(
             (transactionResult, updatePortfolioAssetDetails));
-        var portfolioAssetResult = await _mediatr.Send(updatePortfolioAssetCommand);
+        var portfolioAssetResult = await _mediatr.Send(updatePortfolioAssetCommand, cancellationToken);
         
         await _unitOfWork.SaveAsync();
 
@@ -89,9 +98,12 @@ public class TransactionsController : ApiController
     ///     Delete transaction
     /// </summary>
     /// <param name="transactionId">Id of transaction</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpDelete("{transactionId}")]
-    public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
+    public async Task<IActionResult> DeleteTransaction(
+        [FromRoute] Guid transactionId,
+        CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -100,7 +112,7 @@ public class TransactionsController : ApiController
         }
 
         var query = new GetTransactionByIdQuery(transactionId);
-        var transaction = await _mediatr.Send(query);
+        var transaction = await _mediatr.Send(query, cancellationToken);
 
         var portfolio = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(
             p => p.Id == transaction.PortfolioId);
@@ -111,7 +123,7 @@ public class TransactionsController : ApiController
         }
 
         var command = new DeleteTransactionCommand(transaction);
-        var transactionResult = await _mediatr.Send(command);
+        var transactionResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
         return Ok(transactionResult);
     }

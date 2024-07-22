@@ -26,22 +26,38 @@ public class AuthenticationController : ControllerBase
         _mapper = mapper;
     }
 
+    /// <summary>
+    ///     Register in system
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterRequest request)
+    public async Task<IActionResult> Register(
+        RegisterRequest request, 
+        CancellationToken cancellationToken = default)
     {
         var command = _mapper.Map<RegisterCommand>(request);
-        var authResult = await _mediator.Send(command);
+        var authResult = await _mediator.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
         
         var response = _mapper.Map<AuthenticationResponse>(authResult);
         return Ok(response);
     }
 
+    /// <summary>
+    ///     Login to system
+    /// </summary>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
+    /// <returns></returns>
     [HttpPost("login")]
-    public async Task<IActionResult> Login(LoginRequest request)
+    public async Task<IActionResult> Login(
+        LoginRequest request,
+        CancellationToken cancellationToken = default)
     {
         var query = _mapper.Map<LoginQuery>(request);
-        var authResult = await _mediator.Send(query);
+        var authResult = await _mediator.Send(query, cancellationToken);
 
         var response = _mapper.Map<AuthenticationResponse>(authResult);
         return Ok(response);

@@ -50,9 +50,12 @@ public class PortfoliosController : ApiController
     ///     Get portfolio by id
     /// </summary>
     /// <param name="portfolioId">Id of portfolio</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{portfolioId}")]
-    public async Task<IActionResult> GetPortfolio([FromRoute] Guid portfolioId)
+    public async Task<IActionResult> GetPortfolio(
+        [FromRoute] Guid portfolioId,
+        CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -61,10 +64,10 @@ public class PortfoliosController : ApiController
         }
 
         var query = new GetPortfolioByIdQuery(portfolioId);
-        var portfolioResult = await _mediatr.Send(query);
+        var portfolioResult = await _mediatr.Send(query, cancellationToken);
 
         var getPortfolioAssetsQuery = new GetPortfolioAssetsByPortfolioIdQuery(portfolioId);
-        var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery);
+        var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery, cancellationToken);
 
         var response = new PortfolioDetailedResponse(portfolioResult, portfolioAssetsResult);
         return Ok(response);
@@ -73,10 +76,13 @@ public class PortfoliosController : ApiController
     /// <summary>
     ///     Crete portfolio
     /// </summary>
-    /// <param name="request">Create portfolio request</param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> CreatePortfolio([FromBody] CreatePortfolioRequest request)
+    public async Task<IActionResult> CreatePortfolio(
+        [FromBody] CreatePortfolioRequest request,
+        CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -85,7 +91,7 @@ public class PortfoliosController : ApiController
         }
 
         var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
-        var portfolioResult = await _mediatr.Send(command);
+        var portfolioResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
@@ -96,12 +102,14 @@ public class PortfoliosController : ApiController
     ///     Update portfolio
     /// </summary>
     /// <param name="portfolioId">Id of portfolio</param>
-    /// <param name="request">Update portfolio properties request</param>
+    /// <param name="request"></param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPut("{portfolioId}")]
     public async Task<IActionResult> UpdatePortfolio(
         [FromRoute] Guid portfolioId,
-        [FromBody] UpdatePortfolioRequest request)
+        [FromBody] UpdatePortfolioRequest request,
+        CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -110,7 +118,7 @@ public class PortfoliosController : ApiController
         }
 
         var command = new UpdatePortfolioCommand(portfolioId, request.Title);
-        var portfolioResult = await _mediatr.Send(command);
+        var portfolioResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
@@ -121,9 +129,12 @@ public class PortfoliosController : ApiController
     ///     Delete portfolio
     /// </summary>
     /// <param name="portfolioId">Id of portfolio</param>
+    /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpDelete("{portfolioId}")]
-    public async Task<IActionResult> DeletePortfolio([FromRoute] Guid portfolioId)
+    public async Task<IActionResult> DeletePortfolio(
+        [FromRoute] Guid portfolioId,
+        CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
         if (userId == default)
@@ -132,7 +143,7 @@ public class PortfoliosController : ApiController
         }
 
         var command = new DeletePortfolioCommand(portfolioId);
-        var portfolioResult = await _mediatr.Send(command);
+        var portfolioResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
