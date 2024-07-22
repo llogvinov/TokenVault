@@ -29,6 +29,10 @@ public class TransactionsController : ApiController
         _mapper = mapper;
     }
 
+    /// <summary>
+    ///     Get transactions in certain portfolio
+    /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetTransactionsByPortfolioId([FromRoute] Guid portfolioId)
     {
@@ -37,6 +41,11 @@ public class TransactionsController : ApiController
         return Ok(transactionsResult.Transactions);
     }
 
+    /// <summary>
+    ///     Get transaction by id
+    /// </summary>
+    /// <param name="transactionId">Id of transaction</param>
+    /// <returns></returns>
     [HttpGet("{transactionId}")]
     public async Task<IActionResult> GetTransaction([FromRoute] Guid transactionId)
     {
@@ -45,6 +54,12 @@ public class TransactionsController : ApiController
         return Ok(transaction);
     }
 
+    /// <summary>
+    ///     Create transaction
+    /// </summary>
+    /// <param name="portfolioId">Id of portfolio, where transaction is created</param>
+    /// <param name="request">Create transaction request</param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> CreateTransaction(
         [FromRoute] Guid portfolioId,
@@ -70,6 +85,11 @@ public class TransactionsController : ApiController
         return Ok(response);
     }
 
+    /// <summary>
+    ///     Delete transaction
+    /// </summary>
+    /// <param name="transactionId">Id of transaction</param>
+    /// <returns></returns>
     [HttpDelete("{transactionId}")]
     public async Task<IActionResult> DeleteTransaction([FromRoute] Guid transactionId)
     {

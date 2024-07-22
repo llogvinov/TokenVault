@@ -30,8 +30,9 @@ public class PortfoliosController : ApiController
     }
 
     /// <summary>
-    /// get portfolios
+    ///     Get all portfolios
     /// </summary>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IActionResult> GetPortfolios()
     {
@@ -46,8 +47,10 @@ public class PortfoliosController : ApiController
     }
 
     /// <summary>
-    /// get portfolio by id
+    ///     Get portfolio by id
     /// </summary>
+    /// <param name="portfolioId">Id of portfolio</param>
+    /// <returns></returns>
     [HttpGet("{portfolioId}")]
     public async Task<IActionResult> GetPortfolio([FromRoute] Guid portfolioId)
     {
@@ -68,8 +71,10 @@ public class PortfoliosController : ApiController
     }
 
     /// <summary>
-    /// create portfolio
+    ///     Crete portfolio
     /// </summary>
+    /// <param name="request">Create portfolio request</param>
+    /// <returns></returns>
     [HttpPost]
     public async Task<IActionResult> CreatePortfolio([FromBody] CreatePortfolioRequest request)
     {
@@ -88,8 +93,11 @@ public class PortfoliosController : ApiController
     }
 
     /// <summary>
-    /// update portfolio
+    ///     Update portfolio
     /// </summary>
+    /// <param name="portfolioId">Id of portfolio</param>
+    /// <param name="request">Update portfolio properties request</param>
+    /// <returns></returns>
     [HttpPut("{portfolioId}")]
     public async Task<IActionResult> UpdatePortfolio(
         [FromRoute] Guid portfolioId,
@@ -110,8 +118,10 @@ public class PortfoliosController : ApiController
     }
 
     /// <summary>
-    /// delete portfolio
+    ///     Delete portfolio
     /// </summary>
+    /// <param name="portfolioId">Id of portfolio</param>
+    /// <returns></returns>
     [HttpDelete("{portfolioId}")]
     public async Task<IActionResult> DeletePortfolio([FromRoute] Guid portfolioId)
     {

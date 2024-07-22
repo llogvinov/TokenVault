@@ -27,20 +27,23 @@ public class CryptocurrenciesController : ApiController
     }
 
     /// <summary>
-    /// get cryptocurrencies 
+    ///     Get all cryptocurrencies
     /// </summary>
+    /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetCryptocurrencies()
+    public async Task<IActionResult> GetCryptocurrenciesAsync()
     {
         var cryptocurrencies = await _unitOfWork.Cryptocurrency.GetAllAsync();
         return Ok(cryptocurrencies);
     }
     
     /// <summary>
-    /// get cryptocurrency by id  
+    ///     Get cryptocurrency by id
     /// </summary>
+    /// <param name="cryptocurrencyId">Id of cryptocurrency</param>
+    /// <returns></returns>
     [HttpGet("{cryptocurrencyId}")]
-    public async Task<IActionResult> GetCryptocurrency([FromRoute] Guid cryptocurrencyId)
+    public async Task<IActionResult> GetCryptocurrencyAsync([FromRoute] Guid cryptocurrencyId)
     {
         var command = new GetCryptocurrencyByIdQuery(cryptocurrencyId);
         var result = await _mediatr.Send(command);
@@ -50,10 +53,12 @@ public class CryptocurrenciesController : ApiController
     }
 
     /// <summary>
-    /// create cryptocurrency 
+    ///     Create cryptocurrency
     /// </summary>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> CreateCryptocurrency(
+    public async Task<IActionResult> CreateCryptocurrencyAsync(
         [FromBody] CreateCryptocurrencyRequest request)
     {
         var command = _mapper.Map<CreateCryptocurrencyCommand>(request);
@@ -65,10 +70,13 @@ public class CryptocurrenciesController : ApiController
     }
 
     /// <summary>
-    /// get cryptocurrency by id  
+    ///     Update cryptocurrency
     /// </summary>
+    /// <param name="cryptocurrencyId">Id of cryptocurrency</param>
+    /// <param name="request"></param>
+    /// <returns></returns>
     [HttpPut("{cryptocurrencyId}")]
-    public async Task<IActionResult> UpdateCryptocurrency(
+    public async Task<IActionResult> UpdateCryptocurrencyAsync(
         [FromRoute] Guid cryptocurrencyId,
         [FromBody] UpdateCryptocurrencyRequest request)
     {
@@ -81,10 +89,12 @@ public class CryptocurrenciesController : ApiController
     }
 
     /// <summary>
-    /// delete cryptocurrency 
+    ///     Delete cryptocurrency
     /// </summary>
+    /// <param name="cryptocurrencyId">Id of cryptocurrency</param>
+    /// <returns></returns>
     [HttpDelete("{cryptocurrencyId}")]
-    public async Task<IActionResult> DeleteCryptocurrency([FromRoute] Guid cryptocurrencyId)
+    public async Task<IActionResult> DeleteCryptocurrencyAsync([FromRoute] Guid cryptocurrencyId)
     {
         var command = new DeleteCryptocurrencyCommand(cryptocurrencyId);
         var result = await _mediatr.Send(command);
