@@ -13,16 +13,16 @@ namespace TokenVault.Api.Controllers;
 public class AuthenticationController : ControllerBase
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly ISender _mediator;
+    private readonly ISender _mediatr;
     private readonly IMapper _mapper;
 
     public AuthenticationController(
         IUnitOfWork unitOfWork,
-        ISender mediator,
+        ISender mediatr,
         IMapper mapper)
     {
         _unitOfWork = unitOfWork;
-        _mediator = mediator;
+        _mediatr = mediatr;
         _mapper = mapper;
     }
 
@@ -38,7 +38,7 @@ public class AuthenticationController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var command = _mapper.Map<RegisterCommand>(request);
-        var authResult = await _mediator.Send(command, cancellationToken);
+        var authResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
         
         var response = _mapper.Map<AuthenticationResponse>(authResult);
@@ -57,7 +57,7 @@ public class AuthenticationController : ControllerBase
         CancellationToken cancellationToken = default)
     {
         var query = _mapper.Map<LoginQuery>(request);
-        var authResult = await _mediator.Send(query, cancellationToken);
+        var authResult = await _mediatr.Send(query, cancellationToken);
 
         var response = _mapper.Map<AuthenticationResponse>(authResult);
         return Ok(response);
