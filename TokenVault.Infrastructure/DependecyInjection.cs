@@ -32,7 +32,7 @@ public static class DependencyInjection
     {
         services.AddDbContext<TokenVaultDbContext>(options =>
         {
-            options.UseSqlServer("Server=LLOGVINOVPC;Database=TokenVault;Trusted_Connection=True;TrustServerCertificate=True;");
+            options.UseSqlServer("Server=LLOGVINOV-PC\\SQLEXPRESS;Database=TokenVault;Trusted_Connection=True;TrustServerCertificate=True;");
         });
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
