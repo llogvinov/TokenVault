@@ -87,6 +87,11 @@ public class UpdatePortfolioAssetCommandHandler :
                 invested = asset.Invested - updatePortfolioAssetDetails.TotalPrice;
                 averagePrice = invested / holdings;
                 break;
+            case (int)TransactionType.Deposit:
+                holdings = asset.Holdings + updatePortfolioAssetDetails.Amount;
+                invested = asset.Invested;
+                averagePrice = invested / holdings;
+                break;
         }
 
         var updateAssetDetails = new UpdatedAssetDetails(holdings, averagePrice, invested);
