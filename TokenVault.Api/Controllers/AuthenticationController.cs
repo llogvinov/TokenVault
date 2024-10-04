@@ -32,17 +32,28 @@ public class AuthenticationController : ControllerBase
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
+    /// <response code="201">Registers the user to the system, logins the user and generates jwt token</response>
+    /// <response code="400">If the user data is incorrect</response>
     [HttpPost("register")]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> Register(
-        RegisterRequest request, 
+        RegisterRequest request,
         CancellationToken cancellationToken = default)
     {
-        var command = _mapper.Map<RegisterCommand>(request);
-        var authResult = await _mediatr.Send(command, cancellationToken);
-        await _unitOfWork.SaveAsync();
-        
-        var response = _mapper.Map<AuthenticationResponse>(authResult);
-        return Ok(response);
+        try
+        {
+            var command = _mapper.Map<RegisterCommand>(request);
+            var authResult = await _mediatr.Send(command, cancellationToken);
+            await _unitOfWork.SaveAsync();
+    
+            var response = _mapper.Map<AuthenticationResponse>(authResult);
+            return Ok(response);
+        }
+        catch (ArgumentException)
+        {
+            return BadRequest();
+        }
     }
 
     /// <summary>
@@ -51,15 +62,26 @@ public class AuthenticationController : ControllerBase
     /// <param name="request"></param>
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
+    /// <response code="201">Logins the user to the system and generates jwt token</response>
+    /// <response code="400">If the user data is incorrect</response>
     [HttpPost("login")]
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
     public async Task<IActionResult> Login(
         LoginRequest request,
         CancellationToken cancellationToken = default)
     {
-        var query = _mapper.Map<LoginQuery>(request);
-        var authResult = await _mediatr.Send(query, cancellationToken);
+        try
+        {
+            var query = _mapper.Map<LoginQuery>(request);
+            var authResult = await _mediatr.Send(query, cancellationToken);
 
-        var response = _mapper.Map<AuthenticationResponse>(authResult);
-        return Ok(response);
+            var response = _mapper.Map<AuthenticationResponse>(authResult);
+            return Ok(response);
+        }
+        catch (ArgumentException)
+        {
+            return BadRequest();
+        }
     }
 }

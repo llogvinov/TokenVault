@@ -26,14 +26,14 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResul
             u => u.Email == query.Email);
         if (user is null)
         {
-            throw new Exception("The user does not exist");
+            throw new ArgumentException("The user does not exist");
         }
 
         var hasher = new Hasher();
         var hashedPassword = hasher.ComputeSha256Hash(query.Password);
         if (user.Password != hashedPassword)
         {
-            throw new Exception("The password is incorrect");
+            throw new ArgumentException("The password is incorrect");
         }
 
         var token = _jwtTokenGenerator.GenerateToken(user);

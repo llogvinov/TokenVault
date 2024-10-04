@@ -31,7 +31,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Authentic
             u => u.Email == command.Email);
         if (userFromDb is not null)
         {
-            throw new Exception("User with given email already exists");
+            throw new ArgumentException("User with given email already exists");
         }
 
         var hasher = new Hasher();

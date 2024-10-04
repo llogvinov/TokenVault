@@ -17,6 +17,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddSwagger(this IServiceCollection services)
     {
+        services.AddEndpointsApiExplorer();
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo
@@ -48,10 +49,9 @@ public static class DependencyInjection
                 new List<string>()
             }});
 
-            // // Optionally, you can add XML comments for better documentation
-            // var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            // var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-            // c.IncludeXmlComments(xmlPath);  
+            var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+            c.IncludeXmlComments(xmlPath);  
         });
 
         return services;
