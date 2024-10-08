@@ -23,8 +23,7 @@ public class GetCryptocurrencyByIdQueryHandler :
         GetCryptocurrencyByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
-            c => c.Id == query.CryptocurrencyId);
+        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetCryptocurrencyByIdAsync(query.CryptocurrencyId);
         if (cryptocurrency == null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 

@@ -6,4 +6,6 @@ namespace TokenVault.Application.Common.Interfaces.Persistence;
 public interface ICryptocurrencyRepository : IRepository<Cryptocurrency>
 {
     Task<Cryptocurrency> UpdateAsync(Guid id, UpdateCryptocurrencyDetails details);
+    Task<List<Cryptocurrency>> GetCryptocurrenciesAsync();
+    Task<Cryptocurrency?> GetCryptocurrencyByIdAsync(Guid id);
 }

@@ -33,7 +33,7 @@ public class CryptocurrenciesController : ApiController
     [HttpGet]
     public async Task<IActionResult> GetCryptocurrenciesAsync()
     {
-        var cryptocurrencies = await _unitOfWork.Cryptocurrency.GetAllAsync();
+        var cryptocurrencies = await _unitOfWork.Cryptocurrency.GetCryptocurrenciesAsync();
         return Ok(cryptocurrencies);
     }
     
