@@ -86,7 +86,7 @@ public class TransactionsController : ApiController
 
         var response = _mapper.Map<CreateTransactionResponse>(transactionResult);
         return CreatedAtAction(nameof(GetTransactionAsync),
-            new { transactionId = response.Id },
+            new { portfolioId = response.PortfolioId, transactionId = response.Id },
             request);
     }
 

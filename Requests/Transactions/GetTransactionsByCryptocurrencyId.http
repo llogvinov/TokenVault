@@ -1,4 +1,4 @@
-@cryptocurrencyId = 3a01e18b-6e07-4b1d-a41f-b458414a9ee7
+@cryptocurrencyId = 3c9e1ca7-a81e-4e72-8883-5e86ab50002f
 
 GET  {{host}}/transactions?cryptocurrencyId={{cryptocurrencyId}}
 Authorization: Bearer {{token}}
