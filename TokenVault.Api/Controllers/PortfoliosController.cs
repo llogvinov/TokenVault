@@ -37,10 +37,6 @@ public class PortfoliosController : ApiController
     public async Task<IActionResult> GetPortfolios()
     {
         var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
 
         var response = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.UserId == userId);
         return Ok(response);
@@ -57,12 +53,6 @@ public class PortfoliosController : ApiController
         [FromRoute] Guid portfolioId,
         CancellationToken cancellationToken = default)
     {
-        var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
-
         var query = new GetPortfolioByIdQuery(portfolioId);
         var portfolioResult = await _mediatr.Send(query, cancellationToken);
 
@@ -70,7 +60,7 @@ public class PortfoliosController : ApiController
         var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery, cancellationToken);
 
         var response = new PortfolioDetailedResponse(portfolioResult, portfolioAssetsResult);
-        return CreatedAtAction(nameof(GetPortfolio), new {portfolioId}, response);
+        return CreatedAtAction(nameof(GetPortfolio), new { portfolioId }, response);
     }
 
     /// <summary>
@@ -85,17 +75,13 @@ public class PortfoliosController : ApiController
         CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
 
         var command = _mapper.Map<CreatePortfolioCommand>((userId, request));
         var portfolioResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
-        return Ok(response);
+        return CreatedAtAction(nameof(CreatePortfolio), request);
     }
 
     /// <summary>
@@ -111,12 +97,6 @@ public class PortfoliosController : ApiController
         [FromBody] UpdatePortfolioRequest request,
         CancellationToken cancellationToken = default)
     {
-        var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
-
         var command = new UpdatePortfolioCommand(portfolioId, request.Title);
         var portfolioResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
@@ -136,12 +116,6 @@ public class PortfoliosController : ApiController
         [FromRoute] Guid portfolioId,
         CancellationToken cancellationToken = default)
     {
-        var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
-
         var command = new DeletePortfolioCommand(portfolioId);
         var portfolioResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();

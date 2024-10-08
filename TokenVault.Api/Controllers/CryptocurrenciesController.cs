@@ -71,7 +71,7 @@ public class CryptocurrenciesController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
-        return Ok(response);
+        return CreatedAtAction(nameof(CreateCryptocurrencyAsync), request);
     }
 
     /// <summary>
@@ -92,7 +92,7 @@ public class CryptocurrenciesController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
-        return Ok(response);
+        return NoContent();
     }
 
     /// <summary>
@@ -111,6 +111,6 @@ public class CryptocurrenciesController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
-        return Ok(response);
+        return NoContent();
     }
 }

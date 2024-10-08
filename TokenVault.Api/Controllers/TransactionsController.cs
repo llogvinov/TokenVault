@@ -74,12 +74,6 @@ public class TransactionsController : ApiController
         [FromBody] CreateTransactionRequest request,
         CancellationToken cancellationToken = default)
     {
-        var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
-
         var command = _mapper.Map<CreateTransactionCommand>((request, portfolioId));
         var transactionResult = await _mediatr.Send(command, cancellationToken);
 
@@ -91,7 +85,7 @@ public class TransactionsController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CreateTransactionResponse>(transactionResult);
-        return Ok(response);
+        return CreatedAtAction(nameof(CreateTransaction), request);
     }
 
     /// <summary>
@@ -106,11 +100,6 @@ public class TransactionsController : ApiController
         CancellationToken cancellationToken = default)
     {
         var userId = GetUserId();
-        if (userId == default)
-        {
-            return Unauthorized();
-        }
-
         var query = new GetTransactionByIdQuery(transactionId);
         var transaction = await _mediatr.Send(query, cancellationToken);
 
@@ -125,13 +114,14 @@ public class TransactionsController : ApiController
         var command = new DeleteTransactionCommand(transaction);
         var transactionResult = await _mediatr.Send(command, cancellationToken);
         await _unitOfWork.SaveAsync();
-        return Ok(transactionResult);
+        return NoContent();
     }
 
     [HttpGet("/transactions")]
     public IActionResult GetTransactionsByUserId()
     {
         // TODO
+        var userId = GetUserId();
         return Ok();
     }
 }

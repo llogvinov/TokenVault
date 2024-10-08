@@ -48,7 +48,7 @@ public class AuthenticationController : ControllerBase
             await _unitOfWork.SaveAsync();
     
             var response = _mapper.Map<AuthenticationResponse>(authResult);
-            return Ok(response);
+            return CreatedAtAction(nameof(Register), request);
         }
         catch (ArgumentException)
         {
