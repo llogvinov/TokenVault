@@ -21,7 +21,6 @@ var app = builder.Build();
     app.UseSwaggerUI(c =>
     {
         c.SwaggerEndpoint("/swagger/v1/swagger.json", "TokenVault API v1");
-        c.RoutePrefix = string.Empty;
     });
 
     app.Run();

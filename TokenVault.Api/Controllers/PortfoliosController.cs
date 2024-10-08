@@ -70,7 +70,7 @@ public class PortfoliosController : ApiController
         var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery, cancellationToken);
 
         var response = new PortfolioDetailedResponse(portfolioResult, portfolioAssetsResult);
-        return Ok(response);
+        return CreatedAtAction(nameof(GetPortfolio), new {portfolioId}, response);
     }
 
     /// <summary>
@@ -122,7 +122,7 @@ public class PortfoliosController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
-        return Ok(response);
+        return NoContent();
     }
 
     /// <summary>
@@ -147,7 +147,7 @@ public class PortfoliosController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
-        return Ok(response);
+        return NoContent();
     }
 }
 

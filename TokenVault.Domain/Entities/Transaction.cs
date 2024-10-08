@@ -12,7 +12,7 @@ public class Transaction
     public DateTime CreateDate { get; set; }
 }
 
-public enum TransactionType
+public enum TransactionType : byte
 {
     Buy = 1,
     Sell = 2,
