@@ -18,8 +18,7 @@ public class GetTransactionByIdQueryHandler :
         GetTransactionByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var transaction = await _unitOfWork.Transaction.GetFirstOrDefaultAsync(
-            t => t.Id == query.transactionId);
+        var transaction = await _unitOfWork.Transaction.GetTransactionByIdAsync(query.transactionId);
         if (transaction is null)
         {
             throw new ArgumentNullException(nameof(transaction),

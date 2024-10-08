@@ -36,7 +36,7 @@ public class TransactionsController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetTransactionsByPortfolioId(
+    public async Task<IActionResult> GetTransactionsByPortfolioIdAsync(
         [FromRoute] Guid portfolioId,
         CancellationToken cancellationToken = default)
     {
@@ -52,7 +52,7 @@ public class TransactionsController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{transactionId}")]
-    public async Task<IActionResult> GetTransaction(
+    public async Task<IActionResult> GetTransactionAsync(
         [FromRoute] Guid transactionId,
         CancellationToken cancellationToken = default)
     {
@@ -69,7 +69,7 @@ public class TransactionsController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> CreateTransaction(
+    public async Task<IActionResult> CreateTransactionAsync(
         [FromRoute] Guid portfolioId,
         [FromBody] CreateTransactionRequest request,
         CancellationToken cancellationToken = default)
@@ -81,11 +81,13 @@ public class TransactionsController : ApiController
         var updatePortfolioAssetCommand = _mapper.Map<UpdatePortfolioAssetCommand>(
             (transactionResult, updatePortfolioAssetDetails));
         var portfolioAssetResult = await _mediatr.Send(updatePortfolioAssetCommand, cancellationToken);
-        
+
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CreateTransactionResponse>(transactionResult);
-        return CreatedAtAction(nameof(CreateTransaction), request);
+        return CreatedAtAction(nameof(GetTransactionAsync),
+            new { transactionId = response.Id },
+            request);
     }
 
     /// <summary>
@@ -103,9 +105,8 @@ public class TransactionsController : ApiController
         var query = new GetTransactionByIdQuery(transactionId);
         var transaction = await _mediatr.Send(query, cancellationToken);
 
-        var portfolio = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(
-            p => p.Id == transaction.PortfolioId);
-        var transactionUserId = portfolio.UserId;
+        var portfolio = await _unitOfWork.Portfolio.GetPortfolioByIdAsync(transaction.PortfolioId);
+        var transactionUserId = portfolio?.UserId;
         if (userId != transactionUserId)
         {
             throw new Exception("You have no rights to delete this transaction");

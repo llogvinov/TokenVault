@@ -34,11 +34,11 @@ public class PortfoliosController : ApiController
     /// </summary>
     /// <returns></returns>
     [HttpGet]
-    public async Task<IActionResult> GetPortfolios()
+    public async Task<IActionResult> GetPortfoliosAsync()
     {
         var userId = GetUserId();
 
-        var response = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.UserId == userId);
+        var response = await _unitOfWork.Portfolio.GetPortfoliosByUserIdAsync(userId);
         return Ok(response);
     }
 
@@ -49,7 +49,7 @@ public class PortfoliosController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet("{portfolioId}")]
-    public async Task<IActionResult> GetPortfolio(
+    public async Task<IActionResult> GetPortfolioAsync(
         [FromRoute] Guid portfolioId,
         CancellationToken cancellationToken = default)
     {
@@ -60,7 +60,7 @@ public class PortfoliosController : ApiController
         var portfolioAssetsResult = await _mediatr.Send(getPortfolioAssetsQuery, cancellationToken);
 
         var response = new PortfolioDetailedResponse(portfolioResult, portfolioAssetsResult);
-        return CreatedAtAction(nameof(GetPortfolio), new { portfolioId }, response);
+        return Ok(response);
     }
 
     /// <summary>
@@ -70,7 +70,7 @@ public class PortfoliosController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPost]
-    public async Task<IActionResult> CreatePortfolio(
+    public async Task<IActionResult> CreatePortfolioAsync(
         [FromBody] CreatePortfolioRequest request,
         CancellationToken cancellationToken = default)
     {
@@ -81,7 +81,9 @@ public class PortfoliosController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<PortfolioResponse>(portfolioResult);
-        return CreatedAtAction(nameof(CreatePortfolio), request);
+        return CreatedAtAction(nameof(GetPortfolioAsync),
+            new { portfolioId = response.Id },
+            response);
     }
 
     /// <summary>
@@ -92,7 +94,7 @@ public class PortfoliosController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpPut("{portfolioId}")]
-    public async Task<IActionResult> UpdatePortfolio(
+    public async Task<IActionResult> UpdatePortfolioAsync(
         [FromRoute] Guid portfolioId,
         [FromBody] UpdatePortfolioRequest request,
         CancellationToken cancellationToken = default)
@@ -112,7 +114,7 @@ public class PortfoliosController : ApiController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpDelete("{portfolioId}")]
-    public async Task<IActionResult> DeletePortfolio(
+    public async Task<IActionResult> DeletePortfolioAsync(
         [FromRoute] Guid portfolioId,
         CancellationToken cancellationToken = default)
     {

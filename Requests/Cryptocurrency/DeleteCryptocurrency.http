@@ -1,4 +1,4 @@
-@cryptocurrencyId = 75f90e31-eb18-45cc-960a-292c702fb29a
+@cryptocurrencyId = 3f4918b0-04e6-4f46-a7d6-ad0ffcf3f84a
 
 DELETE {{host}}/cryptocurrencies/{{cryptocurrencyId}}
 Authorization: Bearer {{token}}

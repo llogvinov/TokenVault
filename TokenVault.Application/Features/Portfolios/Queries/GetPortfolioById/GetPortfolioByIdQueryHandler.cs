@@ -22,7 +22,7 @@ public class GetPortfolioByIdQueryHandler : IRequestHandler<GetPortfolioByIdQuer
         GetPortfolioByIdQuery query,
         CancellationToken cancellationToken)
     {
-        var portfolio = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.Id == query.PortfolioId);
+        var portfolio = await _unitOfWork.Portfolio.GetPortfolioByIdAsync(query.PortfolioId);
         if (portfolio is null)
         {
             throw new ArgumentNullException(nameof(portfolio),

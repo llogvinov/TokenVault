@@ -18,8 +18,7 @@ public class GetTransactionsByPortfolioIdQueryHandler :
         GetTransactionsByPortfolioIdQuery query,
         CancellationToken cancellationToken)
     {
-        var transactions = await _unitOfWork.Transaction.GetAllAsync(
-            t => t.PortfolioId == query.PortfolioId);
+        var transactions = await _unitOfWork.Transaction.GetTransactionsByPortfolioIdAsync(query.PortfolioId);
 
         var transactionsResult = new TransactionsResult(transactions);
         return transactionsResult;

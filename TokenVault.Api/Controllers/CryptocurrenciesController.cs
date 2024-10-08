@@ -36,7 +36,7 @@ public class CryptocurrenciesController : ApiController
         var cryptocurrencies = await _unitOfWork.Cryptocurrency.GetCryptocurrenciesAsync();
         return Ok(cryptocurrencies);
     }
-    
+
     /// <summary>
     ///     Get cryptocurrency by id
     /// </summary>
@@ -71,7 +71,9 @@ public class CryptocurrenciesController : ApiController
         await _unitOfWork.SaveAsync();
 
         var response = _mapper.Map<CryptocurrencyResponse>(result);
-        return CreatedAtAction(nameof(CreateCryptocurrencyAsync), request);
+        return CreatedAtAction(nameof(GetCryptocurrencyAsync), 
+            new { cryptocurrencyId = response.Id }, 
+            response);
     }
 
     /// <summary>

@@ -2,7 +2,7 @@ POST {{host}}/auth/register
 Content-Type: application/json
 
 {
-    "name": "Lev Logvinov",
-    "email": "lev.logvinov@gmail.com",
-    "password": "Lev123."
+    "name": "Seva Utochkin",
+    "email": "seva@utochkin.com",
+    "password": "Seva123."
 }

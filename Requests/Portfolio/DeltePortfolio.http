@@ -1,4 +1,4 @@
-@portfolioId = bdb65229-cbc6-4012-9bd9-787b438c9c81
+@portfolioId = 443372f6-ecef-4e0c-8072-7ffd554b6943
 
 DELETE {{host}}/portfolios/{{portfolioId}}
 Authorization: Bearer {{token}}
