@@ -31,9 +31,7 @@ public static class DependencyInjection
     private static IServiceCollection AddPersistence(this IServiceCollection services)
     {
         services.AddDbContext<TokenVaultDbContext>(options =>
-        {
-            options.UseSqlServer("Server=LLOGVINOV-PC\\SQLEXPRESS;Database=TokenVault;Trusted_Connection=True;TrustServerCertificate=True;");
-        });
+            options.UseSqlServer(DbConnection.ConnectionString));
         
         services.AddScoped<IUnitOfWork, UnitOfWork>();
 

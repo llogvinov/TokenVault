@@ -8,7 +8,8 @@ public static class DependencyInjection
     public static IServiceCollection AddPresentation(this IServiceCollection services)
     {
         services.AddControllers();
-        services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(DependencyInjection).Assembly));
+        services.AddMediatR(configuration => 
+            configuration.RegisterServicesFromAssemblies(typeof(DependencyInjection).Assembly));
 
         services.AddSwagger();
 
