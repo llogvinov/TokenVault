@@ -5,4 +5,6 @@ public record PortfolioAssetResult(
     Guid PortfolioId,
     double Holdings,
     double AveragePrice,
-    double Invested);
+    double Invested,
+    double TokenPrice,
+    double CurrentProfit);

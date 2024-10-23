@@ -20,7 +20,7 @@ public class PortfolioAssetRepository : Repository<PortfolioAsset>, IPortfolioAs
         {
             throw new ArgumentNullException(nameof(portfolioAsset),
                 $"Portfolio asset with given cryptocurrency id: {cryptocurrencyId}"
-                + " does not exist in given portfolio with id: {portfolioId}");
+                + $" does not exist in given portfolio with id: {portfolioId}");
         }
         
         portfolioAsset.Holdings = updatePortfolioAssetDetails.Holdings;

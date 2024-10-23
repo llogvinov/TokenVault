@@ -23,7 +23,10 @@ public static class DependencyInjection
     {
         services.AddAuth(configuration)
             .AddPersistence();
+        
         services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+        services.AddHttpClient<ICryptocurrencyPriceProvider, SimpleAPICryptocurrencyPriceProvider>();
+        services.AddSingleton<ICryptocurrencyPriceProvider, SimpleAPICryptocurrencyPriceProvider>();
 
         return services;
     }

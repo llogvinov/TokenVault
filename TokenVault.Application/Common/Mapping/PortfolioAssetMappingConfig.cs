@@ -17,7 +17,11 @@ public class PortfolioAssetMappingConfig : IRegister
             .Map(dest => dest.AveragePrice, src => src.UpdatePortfolioAssetDetails.PricePerToken)
             .Map(dest => dest.Invested, src => src.UpdatePortfolioAssetDetails.TotalPrice);
         
-        config.NewConfig<PortfolioAsset, PortfolioAssetResult>();
+        config.NewConfig<(PortfolioAsset portfolioAsset, double price, double profit), PortfolioAssetResult>()
+            .Map(dest => dest.TokenPrice, src => src.price)
+            .Map(dest => dest.CurrentProfit, src => src.profit)
+            .Map(dest => dest, src => src.portfolioAsset)
+        ;
 
         config.NewConfig<SingleTransactionResult, UpdatePortfolioAssetDetails>();
 

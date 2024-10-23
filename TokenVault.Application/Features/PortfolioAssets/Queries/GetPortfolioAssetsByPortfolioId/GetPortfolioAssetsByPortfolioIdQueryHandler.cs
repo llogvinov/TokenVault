@@ -1,6 +1,7 @@
 using MapsterMapper;
 using MediatR;
 using TokenVault.Application.Common.Interfaces.Persistence;
+using TokenVault.Application.Common.Interfaces.Services;
 using TokenVault.Application.Features.PortfolioAssets.Common;
 
 namespace TokenVault.Application.Features.PortfolioAssets.Queries.GetPortfolioAssetsByPortfolioId;
@@ -10,13 +11,16 @@ public class GetPortfolioAssetsByPortfolioIdQueryHandler :
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+    private readonly ICryptocurrencyPriceProvider _cryptocurrencyPriceProvider;
 
     public GetPortfolioAssetsByPortfolioIdQueryHandler(
         IUnitOfWork unitOfWork,
-        IMapper mapper)
+        IMapper mapper,
+        ICryptocurrencyPriceProvider cryptocurrencyPriceProvider)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _cryptocurrencyPriceProvider = cryptocurrencyPriceProvider;
     }
 
     public async Task<IEnumerable<PortfolioAssetResult>> Handle(
@@ -29,7 +33,15 @@ public class GetPortfolioAssetsByPortfolioIdQueryHandler :
         List<PortfolioAssetResult> portfolioAssetsResult = new ();
         foreach (var portfolioAsset in portfolioAssets)
         {
-            var portfolioAssetResult = _mapper.Map<PortfolioAssetResult>(portfolioAsset);
+            var cryptocurrency = await _unitOfWork.Cryptocurrency.GetCryptocurrencyByIdAsync(portfolioAsset.CryptocurrencyId);
+            if (cryptocurrency is null)
+            {
+                throw new Exception("cryptocurrency not found");
+            }
+
+            var price = await _cryptocurrencyPriceProvider.GetPrice(cryptocurrency.Symbol);
+            var profit = portfolioAsset.Holdings * price - portfolioAsset.Invested;
+            var portfolioAssetResult = _mapper.Map<PortfolioAssetResult>((portfolioAsset, price, profit));
             portfolioAssetsResult.Add(portfolioAssetResult);
         }
 

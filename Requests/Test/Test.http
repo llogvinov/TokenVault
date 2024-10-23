@@ -1,0 +1,2 @@
+POST {{host}}/test/btc
+Content-Type: application/json
