@@ -23,8 +23,7 @@ public class DeleteCryptocurrencyCommandHandler :
         DeleteCryptocurrencyCommand command,
         CancellationToken cancellationToken)
     {
-        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
-            c => c.Id == command.CryptocurrencyId);
+        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
         if (cryptocurrency is null)
         {
             throw new ArgumentNullException(nameof(cryptocurrency), 

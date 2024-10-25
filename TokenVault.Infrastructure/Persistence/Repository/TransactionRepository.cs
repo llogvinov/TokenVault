@@ -1,6 +1,3 @@
-using System.Data;
-using Dapper;
-using Microsoft.Data.SqlClient;
 using TokenVault.Application.Common.Interfaces.Persistence;
 using TokenVault.Domain.Entities;
 
@@ -13,51 +10,31 @@ public class TransactionRepository : Repository<Transaction>, ITransactionReposi
 
     public async Task<List<Transaction>> GetTransactionsAsync()
     {
-        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
-        {
-            var query = "SELECT * FROM Transactions";
-            var result = await db.QueryAsync<Transaction>(query);
-            return result.ToList();
-        }
+        string query = "SELECT * FROM Transactions";
+        return await QueryAsync(query);
     }
 
     public async Task<List<Transaction>> GetTransactionsByUserIdAsync(Guid userId)
     {
-        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
-        {
-            var query = $"SELECT * FROM Transactions WHERE UserId = '{userId}'";
-            var result = await db.QueryAsync<Transaction>(query);
-            return result.ToList();
-        }
+        var query = $"SELECT * FROM Transactions WHERE UserId = '{userId}'";
+        return await QueryAsync(query);
     }
 
     public async Task<List<Transaction>> GetTransactionsByPortfolioIdAsync(Guid portfolioId)
     {
-        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
-        {
-            var query = $"SELECT * FROM Transactions WHERE PortfolioId = '{portfolioId}'";
-            var result = await db.QueryAsync<Transaction>(query);
-            return result.ToList();
-        }
+        var query = $"SELECT * FROM Transactions WHERE PortfolioId = '{portfolioId}'";
+        return await QueryAsync(query);
     }
 
     public async Task<List<Transaction>> GetTransactionsByCryptocurrencyIdAsync(Guid cryptocurrencyId)
     {
-        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
-        {
-            var query = $"SELECT * FROM Transactions WHERE CryptocurrencyId = '{cryptocurrencyId}'";
-            var result = await db.QueryAsync<Transaction>(query);
-            return result.ToList();
-        }
+        var query = $"SELECT * FROM Transactions WHERE CryptocurrencyId = '{cryptocurrencyId}'";
+        return await QueryAsync(query);
     }
 
     public async Task<Transaction?> GetTransactionByIdAsync(Guid id)
     {
-        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
-        {
-            var query = $"SELECT * FROM Transactions WHERE Id = '{id}'";
-            var result = await db.QueryFirstOrDefaultAsync<Transaction>(query);
-            return result;
-        }
+        var query = $"SELECT * FROM Transactions WHERE Id = '{id}'";
+        return await QueryFirstOrDefaultAsync(query); ;
     }
 }

@@ -27,8 +27,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, Authentic
         RegisterCommand command,
         CancellationToken cancellationToken)
     {
-        var userFromDb = await _unitOfWork.User.GetFirstOrDefaultAsync(
-            u => u.Email == command.Email);
+        var userFromDb = await _unitOfWork.User.GetUserByEmailAsync(command.Email);
         if (userFromDb is not null)
         {
             throw new ArgumentException("User with given email already exists");

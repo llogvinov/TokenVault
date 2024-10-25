@@ -31,8 +31,7 @@ public class CreateTransactionCommandHandler :
         }
         await _unitOfWork.Transaction.AddAsync(transaction);
 
-        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetFirstOrDefaultAsync(
-            c => c.Id == command.CryptocurrencyId);
+        var cryptocurrency = await _unitOfWork.Cryptocurrency.GetCryptocurrencyByIdAsync(command.CryptocurrencyId);
         var symbol = cryptocurrency?.Symbol ?? "Unknown";
 
         var transactionResult = _mapper.Map<SingleTransactionResult>((transaction, symbol));

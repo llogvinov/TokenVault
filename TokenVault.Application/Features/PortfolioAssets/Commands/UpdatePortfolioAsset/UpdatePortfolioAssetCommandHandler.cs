@@ -26,8 +26,8 @@ public class UpdatePortfolioAssetCommandHandler :
     {
         PortfolioAssetResult portfolioAssetResult;
 
-        var portfolioAsset = await _unitOfWork.PortfolioAsset.GetFirstOrDefaultAsync(
-            a => a.CryptocurrencyId == command.CryptocurrencyId && a.PortfolioId == command.PortfolioId);
+        var portfolioAsset = await _unitOfWork.PortfolioAsset
+            .GetPortfolioAssetAsync(command.CryptocurrencyId, command.PortfolioId);
         if (portfolioAsset is null)
         {
             if (command.UpdatePortfolioAssetDetails.TransactionType == (int)TransactionType.Sell)

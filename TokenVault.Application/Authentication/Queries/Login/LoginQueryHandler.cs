@@ -22,8 +22,7 @@ public class LoginQueryHandler : IRequestHandler<LoginQuery, AuthenticationResul
         LoginQuery query,
         CancellationToken cancellationToken)
     {
-        var user = await _unitOfWork.User.GetFirstOrDefaultAsync(
-            u => u.Email == query.Email);
+        var user = await _unitOfWork.User.GetUserByEmailAsync(query.Email);
         if (user is null)
         {
             throw new ArgumentException("The user does not exist");

@@ -24,7 +24,7 @@ public class DeletePortfolioCommandHandler :
         DeletePortfolioCommand command,
         CancellationToken cancellationToken)
     {
-        var portfolio = await _unitOfWork.Portfolio.GetFirstOrDefaultAsync(p => p.Id == command.PortfolioId);
+        var portfolio = await _unitOfWork.Portfolio.GetPortfolioByIdAsync(command.PortfolioId);
         if (portfolio is null)
         {
             throw new ArgumentNullException(nameof(portfolio),

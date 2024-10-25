@@ -7,4 +7,6 @@ public interface IPortfolioAssetRepository : IRepository<PortfolioAsset>
 {
     Task<PortfolioAsset> UpdateAsync(Guid cryptocurrencyId, Guid portfolioId,
         UpdatedAssetDetails updatePortfolioAssetDetails);
+
+    Task<PortfolioAsset?> GetPortfolioAssetAsync(Guid cryptocurrencyId, Guid portfolioId);
 }

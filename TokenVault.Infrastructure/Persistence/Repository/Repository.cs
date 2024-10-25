@@ -1,4 +1,6 @@
-using System.Linq.Expressions;
+using System.Data;
+using Dapper;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using TokenVault.Application.Common.Interfaces.Persistence;
 
@@ -15,32 +17,22 @@ public class Repository<T> : IRepository<T> where T : class
         _dbSet = _dbContext.Set<T>();
     }
 
-    public async Task<T> GetFirstOrDefaultAsync(Expression<Func<T, bool>> filter)
+    public async Task<List<T>> QueryAsync(string query)
     {
-        IQueryable<T> query = _dbSet;
-        query = query.Where(filter);
-        
-        var result = await query.FirstOrDefaultAsync();
-        return result;
+        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
+        {
+            var result = await db.QueryAsync<T>(query);
+            return result.ToList();
+        }
     }
 
-    public async Task<IEnumerable<T>> GetAllAsync(Expression<Func<T, bool>>? filter = null, string? includeProperties = null)
+    public async Task<T?> QueryFirstOrDefaultAsync(string query)
     {
-        IQueryable<T> query = _dbSet;
-        if (filter != null)
+        using (IDbConnection db = new SqlConnection(DbConnection.ConnectionString))
         {
-            query = query.Where(filter);
+            var result = await db.QueryFirstOrDefaultAsync<T>(query);
+            return result;
         }
-        if (includeProperties != null)
-        {
-            foreach (var property in includeProperties.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(property);
-            }
-        }
-        
-        var result = await query.ToListAsync();
-        return result;
     }
 
     public async Task AddAsync(T entity)
