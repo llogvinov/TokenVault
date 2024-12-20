@@ -1,6 +1,7 @@
 using TokenVault.Api;
 using TokenVault.Application;
 using TokenVault.Infrastructure;
+using TokenVault.Api.RequestPipeline;
 
 var builder = WebApplication.CreateBuilder(args);
 {
@@ -15,6 +16,7 @@ var app = builder.Build();
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
+    app.UseGlobalErrorHandling();
     app.MapControllers();
 
     app.UseSwagger();
