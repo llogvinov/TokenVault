@@ -11,7 +11,7 @@ public class UserRepository : Repository<User>, IUserRepository
     public async Task<User?> GetUserByEmailAsync(string email)
     {
         string query = "SELECT * FROM Users " +
-            $"WHERE Email = {email}";
-        return await QueryFirstOrDefaultAsync(email);
+            $"WHERE Email = '{email}'";
+        return await QueryFirstOrDefaultAsync(query);
     }
 }

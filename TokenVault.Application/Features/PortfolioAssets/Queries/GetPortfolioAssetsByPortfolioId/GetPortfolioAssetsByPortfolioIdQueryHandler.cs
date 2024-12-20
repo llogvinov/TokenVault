@@ -28,7 +28,7 @@ public class GetPortfolioAssetsByPortfolioIdQueryHandler :
         CancellationToken cancellationToken)
     {
         string sql = "SELECT * FROM PortfolioAssets " +
-            $"WHERE PortfolioId = {query.PortfolioId}";
+            $"WHERE PortfolioId = '{query.PortfolioId}'";
         var portfolioAssets = await _unitOfWork.PortfolioAsset.QueryAsync(sql);
 
         List<PortfolioAssetResult> portfolioAssetsResult = new ();

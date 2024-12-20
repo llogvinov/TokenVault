@@ -31,8 +31,8 @@ public class PortfolioAssetRepository : Repository<PortfolioAsset>, IPortfolioAs
     public async Task<PortfolioAsset?> GetPortfolioAssetAsync(Guid cryptocurrencyId, Guid portfolioId)
     {
         string query = $"SELECT * FROM PortfolioAssets " +
-                    $"WHERE CryptocurrencyId = {cryptocurrencyId} " +
-                    $"AND PortfolioId == {portfolioId}";
+                    $"WHERE CryptocurrencyId = '{cryptocurrencyId}'" +
+                    $"AND PortfolioId == '{portfolioId}'";
         return await QueryFirstOrDefaultAsync(query);
     }
 }
